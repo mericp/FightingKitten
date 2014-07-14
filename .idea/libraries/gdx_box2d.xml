@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="gdx-box2d">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/Java LibGDX/extensions/gdx-box2d" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/Java LibGDX/extensions/gdx-box2d/sources" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib/Java LibGDX/extensions/gdx-box2d" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/Java LibGDX/extensions/gdx-box2d/sources" recursive="false" type="SOURCES" />
+  </library>
+</component>

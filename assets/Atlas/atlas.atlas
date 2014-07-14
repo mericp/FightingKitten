@@ -1,0 +1,20 @@
+
+atlas.png
+size: 772,258
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gatito
+  rotate: false
+  xy: 2, 2
+  size: 384, 256
+  orig: 384, 256
+  offset: 0, 0
+  index: -1
+gatito2
+  rotate: false
+  xy: 388, 2
+  size: 384, 256
+  orig: 384, 256
+  offset: 0, 0
+  index: -1
