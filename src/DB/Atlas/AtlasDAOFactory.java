@@ -4,7 +4,7 @@ public enum AtlasDAOFactory
 {
     FILE()
     {
-        public IAtlasDAO getAtlasDAO()
+        @Override public IAtlasDAO getAtlasDAO()
         {
             return new AtlasFileDAO();
         }

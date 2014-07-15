@@ -19,7 +19,7 @@ public class Nekomata extends Actor
     private int nextAnimationId = -1;
     private Animation animation;
     private TextureRegion originalTexture;
-    private TextureRegion currentFrame;              //Frame actual que se dibujara
+    private TextureRegion currentFrame;
     private int numRows;
     private int numCols;
     private float stateTime = 0f;

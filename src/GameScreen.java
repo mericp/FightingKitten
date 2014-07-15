@@ -21,7 +21,6 @@ public class GameScreen implements Screen
 
         TextureRegion texture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito");
         Nekomata gatito = new Nekomata(texture, 8, 12, 3, 0.20f);
-
         gatito.setPosition(400,400);
         battlefield.addActor(gatito);
     }
