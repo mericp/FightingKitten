@@ -27,8 +27,7 @@ public class Nekomata extends Actor
     private Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 
     public static class AnimacionConfig
-    { 
-        private int id;
+    {
         private TextureRegion[] frames; //Frames that compose the animation.
         public float durationFrame;     //Duration of each frame.
         public boolean loop = true;
@@ -52,7 +51,7 @@ public class Nekomata extends Actor
 
     public int getNumFramesAnimation()
     {
-        return animations.get(currentAnimation.id).frames.length;
+        return animations.get(currentAnimationId).frames.length;
     }
     
     //originalTexture: The originalTexture region that contains all the frames of the animation.
@@ -146,7 +145,7 @@ public class Nekomata extends Actor
             stateTime = 0f;
         }
 
-        if (currentAnimationId == -1 || animationId != this.currentAnimation.id)
+        if (currentAnimationId == -1 || animationId != currentAnimationId)
         {
             animation = new Animation(currentAnimation.durationFrame, animations.get(animationId).frames);
             currentAnimationId = animationId;
