@@ -13,31 +13,40 @@ import org.slf4j.LoggerFactory;
 
 public class Nekomata extends Actor
 {
-    private Array<AnimacionConfig> animations = new Array<>();
-    private AnimacionConfig currentAnimation;
-    private int currentAnimationId = -1;
-    private int nextAnimationId = -1;
-    private Animation animation;
-    private TextureRegion originalTexture;
-    private TextureRegion currentFrame;
-    private int numRows;
-    private int numCols;
-    private float stateTime = 0f;
+    private Array<AnimacionConfig> animations = new Array<>();  //An array that contains the params of each Animation.
+    private AnimacionConfig currentAnimation;   //The current animation params.
+    private int currentAnimationId = -1;    //The current animation ID.
+    private int nextAnimationId = -1;   // If we are asked to run another animation while an uninterrumpible animation
+                                        // is running, the new animation will be stored and will wait for its turn.
+
+    private Animation animation;    //The current Animation, from which we will get the frame that will be drawn.
+
+    private TextureRegion currentFrame; //The frame that will be drawn now.
+    private TextureRegion originalTexture;  //The original texture from which we will get all the frames.
+    private int numRows;    // Number of rows that the original texture has.
+    private int numCols;    // Number of columns that the original texture has.
+
+    private float stateTime = 0f;   //It's a counter that controls the time that each frame has to be shown.
 
     private Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 
+    //Stores the config params for each animation.
+    //These params will be loaded when we load the Animation itself.
     public static class AnimacionConfig
     {
         private TextureRegion[] frames; //Frames that compose the animation.
         public float durationFrame;     //Duration of each frame.
-        public boolean loop = true;
-        public boolean reverse = true;
+        public boolean loop = true;     //Repeat indefinitely.
+        public boolean reverse = true;  // Join the intermediate frames so Animation will revert instead of
+                                        // starting from the beginning when it reaches its last frame.
         public boolean uninterrumpible = false; // Can't be interrupted by another animation.
-        public boolean dieAfterAnimationCompleted = false;
-        public boolean isPaused = false;
+        public boolean dieAfterAnimationCompleted = false;  //Will be disposed after being animated once.
+        public boolean isPaused = false;    //Is it paused?
 
         public AnimacionConfig(int numFrames, boolean reverse)
         {
+            //This constructor will calculate the lenght of the array containing the frames,
+            //in order to keep room for the reverse effect.
             if (reverse)
             {
                 frames = new TextureRegion[numFrames * 2 - 2];
@@ -92,6 +101,7 @@ public class Nekomata extends Actor
         {
             for (int j = 0; j < this.numCols; j++)
             {
+                // This way I visit each frame of the animation.
                 numFrame = j % numFramesPerAnimation;
                 animation.frames[numFrame] = frames[i][j];
 
@@ -115,6 +125,12 @@ public class Nekomata extends Actor
         setAnimacion(0, true);
     }
 
+    // This method loads the animation and all its parameters from the animations array.
+    // If we try to load the same animation that it's currently running it won't do anything.
+    // If the animation is the one that's currently running but we activate the forceAnimation boolean,
+    // the animation won't be loaded again, but it will be restarted.
+    // If the current animation is uninterrumpible, the new animation's ID will be stored
+    // and be run later.
     public final void setAnimacion (int animationId, boolean forceAnimation)
     {
         if (animationId < 0 || animationId >= animations.size)
@@ -139,7 +155,7 @@ public class Nekomata extends Actor
             return;
         }
 
-        //Force animation will reboot animation (without loading it again)
+        //Force animation will restart animation (without loading it again)
         if (forceAnimation)
         {
             stateTime = 0f;
@@ -153,6 +169,11 @@ public class Nekomata extends Actor
         }
     }
 
+    //DRAW:
+    // We calculate how much time we need to run the whole animation,
+    // and we compare it with the stateTime. This way we can know if the animation has been entirely reproduced.
+    // Depending on the stateTime, we get the frame of the animation and we draw it on the screen with modified alpha,
+    // and finally we restore the color to restore the alpha to its original value.
     @Override public void draw (Batch batch, float alpha)
     {
         //To modify alpha, we need to first load the color.
