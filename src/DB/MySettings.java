@@ -17,4 +17,11 @@ public class MySettings
 
     public static String ATLAS_EXTENSION = ".atlas";
     public static AtlasDAOFactory ATLAS_DAO = AtlasDAOFactory.FILE;
+
+    public static float PIXEL_METTERS = 0.01f;
+    public static float METTERS_PIXEL = 100f;
+    public static float FIXED_TIMESTEP = 30/1000f;   //33 times per second.
+
+    public static int HITBOX_WIDTH = 32;
+    public static int HITBOX_HEIGHT = 32;
 }

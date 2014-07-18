@@ -1,28 +1,26 @@
-
-import Actores.Nekomata;
 import DB.MySettings;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameScreen implements Screen
 {
-    protected OrthographicCamera camera;
-    protected Stage battlefield;
+    private Mundo mundo;
+    private float timeStep = 0;
+    private float alphaTimeStep;
+
+    private InputMultiplexer inputMultiplexer;
+
 
     public GameScreen()
     {
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        battlefield = new Stage();
-        battlefield.getViewport().setCamera(camera);
+        mundo = new Mundo();
 
-        TextureRegion texture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito");
-        Nekomata gatito = new Nekomata(texture, 8, 12, 3, 0.20f);
-        gatito.setPosition(400,400);
-        battlefield.addActor(gatito);
+        //Set input sources for LibGdx.
+        inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(mundo);
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override public void show()
@@ -35,14 +33,26 @@ public class GameScreen implements Screen
         Gdx.gl.glClearColor(0/2.55f, 0/2.55f, 0/2.55f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        battlefield.act(delta);
-        battlefield.draw();
+        timeStep += delta;
+
+        while (timeStep >= MySettings.FIXED_TIMESTEP)
+        {
+            //Physics simulation
+            this.mundo.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6);
+
+            timeStep -= MySettings.FIXED_TIMESTEP;
+        }
+
+        alphaTimeStep = timeStep/MySettings.FIXED_TIMESTEP;
+
+        //Render the last physics simulation.
+        mundo.act(delta);
+        mundo.draw();
     }
 
     @Override public void resize(int width, int height)
     {
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        battlefield.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.mundo.resize(width, height);
     }
 
     @Override public void hide()
@@ -62,6 +72,7 @@ public class GameScreen implements Screen
 
     @Override public void dispose()
     {
+        this.mundo.dispose();
         MySettings.ATLAS_DAO.getAtlasDAO().dispose();
     }
 }
