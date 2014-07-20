@@ -37,7 +37,7 @@ public class Mundo extends Stage
         Kitten kitten = new Kitten(this.world);
         kitten.setModelPosition(0, 0);
         addKitten(kitten);
-        
+
 
         kitten = new Kitten(this.world);
         kitten.setModelPosition(50, 0);
