@@ -1,10 +1,9 @@
-import Actores.Nekomata;
 import DB.MySettings;
 import Entities.Kitten;
+import Entities.WaypointListener;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -36,8 +35,35 @@ public class Mundo extends Stage
         this.getViewport().setCamera(camera);
 
         Kitten kitten = new Kitten(this.world);
-        kitten.setPosition(0, 0);
+        kitten.setModelPosition(0, 0);
         addKitten(kitten);
+
+        kitten = new Kitten(this.world);
+        kitten.setModelPosition(50, 0);
+        addKitten(kitten);
+
+        kitten = new Kitten(this.world);
+        kitten.setModelPosition(100, 0);
+        addKitten(kitten);
+
+        kitten = new Kitten(this.world);
+        kitten.setModelPosition(150, 0);
+        addKitten(kitten);
+
+        kitten = new Kitten(this.world);
+        kitten.setModelPosition(200, 0);
+        addKitten(kitten);
+
+        kitten = new Kitten(this.world);
+        kitten.setModelPosition(250, 0);
+        addKitten(kitten);
+
+        kitten = new Kitten(this.world);
+        kitten.setModelPosition(300, 0);
+        addKitten(kitten);
+
+
+        world.setContactListener(new WaypointListener());
     }
 
     public World getWorld()
@@ -67,7 +93,7 @@ public class Mundo extends Stage
     {
         for(Kitten kitten : kittenArray)
         {
-            kitten.update();
+            kitten.updateView();
         }
     }
 

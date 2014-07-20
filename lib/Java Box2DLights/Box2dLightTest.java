@@ -294,7 +294,7 @@ public class Box2dLightTest implements ApplicationListener, InputProcessor {
 
 	@Override
 	public boolean touchDragged(int x, int y, int pointer) {
-		// if a mouse joint exists we simply update
+		// if a mouse joint exists we simply updateView
 		// the target of the joint based on the new
 		// mouse coordinates
 		if (mouseJoint != null) {

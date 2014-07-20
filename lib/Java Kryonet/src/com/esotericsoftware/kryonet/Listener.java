@@ -71,7 +71,7 @@ public class Listener {
 	}
 
 	/** Wraps a listener and queues notifications as {@link Runnable runnables}. This allows the runnables to be processed on a
-	 * different thread, preventing the connection's update thread from being blocked. */
+	 * different thread, preventing the connection's updateView thread from being blocked. */
 	static public abstract class QueuedListener extends Listener {
 		final Listener listener;
 

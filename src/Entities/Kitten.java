@@ -2,72 +2,193 @@ package Entities;
 
 import Actores.Nekomata;
 import DB.MySettings;
-import DynamicBody.BodyFactory;
-import DynamicBody.DynamicObject;
+import PhysicalObjects.DynamicObject;
+import PhysicalObjects.PhysicalObjectsFactory;
+import PhysicalObjects.StaticObject;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.sun.org.apache.xalan.internal.xsltc.dom.KeyIndex;
 
-public class Kitten extends Actor
+public class Kitten extends Actor implements ICollisionable, IDraggable
 {
+    private float angle;
+
     //Model
     private DynamicObject dynamicBody;
+    public StaticObject wayPoint;
 
     //View
     private Nekomata nekomata;
 
-    private Vector2 destino;
-
     public Kitten(World world)
     {
-        this.dynamicBody = new DynamicObject(world, MySettings.HITBOX_WIDTH, MySettings.HITBOX_HEIGHT);
-        BodyFactory.buildBody.KINEMATIK.buildBody(dynamicBody);
+        dynamicBody = (DynamicObject)PhysicalObjectsFactory.newPhysicalObject.NEW_KINEMATIK_OBJECT.create(world, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
+        dynamicBody.getBody().setUserData(this);
+
+        wayPoint = (StaticObject)PhysicalObjectsFactory.newPhysicalObject.NEW_STATIC_OBJECT.create(world, 1, 1);
+        wayPoint.getBody().setUserData(this);
 
         TextureRegion texture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito");
         nekomata = new Nekomata(texture, 8, 12, 3, 0.20f);
 
         this.addListener(new KittenDragListener(this));
-        this.setWidth(MySettings.HITBOX_WIDTH);
-        this.setHeight(MySettings.HITBOX_HEIGHT);
+
+        this.setWidth(MySettings.KITTEN_HITBOX_WIDTH);
+        this.setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
     }
 
-    // Relate model (body) with view (kitten)
-    public void getDynamicBodyPosition()
-    {
-        this.setPosition(dynamicBody.getX(), dynamicBody.getY());
-        nekomata.setPosition(dynamicBody.getX(), dynamicBody.getY());
-    }
+
 
     @Override public void draw (Batch batch, float alpha)
     {
         nekomata.draw(batch, alpha);
     }
 
-    public void setDestino(Vector2 destino)
+    public void goToCoords(float x, float y)
     {
-        this.destino = destino;
+        //Angle
+        dynamicBody.setDirectionVector(x, y);
+
+        //Velocidad
+        dynamicBody.setLinearVeolicity(80f);
     }
 
-    public void update()
+    public void updateView()
     {
-        if(destino != null)
-        {
-            if(Math.abs(dynamicBody.getX() - destino.x) > 1  || Math.abs(dynamicBody.getX() - destino.y) > 1)
-            {
-                float x = (destino.x - dynamicBody.getX()) / 1f;
-                float y = (destino.y - dynamicBody.getY()) / 1f;
-                dynamicBody.getBody().setLinearVelocity(x * MySettings.PIXEL_METTERS, y * MySettings.PIXEL_METTERS);
-            }
-            else
-            {
-                dynamicBody.getBody().setLinearVelocity(0, 0);
-            }
+        updateViewPosition();
+        updateAnimation();
+    }
 
-            getDynamicBodyPosition();
+    // Relate model (body) with view (kitten and nekomata)
+    public void updateViewPosition()
+    {
+        this.setPosition(dynamicBody.getX(), dynamicBody.getY());
+        nekomata.setPosition(dynamicBody.getX(), dynamicBody.getY());
+    }
+
+    public void updateAnimation()
+    {
+        if(dynamicBody.getBody().getLinearVelocity().isZero())
+        {
+            //The kitten is sitting.
+            nekomata.setAnimacion(18, false);
         }
+        else
+        {
+            angle = dynamicBody.getVectorDireccion().angle();
+
+            if (goesEast())
+            {
+                nekomata.setAnimacion(8, false);
+            } else if (goesNortheast())
+            {
+                nekomata.setAnimacion(13, false);
+            } else if (goesNorth())
+            {
+                nekomata.setAnimacion(12, false);
+            } else if (goesNorthwest())
+            {
+                nekomata.setAnimacion(5, false);
+            }
+            else if (goesWest())
+            {
+                nekomata.setAnimacion(4, false);
+            }
+            else if (goesSouthwest())
+            {
+                nekomata.setAnimacion(1, false);
+            }
+            else if (goesSouth())
+            {
+                nekomata.setAnimacion(0, false);
+            }
+            else if (goesSoutheast())
+            {
+                nekomata.setAnimacion(9, false);
+            }
+        }
+    }
+
+    private boolean goesEast()
+    {
+        return (angle >= 0f && angle <= 22.5f) ||
+                (angle > 337.5f && angle <= 360f);
+    }
+
+    private boolean goesNortheast()
+    {
+        return angle > 22.5f && angle <= 67.5f;
+    }
+
+    private boolean goesNorth()
+    {
+        return angle > 67.5f && angle <= 112.5f;
+    }
+
+    private boolean goesNorthwest()
+    {
+        return angle > 112.5f && angle <= 157.5f;
+    }
+
+    private boolean goesWest()
+    {
+        return angle > 157.5f && angle <= 202.5f;
+    }
+
+    private boolean goesSouthwest()
+    {
+        return angle > 202.5f && angle <= 247.5f;
+    }
+
+    private boolean goesSouth()
+    {
+        return angle > 247.5f && angle <= 292.5f;
+    }
+
+    private boolean goesSoutheast()
+    {
+        return angle > 292.5f && angle <= 337.5f;
+    }
+
+    public void setModelPosition(float x, float y)
+    {
+        super.setPosition(x, y);
+        dynamicBody.setPosition(x, y);
+        wayPoint.setPosition(x, y);
+    }
+
+    public DynamicObject getDynamicBody()
+    {
+        return this.dynamicBody;
+    }
+
+    public StaticObject getWayPoint()
+    {
+        return this.wayPoint;
+    }
+
+    public int getCenterX()
+    {
+        return dynamicBody.getCenterX();
+    }
+
+    public int getCenterY()
+    {
+        return dynamicBody.getCenterY();
+    }
+
+    @Override
+    public void onCollide()
+    {
+        this.dynamicBody.setLinearVeolicity(0f);
+        nekomata.setAnimacion(18, false);
+    }
+
+    @Override
+    public void onDragStop()
+    {
+        this.dynamicBody.setLinearVeolicity(0f);
+        nekomata.setAnimacion(18, false);
     }
 }

@@ -190,7 +190,7 @@ public class ObjectSpace {
 	}
 
 	/** Invokes the method on the object and, if necessary, sends the result back to the connection that made the invocation
-	 * request. This method is invoked on the update thread of the {@link EndPoint} for this ObjectSpace and unless an
+	 * request. This method is invoked on the updateView thread of the {@link EndPoint} for this ObjectSpace and unless an
 	 * {@link #setExecutor(Executor) executor} has been set.
 	 * @param connection The remote side of this connection requested the invocation. */
 	protected void invoke (Connection connection, Object target, InvokeMethod invokeMethod) {
@@ -255,8 +255,8 @@ public class ObjectSpace {
 	 * {@link RemoteObject#setResponseTimeout(int) response timeout}.
 	 * <p>
 	 * If {@link RemoteObject#setNonBlocking(boolean) non-blocking} is false (the default), then methods that return a value must
-	 * not be called from the update thread for the connection. An exception will be thrown if this occurs. Methods with a void
-	 * return value can be called on the update thread.
+	 * not be called from the updateView thread for the connection. An exception will be thrown if this occurs. Methods with a void
+	 * return value can be called on the updateView thread.
 	 * <p>
 	 * If a proxy returned from this method is part of an object graph sent over the network, the object graph on the receiving
 	 * side will have the proxy object replaced with the registered object.
@@ -417,7 +417,7 @@ public class ObjectSpace {
 
 		private Object waitForResponse (byte responseID) {
 			if (connection.getEndPoint().getUpdateThread() == Thread.currentThread())
-				throw new IllegalStateException("Cannot wait for an RMI response on the connection's update thread.");
+				throw new IllegalStateException("Cannot wait for an RMI response on the connection's updateView thread.");
 
 			long endTime = System.currentTimeMillis() + timeoutMillis;
 

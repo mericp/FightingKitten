@@ -127,12 +127,12 @@ public class Client extends Connection implements EndPoint {
 	 * <p>
 	 * Because the framework must perform some minimal communication before the connection is considered successful,
 	 * {@link #update(int)} must be called on a separate thread during the connection process.
-	 * @throws IllegalStateException if called from the connection's update thread.
+	 * @throws IllegalStateException if called from the connection's updateView thread.
 	 * @throws IOException if the client could not be opened or connecting times out. */
 	public void connect (int timeout, InetAddress host, int tcpPort, int udpPort) throws IOException {
 		if (host == null) throw new IllegalArgumentException("host cannot be null.");
 		if (Thread.currentThread() == getUpdateThread())
-			throw new IllegalStateException("Cannot connect on the connection's update thread.");
+			throw new IllegalStateException("Cannot connect on the connection's updateView thread.");
 		this.connectTimeout = timeout;
 		this.connectHost = host;
 		this.connectTcpPort = tcpPort;
@@ -166,7 +166,7 @@ public class Client extends Connection implements EndPoint {
 				}
 				if (!tcpRegistered) {
 					throw new SocketTimeoutException("Connected, but timed out during TCP registration.\n"
-						+ "Note: Client#update must be called in a separate thread during connect.");
+						+ "Note: Client#updateView must be called in a separate thread during connect.");
 				}
 			}
 
@@ -339,14 +339,14 @@ public class Client extends Connection implements EndPoint {
 			} catch (IOException ex) {
 				if (TRACE) {
 					if (isConnected)
-						trace("kryonet", "Unable to update connection: " + this, ex);
+						trace("kryonet", "Unable to updateView connection: " + this, ex);
 					else
-						trace("kryonet", "Unable to update connection.", ex);
+						trace("kryonet", "Unable to updateView connection.", ex);
 				} else if (DEBUG) {
 					if (isConnected)
-						debug("kryonet", this + " update: " + ex.getMessage());
+						debug("kryonet", this + " updateView: " + ex.getMessage());
 					else
-						debug("kryonet", "Unable to update connection: " + ex.getMessage());
+						debug("kryonet", "Unable to updateView connection: " + ex.getMessage());
 				}
 				close();
 			} catch (KryoNetException ex) {
@@ -364,7 +364,7 @@ public class Client extends Connection implements EndPoint {
 	}
 
 	public void start () {
-		// Try to let any previous update thread stop.
+		// Try to let any previous updateView thread stop.
 		if (updateThread != null) {
 			shutdown = true;
 			try {

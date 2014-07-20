@@ -218,7 +218,7 @@ public class Server implements EndPoint {
 									if (TRACE) {
 										trace("kryonet", "Unable to read TCP from: " + fromConnection, ex);
 									} else if (DEBUG) {
-										debug("kryonet", fromConnection + " update: " + ex.getMessage());
+										debug("kryonet", fromConnection + " updateView: " + ex.getMessage());
 									}
 									fromConnection.close();
 								} catch (KryoNetException ex) {
@@ -233,7 +233,7 @@ public class Server implements EndPoint {
 									if (TRACE) {
 										trace("kryonet", "Unable to write TCP to connection: " + fromConnection, ex);
 									} else if (DEBUG) {
-										debug("kryonet", fromConnection + " update: " + ex.getMessage());
+										debug("kryonet", fromConnection + " updateView: " + ex.getMessage());
 									}
 									fromConnection.close();
 								}

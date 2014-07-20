@@ -34,7 +34,7 @@ public interface EndPoint extends Runnable {
 	public void update (int timeout) throws IOException;
 
 	/** Returns the last thread that called {@link #update(int)} for this end point. This can be useful to detect when long running
-	 * code will be run on the update thread. */
+	 * code will be run on the updateView thread. */
 	public Thread getUpdateThread ();
 
 	/** Gets the Kryo instance that will be used to serialize and deserialize objects. This is only valid if

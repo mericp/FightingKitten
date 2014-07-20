@@ -57,7 +57,7 @@ public class ChatRmiClient {
 			public void disconnected (Connection connection) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run () {
-						// Closing the frame calls the close listener which will stop the client's update thread.
+						// Closing the frame calls the close listener which will stop the client's updateView thread.
 						chatFrame.dispose();
 					}
 				});

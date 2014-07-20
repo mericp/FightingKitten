@@ -40,7 +40,7 @@ public interface RemoteObject {
 	public void setRemoteToString (boolean remoteToString);
 
 	/** Waits for the response to the last method invocation to be received or the response timeout to be reached. Must not be
-	 * called from the connection's update thread.
+	 * called from the connection's updateView thread.
 	 * @see ObjectSpace#getRemoteObject(com.esotericsoftware.kryonet.Connection, int, Class...) */
 	public Object waitForLastResponse ();
 
@@ -48,7 +48,7 @@ public interface RemoteObject {
 	public byte getLastResponseID ();
 
 	/** Waits for the specified method invocation response to be received or the response timeout to be reached. Must not be called
-	 * from the connection's update thread. Response IDs use a six bit identifier, with one identifier reserved for "no response".
+	 * from the connection's updateView thread. Response IDs use a six bit identifier, with one identifier reserved for "no response".
 	 * This means that this method should be called to get the result for a non-blocking call before an additional 63 non-blocking
 	 * calls are made, or risk undefined behavior due to identical IDs.
 	 * @see ObjectSpace#getRemoteObject(com.esotericsoftware.kryonet.Connection, int, Class...) */

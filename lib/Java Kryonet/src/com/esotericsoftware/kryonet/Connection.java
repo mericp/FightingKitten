@@ -295,7 +295,7 @@ public class Connection {
 	}
 
 	/** If the percent of the TCP write buffer that is filled is less than the specified threshold,
-	 * {@link Listener#idle(Connection)} will be called for each network thread update. Default is 0.1. */
+	 * {@link Listener#idle(Connection)} will be called for each network thread updateView. Default is 0.1. */
 	public void setIdleThreshold (float idleThreshold) {
 		tcp.idleThreshold = idleThreshold;
 	}

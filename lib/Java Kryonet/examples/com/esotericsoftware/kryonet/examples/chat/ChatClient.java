@@ -72,7 +72,7 @@ public class ChatClient {
 			public void disconnected (Connection connection) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run () {
-						// Closing the frame calls the close listener which will stop the client's update thread.
+						// Closing the frame calls the close listener which will stop the client's updateView thread.
 						chatFrame.dispose();
 					}
 				});
@@ -216,7 +216,7 @@ public class ChatClient {
 		}
 
 		public void setNames (final String[] names) {
-			// This listener is run on the client's update thread, which was started by client.start().
+			// This listener is run on the client's updateView thread, which was started by client.start().
 			// We must be careful to only interact with Swing components on the Swing event thread.
 			EventQueue.invokeLater(new Runnable() {
 				public void run () {
