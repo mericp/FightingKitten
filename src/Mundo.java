@@ -63,7 +63,6 @@ public class Mundo extends Stage
         kitten.setModelPosition(300, 0);
         addKitten(kitten);
 
-
         world.setContactListener(new WaypointListener());
     }
 

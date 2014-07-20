@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Kitten extends Actor implements ICollisionable, IDraggable
+public class Kitten extends Actor implements ICollisionable
 {
     private float angle;
 
@@ -51,7 +51,7 @@ public class Kitten extends Actor implements ICollisionable, IDraggable
         dynamicBody.setDirectionVector(x, y);
 
         //Velocidad
-        dynamicBody.setLinearVeolicity(80f);
+        dynamicBody.setLinearVelocity(80f);
     }
 
     public void updateView()
@@ -63,8 +63,8 @@ public class Kitten extends Actor implements ICollisionable, IDraggable
     // Relate model (body) with view (kitten and nekomata)
     public void updateViewPosition()
     {
-        this.setPosition(dynamicBody.getX(), dynamicBody.getY());
-        nekomata.setPosition(dynamicBody.getX(), dynamicBody.getY());
+        this.setPosition(dynamicBody.getBottomLeftCornerX(), dynamicBody.getBottomLeftCornerY());
+        nekomata.setPosition(dynamicBody.getBottomLeftCornerX(), dynamicBody.getBottomLeftCornerY());
     }
 
     public void updateAnimation()
@@ -181,14 +181,7 @@ public class Kitten extends Actor implements ICollisionable, IDraggable
     @Override
     public void onCollide()
     {
-        this.dynamicBody.setLinearVeolicity(0f);
-        nekomata.setAnimacion(18, false);
-    }
-
-    @Override
-    public void onDragStop()
-    {
-        this.dynamicBody.setLinearVeolicity(0f);
+        this.dynamicBody.setLinearVelocity(0f);
         nekomata.setAnimacion(18, false);
     }
 }

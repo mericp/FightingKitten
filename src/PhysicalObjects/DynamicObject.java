@@ -18,51 +18,53 @@ public class DynamicObject implements IPhysicalObject
     public DynamicObject(World world, int width, int height)
     {
         this.world = world;
-        this.width = width * PIXEL_METTERS;
-        this.height = height * PIXEL_METTERS;
+        this.width = convertToMetters(width);
+        this.height = convertToMetters(height);
         this.directionVector = new Vector2();
     }
 
-    public int getX()
+    @Override public int getBottomLeftCornerX()
     {
-        return (int)((body.getPosition().x - width / 2) * METTERS_PIXEL);
+        return (int)(convertToPixels(body.getPosition().x - width / 2));
     }
-    public int getY()
+    @Override public int getBottomLeftCornerY()
     {
-        return (int)((body.getPosition().y - height / 2) * METTERS_PIXEL);
+        return (int)(convertToPixels(body.getPosition().y - height / 2));
     }
+
     public int getCenterX()
     {
-        return (int)(body.getPosition().x * METTERS_PIXEL);
+        return (int)(convertToPixels(body.getPosition().x));
     }
     public int getCenterY()
     {
-        return (int)(body.getPosition().y * METTERS_PIXEL);
+        return (int)(convertToPixels(body.getPosition().y));
     }
 
-    public void setPosition(float x, float y)
+    //Calculates coords of the center of the dynamic object from the bottom left corner coords (x, y)
+    @Override public void setPosition(float x, float y)
     {
-        body.setTransform((x + width/2)* PIXEL_METTERS, (y + height/2)* PIXEL_METTERS, body.getAngle());
+        body.setTransform(convertToMetters(x + width/2),
+                          convertToMetters(y + height/2),
+                          body.getAngle());
     }
 
+    @Override public void setWidth(float width)
+    {
+        this.width = width;
+    }
     @Override public float getWidth()
     {
         return width;
     }
 
-    public void setWidth(float width)
+    @Override public void setHeight(float height)
     {
-        this.width = width;
+        this.height = height;
     }
-
     @Override public float getHeight()
     {
         return height;
-    }
-
-    public void setHeight(float height)
-    {
-        this.height = height;
     }
 
     @Override public World getWorld()
@@ -70,29 +72,27 @@ public class DynamicObject implements IPhysicalObject
         return world;
     }
 
+    @Override public void setBody(Body body)
+    {
+        this.body = body;
+    }
     @Override public Body getBody()
     {
         return body;
     }
 
-    @Override public void setBody(Body body)
+    public void setDirectionVector(float detinationX, float destinationY)
     {
-        this.body = body;
-    }
+        //Move to 0,0 to get position vector.
+        directionVector.x = (detinationX - this.getCenterX());
+        directionVector.y = (destinationY - this.getCenterY());
 
+        //Get vector's length
+        float length = Vector2.dst(0, 0, directionVector.x, directionVector.y);
 
-    public void setDirectionVector(float destinoX, float destinoY)
-    {
-        //mover para obtener vector posicion
-        directionVector.x = (destinoX - this.getCenterX());
-        directionVector.y = (destinoY - this.getCenterY());
-
-        //Obtener longitud del vector
-        float longitud = Vector2.dst(0, 0, directionVector.x, directionVector.y);
-
-        //Convertir en vector unitario
-        directionVector.x = directionVector.x / longitud;
-        directionVector.y = directionVector.y / longitud;
+        //Convert to unit vector.
+        directionVector.x = directionVector.x / length;
+        directionVector.y = directionVector.y / length;
     }
 
     public Vector2 getVectorDireccion()
@@ -100,8 +100,18 @@ public class DynamicObject implements IPhysicalObject
         return  this.directionVector;
     }
 
-    public void setLinearVeolicity(float velocity)
+    public void setLinearVelocity(float velocity)
     {
-        body.setLinearVelocity(directionVector.x * velocity * PIXEL_METTERS, directionVector.y * velocity * PIXEL_METTERS);
+        body.setLinearVelocity(convertToMetters(directionVector.x * velocity), convertToMetters(directionVector.y * velocity));
+    }
+
+    private float convertToPixels(float metters)
+    {
+        return metters * METTERS_PIXEL;
+    }
+
+    private float convertToMetters(float pixels)
+    {
+        return pixels * PIXEL_METTERS;
     }
 }

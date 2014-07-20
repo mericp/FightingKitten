@@ -28,7 +28,7 @@ public class KittenDragListener extends DragListener
         if (Math.abs(clickPosition.x - kitten.getCenterX()) < 16 &&
             Math.abs(clickPosition.y - kitten.getCenterY()) < 16)
         {
-            kitten.getDynamicBody().setLinearVeolicity(0f);
+            kitten.getDynamicBody().setLinearVelocity(0f);
         }
         else
         {
