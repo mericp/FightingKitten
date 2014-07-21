@@ -16,30 +16,30 @@ public class Ground extends TiledMap
     public Ground()
     {
         this.mapRenderer = new OrthogonalTiledMapRenderer(this);
-        this.crearTiledMap();
+        this.createTileMap();
     }
 
-    private void crearTiledMap()
+    private void createTileMap()
     {
         TextureRegion grassTexture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture("Grass");
         Cell cell;
         StaticTiledMapTile tile;
 
-        TiledMapTileLayer suelo = new TiledMapTileLayer (200, 200, 32, 32);
+        TiledMapTileLayer ground = new TiledMapTileLayer (200, 200, 32, 32);
 
+        //Repeat it 200 times.
         for (int x = 0; x < 200; x++)
         {
             for (int y = 0; y < 200; y++)
             {
                 tile = new StaticTiledMapTile(grassTexture);
-
                 cell = new Cell();
                 cell.setTile(tile);
-                suelo.setCell(x, y, cell);
+                ground.setCell(x, y, cell);
             }
         }
 
-        getLayers().add(suelo);
+        getLayers().add(ground);
     }
 
     public void setView (OrthographicCamera camera)

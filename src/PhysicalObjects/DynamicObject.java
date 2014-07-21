@@ -87,12 +87,8 @@ public class DynamicObject implements IPhysicalObject
         directionVector.x = (detinationX - this.getCenterX());
         directionVector.y = (destinationY - this.getCenterY());
 
-        //Get vector's length
-        float length = Vector2.dst(0, 0, directionVector.x, directionVector.y);
-
         //Convert to unit vector.
-        directionVector.x = directionVector.x / length;
-        directionVector.y = directionVector.y / length;
+        directionVector.nor();
     }
 
     public Vector2 getVectorDireccion()

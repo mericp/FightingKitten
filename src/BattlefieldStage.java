@@ -27,6 +27,7 @@ public class BattlefieldStage extends Stage
     public BattlefieldStage()
     {
         RayHandler.useDiffuseLight(true);
+
         this.world = new World(new Vector2(0, 0), false);
         this.rayHandler = new RayHandler(world);
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -67,7 +68,6 @@ public class BattlefieldStage extends Stage
         battlefield = new Ground();
 
         world.setContactListener(new WaypointListener());
-
     }
 
     public World getWorld()
@@ -120,7 +120,7 @@ public class BattlefieldStage extends Stage
 
         super.draw();
 
-        //Box2dLights: (iluminacion)
+        //Box2dLights
         rayHandler.setCombinedMatrix(boxCamera.combined);
         rayHandler.updateAndRender();
 
