@@ -33,7 +33,7 @@ public class KittenDragListener extends DragListener
         else
         {
             kitten.wayPoint.setPosition(clickPosition.x, clickPosition.y);
-            kitten.goToCoords(kitten.getWayPoint().getX(), kitten.getWayPoint().getY());
+            kitten.goToCoords(kitten.getWayPoint().getBottomLeftCornerX(), kitten.getWayPoint().getBottomLeftCornerY());
         }
     }
 }

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class GameScreen implements Screen
 {
-    private Mundo mundo;
+    private BattlefieldStage battlefieldStage;
     private float timeStep = 0;
     private float alphaTimeStep;
 
@@ -15,11 +15,11 @@ public class GameScreen implements Screen
 
     public GameScreen()
     {
-        mundo = new Mundo();
+        battlefieldStage = new BattlefieldStage();
 
         //Set input sources for LibGdx.
         inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(mundo);
+        inputMultiplexer.addProcessor(battlefieldStage);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -38,7 +38,7 @@ public class GameScreen implements Screen
         while (timeStep >= MySettings.FIXED_TIMESTEP)
         {
             //Physics simulation
-            this.mundo.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6);
+            this.battlefieldStage.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6);
 
             timeStep -= MySettings.FIXED_TIMESTEP;
         }
@@ -46,13 +46,13 @@ public class GameScreen implements Screen
         alphaTimeStep = timeStep/MySettings.FIXED_TIMESTEP;
 
         //Render the last physics simulation.
-        mundo.act(delta);
-        mundo.draw();
+        battlefieldStage.act(delta);
+        battlefieldStage.draw();
     }
 
     @Override public void resize(int width, int height)
     {
-        this.mundo.resize(width, height);
+        this.battlefieldStage.resize(width, height);
     }
 
     @Override public void hide()
@@ -72,7 +72,7 @@ public class GameScreen implements Screen
 
     @Override public void dispose()
     {
-        this.mundo.dispose();
+        this.battlefieldStage.dispose();
         MySettings.ATLAS_DAO.getAtlasDAO().dispose();
     }
 }

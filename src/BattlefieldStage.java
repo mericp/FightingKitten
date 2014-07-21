@@ -1,3 +1,4 @@
+import Background.Ground;
 import DB.MySettings;
 import Entities.Kitten;
 import Entities.WaypointListener;
@@ -10,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
-public class Mundo extends Stage
+public class BattlefieldStage extends Stage
 {
     //Model
     private World world;
@@ -21,8 +22,9 @@ public class Mundo extends Stage
     private OrthographicCamera camera;
     private OrthographicCamera boxCamera;
     private Box2DDebugRenderer worldRenderer;
+    private Ground battlefield;
 
-    public Mundo()
+    public BattlefieldStage()
     {
         RayHandler.useDiffuseLight(true);
         this.world = new World(new Vector2(0, 0), false);
@@ -31,39 +33,41 @@ public class Mundo extends Stage
         this.boxCamera = new OrthographicCamera(Gdx.graphics.getWidth() * MySettings.PIXEL_METTERS, Gdx.graphics.getHeight() * MySettings.PIXEL_METTERS);
         this.worldRenderer = new Box2DDebugRenderer();
 
-        this.rayHandler.setAmbientLight(0.4f, 0.4f, 0.4f, 1.0f);
+        this.rayHandler.setAmbientLight(0.2f, 0.2f, 0.2f, 0.5f);
         this.getViewport().setCamera(camera);
 
-        Kitten kitten = new Kitten(this.world);
-        kitten.setModelPosition(0, 0);
+        Kitten kitten = new Kitten(this.world, this.rayHandler);
+        kitten.setModelPosition(50, 50);
         addKitten(kitten);
 
-
-        kitten = new Kitten(this.world);
-        kitten.setModelPosition(50, 0);
+        kitten = new Kitten(this.world, this.rayHandler);
+        kitten.setModelPosition(50, 450);
         addKitten(kitten);
 
-        kitten = new Kitten(this.world);
-        kitten.setModelPosition(100, 0);
+        kitten = new Kitten(this.world, this.rayHandler);
+        kitten.setModelPosition(50, 850);
         addKitten(kitten);
 
-        kitten = new Kitten(this.world);
-        kitten.setModelPosition(150, 0);
+        kitten = new Kitten(this.world, this.rayHandler);
+        kitten.setModelPosition(600, 450);
         addKitten(kitten);
 
-        kitten = new Kitten(this.world);
-        kitten.setModelPosition(200, 0);
+        kitten = new Kitten(this.world, this.rayHandler);
+        kitten.setModelPosition(1150, 50);
         addKitten(kitten);
 
-        kitten = new Kitten(this.world);
-        kitten.setModelPosition(250, 0);
+        kitten = new Kitten(this.world, this.rayHandler);
+        kitten.setModelPosition(1150, 450);
         addKitten(kitten);
 
-        kitten = new Kitten(this.world);
-        kitten.setModelPosition(300, 0);
+        kitten = new Kitten(this.world, this.rayHandler);
+        kitten.setModelPosition(1150, 850);
         addKitten(kitten);
+
+        battlefield = new Ground();
 
         world.setContactListener(new WaypointListener());
+
     }
 
     public World getWorld()
@@ -101,13 +105,18 @@ public class Mundo extends Stage
     {
        this.updateKittens();
 
-        camera.position.x = 0;
-        camera.position.y = 0;
+        camera.position.x = 600;
+        camera.position.y = 450;
         camera.update();
 
-        boxCamera.position.x = 0 * MySettings.PIXEL_METTERS;
-        boxCamera.position.y = 0 * MySettings.PIXEL_METTERS;
+        boxCamera.position.x = 600 * MySettings.PIXEL_METTERS;
+        boxCamera.position.y = 450 * MySettings.PIXEL_METTERS;
         boxCamera.update();
+
+
+        battlefield.setView(camera);
+
+        battlefield.render();
 
         super.draw();
 
@@ -119,10 +128,16 @@ public class Mundo extends Stage
         worldRenderer.render(world, boxCamera.combined);
     }
 
+    public RayHandler getRayHandler()
+    {
+        return this.rayHandler;
+    }
+
     @Override public void dispose()
     {
         rayHandler.dispose();
         world.dispose();
         worldRenderer.dispose();
+        battlefield.dispose();
     }
 }

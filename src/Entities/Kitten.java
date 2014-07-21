@@ -5,8 +5,12 @@ import DB.MySettings;
 import PhysicalObjects.DynamicObject;
 import PhysicalObjects.PhysicalObjectsFactory;
 import PhysicalObjects.StaticObject;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -20,13 +24,18 @@ public class Kitten extends Actor implements ICollisionable
 
     //View
     private Nekomata nekomata;
+    private PointLight lights;
 
-    public Kitten(World world)
+    public Kitten(World world, RayHandler rayHandler)
     {
         dynamicBody = (DynamicObject)PhysicalObjectsFactory.newPhysicalObject.NEW_KINEMATIK_OBJECT.create(world, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
         dynamicBody.getBody().setUserData(this);
 
         wayPoint = (StaticObject)PhysicalObjectsFactory.newPhysicalObject.NEW_STATIC_OBJECT.create(world, 1, 1);
+        //wayPoint.getBody().getFixtureList().first().getFilterData().categoryBits = (short)0;
+        //wayPoint.getBody().getFixtureList().first().getFilterData().groupIndex =  (short)-1;
+        //wayPoint.getBody().getFixtureList().first().getFilterData().maskBits = (short)0;
+
         wayPoint.getBody().setUserData(this);
 
         TextureRegion texture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito");
@@ -36,6 +45,12 @@ public class Kitten extends Actor implements ICollisionable
 
         this.setWidth(MySettings.KITTEN_HITBOX_WIDTH);
         this.setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
+
+        this.lights = new PointLight(rayHandler, 300, new Color(0.7f,0.7f,0.7f, 0.5f), 400 * MySettings.PIXEL_METTERS, 0, 0);
+        //this.lights.setContactFilter((short)1, (short)0, (short)1);
+        this.lights.setSoft(true);
+        this.lights.attachToBody(dynamicBody.getBody(), 0, 0);
+        this.lights.setSoftnessLength(0.1f);
     }
 
 

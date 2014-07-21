@@ -1,19 +1,26 @@
 
 atlas.png
-size: 772,258
+size: 772,292
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-gatito
+Grass
   rotate: false
   xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+gatito
+  rotate: false
+  xy: 2, 36
   size: 384, 256
   orig: 384, 256
   offset: 0, 0
   index: -1
 gatito2
   rotate: false
-  xy: 388, 2
+  xy: 388, 36
   size: 384, 256
   orig: 384, 256
   offset: 0, 0
