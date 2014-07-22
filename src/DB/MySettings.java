@@ -15,8 +15,8 @@ public class MySettings
 
 
     // Physics
-    public static float PIXEL_METTERS = 0.01f;
-    public static float METTERS_PIXEL = 100f;
+    public static float PIXEL_METERS = 0.01f;
+    public static float METERS_PIXEL = 100f;
     public static float FIXED_TIMESTEP = 30/1000f;   //33 times per second.
 
     public static int KITTEN_HITBOX_WIDTH = 32;

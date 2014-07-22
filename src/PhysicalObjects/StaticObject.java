@@ -3,8 +3,8 @@ package PhysicalObjects;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
-import static DB.MySettings.METTERS_PIXEL;
-import static DB.MySettings.PIXEL_METTERS;
+import static DB.MySettings.METERS_PIXEL;
+import static DB.MySettings.PIXEL_METERS;
 
 public class StaticObject implements IPhysicalObject
 {
@@ -16,23 +16,23 @@ public class StaticObject implements IPhysicalObject
     public StaticObject(World world, int width, int height)
     {
         this.world = world;
-        this.width = width * PIXEL_METTERS;
-        this.height = height * PIXEL_METTERS;
+        this.width = width * PIXEL_METERS;
+        this.height = height * PIXEL_METERS;
     }
 
     @Override
     public int getBottomLeftCornerX() {
-        return (int)((body.getPosition().x - width / 2) * METTERS_PIXEL);
+        return (int)((body.getPosition().x - width / 2) * METERS_PIXEL);
     }
 
     @Override
     public int getBottomLeftCornerY() {
-        return (int)((body.getPosition().y - height / 2) * METTERS_PIXEL);
+        return (int)((body.getPosition().y - height / 2) * METERS_PIXEL);
     }
 
     public void setPosition(float x, float y)
     {
-        body.setTransform((x + width/2)* PIXEL_METTERS, (y + height/2)* PIXEL_METTERS, body.getAngle());
+        body.setTransform((x + width/2)* PIXEL_METERS, (y + height/2)* PIXEL_METERS, body.getAngle());
     }
 
     public float getWidth()

@@ -38,12 +38,15 @@ public class GameScreen implements Screen
         while (timeStep >= MySettings.FIXED_TIMESTEP)
         {
             //Physics simulation
+            this.battlefieldStage.saveLastPosition();
             this.battlefieldStage.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6);
 
             timeStep -= MySettings.FIXED_TIMESTEP;
         }
 
         alphaTimeStep = timeStep/MySettings.FIXED_TIMESTEP;
+
+        this.battlefieldStage.interpolatePositions(alphaTimeStep);
 
         //Render the last physics simulation.
         battlefieldStage.act(delta);

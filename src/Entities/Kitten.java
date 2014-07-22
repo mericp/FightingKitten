@@ -10,7 +10,6 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -46,14 +45,12 @@ public class Kitten extends Actor implements ICollisionable
         this.setWidth(MySettings.KITTEN_HITBOX_WIDTH);
         this.setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
 
-        this.lights = new PointLight(rayHandler, 300, new Color(0.7f,0.7f,0.7f, 0.5f), 400 * MySettings.PIXEL_METTERS, 0, 0);
+        this.lights = new PointLight(rayHandler, 300, new Color(0.7f,0.7f,0.7f, 0.5f), 400 * MySettings.PIXEL_METERS, 0, 0);
         //this.lights.setContactFilter((short)1, (short)0, (short)1);
         this.lights.setSoft(true);
         this.lights.attachToBody(dynamicBody.getBody(), 0, 0);
         this.lights.setSoftnessLength(0.1f);
     }
-
-
 
     @Override public void draw (Batch batch, float alpha)
     {
@@ -71,15 +68,14 @@ public class Kitten extends Actor implements ICollisionable
 
     public void updateView()
     {
-        updateViewPosition();
         updateAnimation();
     }
 
     // Relate model (body) with view (kitten and nekomata)
     public void updateViewPosition()
     {
-        this.setPosition(dynamicBody.getBottomLeftCornerX(), dynamicBody.getBottomLeftCornerY());
-        nekomata.setPosition(dynamicBody.getBottomLeftCornerX(), dynamicBody.getBottomLeftCornerY());
+        this.setPosition(dynamicBody.getInterpolatedX(), dynamicBody.getInterpolatedY());
+        nekomata.setPosition(dynamicBody.getInterpolatedX(), dynamicBody.getInterpolatedY());
     }
 
     public void updateAnimation()
@@ -191,6 +187,17 @@ public class Kitten extends Actor implements ICollisionable
     public int getCenterY()
     {
         return dynamicBody.getCenterY();
+    }
+
+    public void saveLastPosition()
+    {
+        this.dynamicBody.saveLastPosition();
+    }
+
+    public void interpolatePositions(float alpha)
+    {
+        dynamicBody.interpolatePositions(alpha);
+        updateViewPosition();
     }
 
     @Override

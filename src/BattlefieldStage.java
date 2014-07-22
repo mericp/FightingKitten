@@ -31,7 +31,7 @@ public class BattlefieldStage extends Stage
         this.world = new World(new Vector2(0, 0), false);
         this.rayHandler = new RayHandler(world);
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.boxCamera = new OrthographicCamera(Gdx.graphics.getWidth() * MySettings.PIXEL_METTERS, Gdx.graphics.getHeight() * MySettings.PIXEL_METTERS);
+        this.boxCamera = new OrthographicCamera(Gdx.graphics.getWidth() * MySettings.PIXEL_METERS, Gdx.graphics.getHeight() * MySettings.PIXEL_METERS);
         this.worldRenderer = new Box2DDebugRenderer();
 
         this.rayHandler.setAmbientLight(0.2f, 0.2f, 0.2f, 0.5f);
@@ -101,6 +101,22 @@ public class BattlefieldStage extends Stage
         }
     }
 
+    public void saveLastPosition()
+    {
+        for(Kitten kitten : kittenArray)
+        {
+            kitten.saveLastPosition();
+        }
+    }
+
+    public void interpolatePositions(float alpha)
+    {
+        for(Kitten kitten : kittenArray)
+        {
+            kitten.interpolatePositions(alpha);
+        }
+    }
+
     public void draw()
     {
        this.updateKittens();
@@ -109,8 +125,8 @@ public class BattlefieldStage extends Stage
         camera.position.y = 450;
         camera.update();
 
-        boxCamera.position.x = 600 * MySettings.PIXEL_METTERS;
-        boxCamera.position.y = 450 * MySettings.PIXEL_METTERS;
+        boxCamera.position.x = 600 * MySettings.PIXEL_METERS;
+        boxCamera.position.y = 450 * MySettings.PIXEL_METERS;
         boxCamera.update();
 
 
