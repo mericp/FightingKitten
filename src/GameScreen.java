@@ -38,13 +38,13 @@ public class GameScreen implements Screen
         while (timeStep >= MySettings.FIXED_TIMESTEP)
         {
             //Physics simulation
-            this.battlefieldStage.saveLastPosition();
+            this.battlefieldStage.saveLastPosition(); //Save the last position of kittens' bodies.
             this.battlefieldStage.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6);
 
             timeStep -= MySettings.FIXED_TIMESTEP;
         }
 
-        alphaTimeStep = timeStep/MySettings.FIXED_TIMESTEP;
+        alphaTimeStep = timeStep/MySettings.FIXED_TIMESTEP; //Accumulate remainder.
 
         this.battlefieldStage.interpolatePositions(alphaTimeStep);
 

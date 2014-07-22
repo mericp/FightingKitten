@@ -25,15 +25,7 @@ public class KittenDragListener extends DragListener
         Vector2 clickPosition = new Vector2(x, y);
         event.getListenerActor().localToStageCoordinates(clickPosition);
 
-        if (Math.abs(clickPosition.x - kitten.getCenterX()) < 16 &&
-            Math.abs(clickPosition.y - kitten.getCenterY()) < 16)
-        {
-            kitten.getDynamicBody().setLinearVelocity(0f);
-        }
-        else
-        {
-            kitten.wayPoint.setPosition(clickPosition.x, clickPosition.y);
-            kitten.goToCoords(kitten.getWayPoint().getBottomLeftCornerX(), kitten.getWayPoint().getBottomLeftCornerY());
-        }
+        kitten.wayPoint.setPosition(clickPosition.x, clickPosition.y);
+        kitten.goToCoords(kitten.getWayPoint().getBottomLeftCornerX(), kitten.getWayPoint().getBottomLeftCornerY());
     }
 }
