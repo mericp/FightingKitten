@@ -39,7 +39,7 @@ public class GameScreen implements Screen
         {
             //Physics simulation
             this.battlefieldStage.saveLastPosition(); //Save the last position of kittens' bodies.
-            this.battlefieldStage.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6);
+            this.battlefieldStage.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6); //Simulate one step
 
             timeStep -= MySettings.FIXED_TIMESTEP;
         }

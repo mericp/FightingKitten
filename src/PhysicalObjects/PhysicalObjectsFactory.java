@@ -6,12 +6,12 @@ public class PhysicalObjectsFactory
 {
     public enum newPhysicalObject
     {
-        NEW_KINEMATIK_OBJECT()
+        NEW_DYNAMIC_OBJECT()
         {
             @Override public DynamicObject create(World world, int width, int height)
             {
                 DynamicObject dynamicObject = new DynamicObject(world, width, height);
-                physicalObjectsBuilder.KINEMATIK_OBJECT.build(dynamicObject);
+                physicalObjectsBuilder.DYNAMIC_OBJECT.build(dynamicObject);
                 return dynamicObject;
             }
         },
@@ -20,7 +20,7 @@ public class PhysicalObjectsFactory
             @Override public StaticObject create(World world, int width, int height)
             {
                 StaticObject staticObject = new StaticObject(world, width, height);
-                physicalObjectsBuilder.STATIC.build(staticObject);
+                physicalObjectsBuilder.STATIC_OBJECT.build(staticObject);
                 return staticObject;
             }
         };
@@ -32,7 +32,7 @@ public class PhysicalObjectsFactory
 
     private enum physicalObjectsBuilder
     {
-        KINEMATIK_OBJECT()
+        DYNAMIC_OBJECT()
         {
             @Override public void build(IPhysicalObject obj)
             {
@@ -50,7 +50,7 @@ public class PhysicalObjectsFactory
                 shape.dispose();
             }
         },
-        STATIC()
+        STATIC_OBJECT()
         {
             @Override public void build(IPhysicalObject obj)
             {

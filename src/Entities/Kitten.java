@@ -27,7 +27,7 @@ public class Kitten extends Actor implements ICollisionable
 
     public Kitten(World world, RayHandler rayHandler)
     {
-        dynamicBody = (DynamicObject)PhysicalObjectsFactory.newPhysicalObject.NEW_KINEMATIK_OBJECT.create(world, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
+        dynamicBody = (DynamicObject)PhysicalObjectsFactory.newPhysicalObject.NEW_DYNAMIC_OBJECT.create(world, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
         dynamicBody.getBody().setUserData(this);
 
         wayPoint = (StaticObject)PhysicalObjectsFactory.newPhysicalObject.NEW_STATIC_OBJECT.create(world, 1, 1);

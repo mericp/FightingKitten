@@ -10,18 +10,22 @@ import static DB.MySettings.PIXEL_METERS;
 public class DynamicObject implements IPhysicalObject
 {
     private World world;
-    private float width;
-    private float height;
+
     private Body body;
+    private float widthOfTheBody;
+    private float heightOfTheBody;
+
     private Vector2 directionVector;
+
+    // Interpolation
     private Vector2 lastPosition;
     private Vector2 interpoledPosition;
 
     public DynamicObject(World world, int width, int height)
     {
         this.world = world;
-        this.width = convertToMeters(width);
-        this.height = convertToMeters(height);
+        this.widthOfTheBody = convertToMeters(width);
+        this.heightOfTheBody = convertToMeters(height);
         this.directionVector = new Vector2();
 
         this.lastPosition = new Vector2();
@@ -30,11 +34,11 @@ public class DynamicObject implements IPhysicalObject
 
     @Override public int getBottomLeftCornerX()
     {
-        return (int)(convertToPixels(body.getPosition().x - width / 2));
+        return (int)(convertToPixels(body.getPosition().x - widthOfTheBody / 2));
     }
     @Override public int getBottomLeftCornerY()
     {
-        return (int)(convertToPixels(body.getPosition().y - height / 2));
+        return (int)(convertToPixels(body.getPosition().y - heightOfTheBody / 2));
     }
 
     public int getCenterX()
@@ -49,27 +53,27 @@ public class DynamicObject implements IPhysicalObject
     //Calculates coords of the center of the dynamic object from the bottom left corner coords (x, y)
     @Override public void setPosition(float x, float y)
     {
-        body.setTransform(convertToMeters(x + width / 2),
-                          convertToMeters(y + height / 2),
+        body.setTransform(convertToMeters(x + widthOfTheBody / 2),
+                          convertToMeters(y + heightOfTheBody / 2),
                           body.getAngle());
     }
 
     @Override public void setWidth(float width)
     {
-        this.width = width;
+        this.widthOfTheBody = width;
     }
     @Override public float getWidth()
     {
-        return width;
+        return widthOfTheBody;
     }
 
     @Override public void setHeight(float height)
     {
-        this.height = height;
+        this.heightOfTheBody = height;
     }
     @Override public float getHeight()
     {
-        return height;
+        return heightOfTheBody;
     }
 
     @Override public World getWorld()
@@ -99,12 +103,12 @@ public class DynamicObject implements IPhysicalObject
 
     public int getInterpolatedX()
     {
-        return (int)(convertToPixels(this.interpoledPosition.x - width / 2));
+        return (int)(convertToPixels(this.interpoledPosition.x - widthOfTheBody / 2));
     }
 
     public int getInterpolatedY()
     {
-        return (int)(convertToPixels(this.interpoledPosition.y - height / 2));
+        return (int)(convertToPixels(this.interpoledPosition.y - heightOfTheBody / 2));
     }
 
     public void setDirectionVector(float detinationX, float destinationY)

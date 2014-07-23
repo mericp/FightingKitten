@@ -9,50 +9,51 @@ import static DB.MySettings.PIXEL_METERS;
 public class StaticObject implements IPhysicalObject
 {
     private World world;
-    private float width;
-    private float height;
+
     private Body body;
+    private float widthOfTheBody;
+    private float heightOfTheBody;
 
     public StaticObject(World world, int width, int height)
     {
         this.world = world;
-        this.width = width * PIXEL_METERS;
-        this.height = height * PIXEL_METERS;
+        this.widthOfTheBody = width * PIXEL_METERS;
+        this.heightOfTheBody = height * PIXEL_METERS;
     }
 
     @Override
     public int getBottomLeftCornerX() {
-        return (int)((body.getPosition().x - width / 2) * METERS_PIXEL);
+        return (int)((body.getPosition().x - widthOfTheBody / 2) * METERS_PIXEL);
     }
 
     @Override
     public int getBottomLeftCornerY() {
-        return (int)((body.getPosition().y - height / 2) * METERS_PIXEL);
+        return (int)((body.getPosition().y - heightOfTheBody / 2) * METERS_PIXEL);
     }
 
     public void setPosition(float x, float y)
     {
-        body.setTransform((x + width/2)* PIXEL_METERS, (y + height/2)* PIXEL_METERS, body.getAngle());
+        body.setTransform((x + widthOfTheBody /2)* PIXEL_METERS, (y + heightOfTheBody /2)* PIXEL_METERS, body.getAngle());
     }
 
     public float getWidth()
     {
-        return width;
+        return widthOfTheBody;
     }
 
     public void setWidth(float width)
     {
-        this.width = width;
+        this.widthOfTheBody = width;
     }
 
     public float getHeight()
     {
-        return height;
+        return heightOfTheBody;
     }
 
     public void setHeight(float height)
     {
-        this.height = height;
+        this.heightOfTheBody = height;
     }
 
     public World getWorld()
