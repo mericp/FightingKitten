@@ -8,7 +8,7 @@ import static DB.MySettings.PIXEL_METERS;
 
 public class StaticObject implements IPhysicalObject
 {
-    private World world;
+    private final World world;
 
     private Body body;
     private float widthOfTheBody;

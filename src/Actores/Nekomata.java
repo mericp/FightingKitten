@@ -21,53 +21,17 @@ public class Nekomata extends Actor
 
     private Animation animation;    //The current Animation, from which we will get the frame that will be drawn.
 
-    private TextureRegion currentFrame; //The frame that will be drawn now.
-    private TextureRegion originalTexture;  //The original texture from which we will get all the frames.
-    private int numRows;    // Number of rows that the original texture has.
-    private int numCols;    // Number of columns that the original texture has.
-
     private float stateTime = 0f;   //It's a counter that controls the time that each frame has to be shown.
 
-    private Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 
-    //Stores the config params for each animation.
-    //These params will be loaded when we load the Animation itself.
-    public static class AnimacionConfig
-    {
-        private TextureRegion[] frames; //Frames that compose the animation.
-        public float durationFrame;     //Duration of each frame.
-        public boolean loop = true;     //Repeat indefinitely.
-        public boolean reverse = true;  // Join the intermediate frames so Animation will revert instead of
-                                        // starting from the beginning when it reaches its last frame.
-        public boolean uninterrumpible = false; // Can't be interrupted by another animation.
-        public boolean dieAfterAnimationCompleted = false;  //Will be disposed after being animated once.
-        public boolean isPaused = false;    //Is it paused?
-
-        public AnimacionConfig(int numFrames, boolean reverse)
-        {
-            //This constructor will calculate the lenght of the array containing the frames,
-            //in order to keep room for the reverse effect.
-            if (reverse)
-            {
-                frames = new TextureRegion[numFrames * 2 - 2];
-            }
-            else
-            {
-                frames = new TextureRegion[numFrames];
-            }
-        }
-    }
-
-    public int getNumFramesAnimation()
-    {
-        return animations.get(currentAnimationId).frames.length;
-    }
+    protected Nekomata(){}
     
     //originalTexture: The originalTexture region that contains all the frames of the animation.
     //numRows, numCols: Number of rows and columns that the originalTexture has.
     //numFrames: The number of frames for this animation.
     //durationFrame: Duration of each frame.
-    public Nekomata(TextureRegion texture, int numRows, int numCols, int numFramesPerAnimation, float durationFrame)
+    protected Nekomata(TextureRegion texture, int numRows, int numCols, int numFramesPerAnimation, float durationFrame)
     {
         if (texture == null)
         {
@@ -75,31 +39,27 @@ public class Nekomata extends Actor
             return;
         }
 
-        this.originalTexture = texture;
-        this.numRows = numRows;
-        this.numCols = numCols;
-
         // Calculate each frame dimensions.
-        int frameWidth = this.originalTexture.getRegionWidth()/this.numCols;
-        int frameHeight = this.originalTexture.getRegionHeight()/this.numRows;
+        int frameWidth = texture.getRegionWidth()/ numCols;
+        int frameHeight = texture.getRegionHeight()/ numRows;
 
         //Now we set calculated values as Actor's properties.
         this.setWidth(frameWidth);
         this.setHeight(frameHeight);
 
         //Split original originalTexture into individual textures containing one frame each.
-        TextureRegion[][] frames = this.originalTexture.split(frameWidth, frameHeight);
+        TextureRegion[][] frames = texture.split(frameWidth, frameHeight);
 
-        int numAnimationsPerRow = this.numCols/numFramesPerAnimation;
-        animations = new Array<>(numAnimationsPerRow*this.numRows);
+        int numAnimationsPerRow = numCols / numFramesPerAnimation;
+        animations = new Array<>(numAnimationsPerRow * numRows);
         
         int numFrame;
 
         AnimacionConfig animation = new AnimacionConfig(numFramesPerAnimation, true);
 
-        for (int i = 0; i < this.numRows; i++)
+        for (int i = 0; i < numRows; i++)
         {
-            for (int j = 0; j < this.numCols; j++)
+            for (int j = 0; j < numCols; j++)
             {
                 // This way I visit each frame of the animation.
                 numFrame = j % numFramesPerAnimation;
@@ -122,7 +82,40 @@ public class Nekomata extends Actor
         }
 
         //Initialize the with default animation:
-        setAnimacion(0, true);
+        setAnimation(0, true);
+    }
+
+    //Stores the config params for each animation.
+    //These params will be loaded when we load the Animation itself.
+    public static class AnimacionConfig
+    {
+        private final TextureRegion[] frames; //Frames that compose the animation.
+        public float durationFrame;     //Duration of each frame.
+        public final boolean loop = true;     //Repeat indefinitely.
+        public final boolean reverse = true;  // Join the intermediate frames so Animation will revert instead of
+        // starting from the beginning when it reaches its last frame.
+        public final boolean uninterrumpible = false; // Can't be interrupted by another animation.
+        public final boolean dieAfterAnimationCompleted = false;  //Will be disposed after being animated once.
+        public final boolean isPaused = false;    //Is it paused?
+
+        public AnimacionConfig(int numFrames, boolean reverse)
+        {
+            //This constructor will calculate the lenght of the array containing the frames,
+            //in order to keep room for the reverse effect.
+            if (reverse)
+            {
+                frames = new TextureRegion[numFrames * 2 - 2];
+            }
+            else
+            {
+                frames = new TextureRegion[numFrames];
+            }
+        }
+    }
+
+    private int getNumFramesAnimation()
+    {
+        return animations.get(currentAnimationId).frames.length;
     }
 
     // This method loads the animation and all its parameters from the animations array.
@@ -131,7 +124,7 @@ public class Nekomata extends Actor
     // the animation won't be loaded again, but it will be restarted.
     // If the current animation is uninterrumpible, the new animation's ID will be stored
     // and be run later.
-    public final void setAnimacion (int animationId, boolean forceAnimation)
+    protected final void setAnimation(int animationId, boolean forceAnimation)
     {
         if (animationId < 0 || animationId >= animations.size)
         {
@@ -200,7 +193,7 @@ public class Nekomata extends Actor
             resetFlags();
         }
 
-        currentFrame = animation.getKeyFrame(stateTime, currentAnimation.loop);
+        TextureRegion currentFrame = animation.getKeyFrame(stateTime, currentAnimation.loop);
 
         Vector2 Offset = new Vector2(0,0);
 
@@ -219,7 +212,7 @@ public class Nekomata extends Actor
         batch.setColor(oldColor);
     }
     
-    public void resetFlags()
+    private void resetFlags()
     {
         if(currentAnimation.dieAfterAnimationCompleted)
         {
@@ -228,7 +221,7 @@ public class Nekomata extends Actor
 
         if(nextAnimationId >= 0)
         {
-            setAnimacion(nextAnimationId, true);
+            setAnimation(nextAnimationId, true);
             nextAnimationId = -1;
         }
     }

@@ -9,17 +9,17 @@ import static DB.MySettings.PIXEL_METERS;
 
 public class DynamicObject implements IPhysicalObject
 {
-    private World world;
+    private final World world;
 
     private Body body;
     private float widthOfTheBody;
     private float heightOfTheBody;
 
-    private Vector2 directionVector;
+    private final Vector2 directionVector;
 
     // Interpolation
-    private Vector2 lastPosition;
-    private Vector2 interpoledPosition;
+    private final Vector2 lastPosition;
+    private final Vector2 interpoledPosition;
 
     public DynamicObject(World world, int width, int height)
     {
@@ -32,60 +32,74 @@ public class DynamicObject implements IPhysicalObject
         this.interpoledPosition = new Vector2();
     }
 
-    @Override public int getBottomLeftCornerX()
+    @Override
+    public int getBottomLeftCornerX()
     {
         return (int)(convertToPixels(body.getPosition().x - widthOfTheBody / 2));
     }
-    @Override public int getBottomLeftCornerY()
+
+    @Override
+    public int getBottomLeftCornerY()
     {
         return (int)(convertToPixels(body.getPosition().y - heightOfTheBody / 2));
     }
 
-    public int getCenterX()
+    private int getCenterX()
     {
         return (int)(convertToPixels(body.getPosition().x));
     }
-    public int getCenterY()
+    private int getCenterY()
     {
         return (int)(convertToPixels(body.getPosition().y));
     }
 
     //Calculates coords of the center of the dynamic object from the bottom left corner coords (x, y)
-    @Override public void setPosition(float x, float y)
+    @Override
+    public void setPosition(float x, float y)
     {
         body.setTransform(convertToMeters(x + widthOfTheBody / 2),
                           convertToMeters(y + heightOfTheBody / 2),
                           body.getAngle());
     }
 
-    @Override public void setWidth(float width)
+    @Override
+    public void setWidth(float width)
     {
         this.widthOfTheBody = width;
     }
-    @Override public float getWidth()
+
+    @Override
+    public float getWidth()
     {
         return widthOfTheBody;
     }
 
-    @Override public void setHeight(float height)
+    @Override
+    public void setHeight(float height)
     {
         this.heightOfTheBody = height;
     }
-    @Override public float getHeight()
+
+    @Override
+    public float getHeight()
     {
         return heightOfTheBody;
     }
 
-    @Override public World getWorld()
+    @Override
+    public World getWorld()
     {
         return world;
     }
 
-    @Override public void setBody(Body body)
+    @Override
+    public void setBody(Body body)
     {
         this.body = body;
     }
-    @Override public Body getBody()
+
+    @Override
+    public Body getBody()
     {
         return body;
     }

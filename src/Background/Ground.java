@@ -11,7 +11,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
 public class Ground extends TiledMap
 {
-    private OrthogonalTiledMapRenderer mapRenderer;
+    private final OrthogonalTiledMapRenderer mapRenderer;
 
     public Ground()
     {

@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 public class AtlasFileDAO implements IAtlasDAO
 {
-    private TextureAtlas atlas;
-    private Logger logger;
+    private final TextureAtlas atlas;
+    private final Logger logger;
 
     public AtlasFileDAO()
     {
@@ -16,17 +16,20 @@ public class AtlasFileDAO implements IAtlasDAO
         this.logger = (Logger) LoggerFactory.getLogger(this.getClass());
     }
 
-    @Override public TextureAtlas getAtlas()
+    @Override
+    public TextureAtlas getAtlas()
     {
         return this.atlas;
     }
 
-    @Override public TextureRegion getTexture(String texturePath)
+    @Override
+    public TextureRegion getTexture(String texturePath)
     {
         return (new TextureRegion(this.atlas.findRegion(texturePath)));
     }
 
-    @Override public void dispose()
+    @Override
+    public void dispose()
     {
         this.atlas.dispose();
         this.logger.trace("DISPOSE: Dispose atlas.");

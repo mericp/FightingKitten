@@ -4,7 +4,23 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class PhysicalObjectsFactory
 {
-    public enum newPhysicalObject
+    public static IPhysicalObject create(Class<?> objectType, World mundo, int width, int height)
+    {
+        IPhysicalObject concretePhysicalObject = null;
+
+        if(objectType == DynamicObject.class)
+        {
+            concretePhysicalObject = newPhysicalObject.NEW_DYNAMIC_OBJECT.create(mundo, width, height);
+        }
+        else if (objectType == StaticObject.class)
+        {
+            concretePhysicalObject = newPhysicalObject.NEW_STATIC_OBJECT.create(mundo, width, height);
+        }
+
+        return concretePhysicalObject;
+    }
+
+    private enum newPhysicalObject
     {
         NEW_DYNAMIC_OBJECT()
         {
@@ -15,6 +31,7 @@ public class PhysicalObjectsFactory
                 return dynamicObject;
             }
         },
+
         NEW_STATIC_OBJECT()
         {
             @Override public StaticObject create(World world, int width, int height)
@@ -24,8 +41,6 @@ public class PhysicalObjectsFactory
                 return staticObject;
             }
         };
-
-        private newPhysicalObject() {}
 
         public abstract IPhysicalObject create(World world, int width, int height);
     }
@@ -69,8 +84,6 @@ public class PhysicalObjectsFactory
             }
         };
 
-        private physicalObjectsBuilder() {}
-
         public abstract void build (IPhysicalObject physicalObject);
 
         public PolygonShape createPolygon(float width, float height)
@@ -113,8 +126,6 @@ public class PhysicalObjectsFactory
                 return bodyDef;
             }
         };
-
-        private bodyDefBuilder(){}
 
         public abstract BodyDef build(float width, float height);
     }

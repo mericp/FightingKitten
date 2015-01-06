@@ -1,31 +1,30 @@
 package Entities;
 
+import Views.KittenView;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 public class KittenDragListener extends DragListener
 {
-    private Kitten kitten;
+    private final KittenView kittenView;
 
-    public KittenDragListener(Kitten kitten)
+    public KittenDragListener(KittenView kittenView)
     {
-        this.kitten = kitten;
+        this.kittenView = kittenView;
     }
 
-    @Override public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
+    @Override
+    public boolean touchDown (InputEvent event, float x, float y, int pointer, int button)
     {
         return  true;
     }
-
-    @Override public void touchDragged (InputEvent event, float x, float y, int pointer){ }
-
-    @Override public void touchUp (InputEvent event, float x, float y, int pointer, int button)
+    
+    @Override
+    public void touchUp (InputEvent event, float x, float y, int pointer, int button)
     {
         Vector2 clickPosition = new Vector2(x, y);
         event.getListenerActor().localToStageCoordinates(clickPosition);
-
-        kitten.wayPoint.setPosition(clickPosition.x, clickPosition.y);
-        kitten.goToCoords(kitten.getWayPoint().getBottomLeftCornerX(), kitten.getWayPoint().getBottomLeftCornerY());
+        kittenView.dragged(clickPosition);
     }
 }
