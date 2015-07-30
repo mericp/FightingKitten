@@ -25,9 +25,9 @@ public class MySettings
     public static final int KITTEN_HITBOX_HEIGHT = 32;
 
     // Resources
-    public static final String IMAGES_FOLDER = "Images/";
+    public static final String IMAGES_FOLDER = "assets/Images/";
 
-    public static final String ATLAS_FOLDER = "Atlas/";
+    public static final String ATLAS_FOLDER = "assets/Atlas/";
     public static final String ATLAS_NAME = "atlas";
     public static final String ATLAS_EXTENSION = ".atlas";
     public static final AtlasDAOFactory ATLAS_DAO = AtlasDAOFactory.FILE;

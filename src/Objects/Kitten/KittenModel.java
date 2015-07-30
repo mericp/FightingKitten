@@ -1,9 +1,11 @@
-package Models;
+package Objects.Kitten;
 
 import DB.MySettings;
 import DB.NotificationsDictionary;
 import DTOs.KittenDTOs;
 import Entities.ICollisionable;
+import Models.AbstractModel;
+import Models.IMobModel;
 import PhysicalObjects.DynamicObject;
 import PhysicalObjects.PhysicalObjectsFactory;
 import PhysicalObjects.StaticObject;
@@ -15,7 +17,6 @@ public class KittenModel extends AbstractModel implements ICollisionable, IMobMo
     private final World mundo;
     private DynamicObject dynamicBody;
     private StaticObject wayPoint;
-
 
     public KittenModel(World mundo)
     {
@@ -37,6 +38,7 @@ public class KittenModel extends AbstractModel implements ICollisionable, IMobMo
         wayPoint.getBody().setUserData(this);
     }
 
+    @Override
     public DynamicObject getDynamicBody()
     {
         return this.dynamicBody;
@@ -54,6 +56,7 @@ public class KittenModel extends AbstractModel implements ICollisionable, IMobMo
         this.notifyUpdate(NotificationsDictionary.ANIMATION_CHANGED, null);
     }
 
+    @Override
     public void setPosition(float x, float y)
     {
         dynamicBody.setPosition(x, y);
@@ -61,6 +64,7 @@ public class KittenModel extends AbstractModel implements ICollisionable, IMobMo
         this.notifyUpdate(NotificationsDictionary.POSITION_SET, new KittenDTOs.PositionDTO(x, y));
     }
 
+    @Override
     public void interpolatePositions(float alpha)
     {
         dynamicBody.interpolatePositions(alpha);
@@ -69,11 +73,8 @@ public class KittenModel extends AbstractModel implements ICollisionable, IMobMo
 
     public void goToCoords(float x, float y)
     {
-        //Angle
-        dynamicBody.setDirectionVector(x, y);
-
-        //Velocity
-        dynamicBody.setLinearVelocity(80f);
+        dynamicBody.setDirectionVector(x, y); //Angle
+        dynamicBody.setLinearVelocity(80f); //Velocity
     }
 
     public void dragged(Vector2 clickPosition)

@@ -1,11 +1,12 @@
 package Views;
 
+import ViewBase.Nekomata;
 import Background.Ground;
 import Controllers.MundoController;
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import DTOs.MundoDTOs;
-import Models.MundoModel;
+import DTOs.MobDto;
+import Objects.MundoModel;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,13 +27,13 @@ public class MundoView extends Stage implements PropertyChangeListener
     private final OrthographicCamera boxCamera;
     private final Box2DDebugRenderer worldRenderer;
 
-    private final List<IMobView> mobViewArray = new ArrayList<>();
+    private final List<Nekomata> mobViewArray = new ArrayList<>();
     private final Ground battlefield;
 
     public MundoView(MundoController mundoController)
     {
         this.mundoController = mundoController;
-        mundoModel = this.mundoController.getMundoModel();
+        mundoModel = this.mundoController.getModel();
 
         RayHandler.useDiffuseLight(true);
         this.rayHandler = new RayHandler(mundoModel.getMundo());
@@ -53,9 +54,9 @@ public class MundoView extends Stage implements PropertyChangeListener
 
         switch (notification)
         {
-            case NotificationsDictionary.KITTEN_ADDED:
-                MundoDTOs.AddKittenDTO dto = (MundoDTOs.AddKittenDTO)evt.getNewValue();
-                addMobView(dto);
+            case NotificationsDictionary.MOB_ADDED:
+                MobDto newMob = (MobDto)evt.getNewValue();
+                addMobView(newMob.view);
                 break;
 
         }
@@ -91,7 +92,7 @@ public class MundoView extends Stage implements PropertyChangeListener
 
     private void updateMobsView()
     {
-        for(IMobView mobView : mobViewArray)
+        for(Nekomata mobView : mobViewArray)
         {
             mobView.updateAnimation();
         }
@@ -106,7 +107,7 @@ public class MundoView extends Stage implements PropertyChangeListener
         battlefield.dispose();
     }
 
-    private void addMobView(IMobView newMobView)
+    public void addMobView(Nekomata newMobView)
     {
         mobViewArray.add(newMobView);
         addActor(newMobView);

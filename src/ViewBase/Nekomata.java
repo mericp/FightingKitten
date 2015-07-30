@@ -1,4 +1,4 @@
-package Actores;
+package ViewBase;
 
 import ch.qos.logback.classic.Logger;
 import com.badlogic.gdx.Gdx;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import org.slf4j.LoggerFactory;
 
-public class Nekomata extends Actor
+public abstract class Nekomata extends Actor
 {
     private Array<AnimacionConfig> animations = new Array<>();  //An array that contains the params of each Animation.
     private AnimacionConfig currentAnimation;   //The current animation params.
@@ -161,6 +161,8 @@ public class Nekomata extends Actor
             stateTime = 0f;
         }
     }
+
+    public abstract void updateAnimation();
 
     //DRAW:
     // We calculate how much time we need to run the whole animation,

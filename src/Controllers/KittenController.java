@@ -1,7 +1,7 @@
 package Controllers;
 
 import DTOs.KittenDTOs;
-import Models.KittenModel;
+import Objects.Kitten.KittenModel;
 import Views.KittenView;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -11,24 +11,39 @@ public class KittenController
     private MundoController mc;
     private World mundo;
 
-    public KittenController(MundoController mc)
+    public KittenController(MundoController mcpar)
     {
-        mundo = mc.getMundoModel().getMundo();
+        mc = mcpar;
+        mundo = mcpar.getModel().getMundo();
     }
 
-    public KittenDTOs.KittenDTO createKitten(Vector2 position)
+    public void createKitten(Vector2 position)
+    {
+        KittenModel model = createModel(position);
+        KittenView view = createView(model);
+        AddKittenToWorld(model, view);
+    }
+
+    private KittenModel createModel(Vector2 position)
     {
         KittenModel kittenModel = new KittenModel(mundo);
         kittenModel.setPosition(position.x, position.y);
 
-        KittenView kittenView = new KittenView(this, kittenModel, mc.getMundoView().getRayHandler());
-        kittenModel.addObserver(kittenView);
+        return kittenModel;
+    }
 
-        return new KittenDTOs.KittenDTO(kittenModel, kittenView);
+    private KittenView createView(KittenModel model)
+    {
+        KittenView kittenView = new KittenView(this, model, mc.getView().getRayHandler());
+        model.addObserver(kittenView);
 
-        //Mundoview
-        //kittenViewArray.add(newKittenView);
-        //addActor(newKittenView);
+        return kittenView;
+    }
+
+    private void AddKittenToWorld(KittenModel model, KittenView view)
+    {
+        KittenDTOs.KittenDTO k = new KittenDTOs.KittenDTO(model, view);
+        mc.getModel().addMob(k);
     }
 
     public void KittenDragged(Vector2 clickPosition, KittenModel kittenModel)

@@ -1,8 +1,7 @@
 package DTOs;
 
-import Models.KittenModel;
+import Objects.Kitten.KittenModel;
 import Views.KittenView;
-import com.badlogic.gdx.math.Vector2;
 
 public class KittenDTOs
 {
@@ -18,15 +17,11 @@ public class KittenDTOs
         }
     }
 
-    public static class KittenDTO
+    public static class KittenDTO extends MobDto
     {
-        public final KittenModel kittenModel;
-        public final KittenView kittenView;
-
         public KittenDTO(KittenModel kittenModel, KittenView kittenView)
         {
-            this.kittenModel = kittenModel;
-            this.kittenView = kittenView;
+            super(kittenModel, kittenView);
         }
     }
 }

@@ -1,12 +1,12 @@
 package Views;
 
-import Actores.Nekomata;
+import ViewBase.Nekomata;
 import Controllers.KittenController;
 import DB.MySettings;
 import DB.NotificationsDictionary;
 import DTOs.KittenDTOs;
 import Entities.KittenDragListener;
-import Models.KittenModel;
+import Objects.Kitten.KittenModel;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class KittenView extends Nekomata implements PropertyChangeListener, IMobView
+public class KittenView extends Nekomata implements PropertyChangeListener
 {
     private final KittenModel kittenModel;
     private final KittenController kittenController;

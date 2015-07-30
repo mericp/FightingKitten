@@ -1,24 +1,19 @@
 package Controllers;
 
 import DB.MySettings;
-import DB.NotificationsDictionary;
-import DTOs.KittenDTOs;
-import DTOs.MundoDTOs;
-import Models.KittenModel;
-import Models.MundoModel;
+import Objects.MundoModel;
 import Views.MundoView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class MundoController implements PropertyChangeListener
 {
-    private final MundoModel mundoModel;
-    private final MundoView mundoView;
+    private MundoModel mundoModel;
+    private MundoView mundoView;
 
     public KittenController kittenController;
 
@@ -26,21 +21,32 @@ public class MundoController implements PropertyChangeListener
 
     public MundoController()
     {
+        createStructure();
+        setInputSources();
+
+        drawDefaults();
+    }
+
+    private void createStructure()
+    {
         mundoModel = new MundoModel();
         mundoView = new MundoView(this);
 
         mundoModel.addObserver(mundoView);
         mundoModel.addObserver(this);
+    }
 
-        //Put some kitten in the world:
-        kittenController = new KittenController(this);
-        kittenController.createKitten(new Vector2(50, 50));
-        kittenController.createKitten(new Vector2(50, 450));
-
-        //Set input sources for LibGdx.
+    private void setInputSources()
+    {
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(mundoView);
         Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    private void drawDefaults()
+    {
+        kittenController = new KittenController(this);
+        kittenController.createKitten(new Vector2(50, 450));
     }
 
     public void render(float delta)
@@ -79,11 +85,11 @@ public class MundoController implements PropertyChangeListener
         MySettings.ATLAS_DAO.getAtlasDAO().dispose();
     }
 
-    public MundoModel getMundoModel()
+    public MundoModel getModel()
     {
         return this.mundoModel;
     }
-    public MundoView getMundoView()
+    public MundoView getView()
     {
         return this.mundoView;
     }

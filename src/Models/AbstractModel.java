@@ -5,25 +5,25 @@ import java.beans.PropertyChangeSupport;
 
 public abstract class AbstractModel
 {
-    protected final PropertyChangeSupport observed;
+    protected final PropertyChangeSupport observer;
 
     public AbstractModel()
     {
-        observed = new PropertyChangeSupport(this);
+        observer = new PropertyChangeSupport(this);
     }
 
     protected void notifyUpdate(String valueName, Object newValue)
     {
-        observed.firePropertyChange(valueName, null, newValue);
+        observer.firePropertyChange(valueName, null, newValue);
     }
 
     public void addObserver(PropertyChangeListener observer)
     {
-        observed.addPropertyChangeListener(observer);
+        this.observer.addPropertyChangeListener(observer);
     }
 
     public void removeObserver(PropertyChangeListener observer)
     {
-        observed.removePropertyChangeListener(observer);
+        this.observer.removePropertyChangeListener(observer);
     }
 }

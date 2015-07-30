@@ -1,8 +1,10 @@
-package Models;
+package Objects;
 
 import DB.NotificationsDictionary;
-import DTOs.MundoDTOs;
+import DTOs.MobDto;
 import Entities.WaypointListener;
+import Models.AbstractModel;
+import Models.IMobModel;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
@@ -19,10 +21,10 @@ public class MundoModel extends AbstractModel
         mundo.setContactListener(new WaypointListener());
     }
 
-    public void addMobModel(IMobModel mobModel)
+    public void addMob(MobDto mob)
     {
-        mobModelArray.add(mobModel);
-        this.notifyUpdate(NotificationsDictionary.KITTEN_ADDED, new MundoDTOs.AddKittenDTO(kittenModel));
+        mobModelArray.add(mob.model);
+        notifyUpdate(NotificationsDictionary.MOB_ADDED, mob);
     }
 
     public World getMundo()
@@ -32,17 +34,17 @@ public class MundoModel extends AbstractModel
 
     public void saveLastPosition()
     {
-        for(KittenModel kittenModel : mobModelArray)
+        for(IMobModel mobModel : mobModelArray)
         {
-            kittenModel.getDynamicBody().saveLastPosition();
+            mobModel.getDynamicBody().saveLastPosition();
         }
     }
 
     public void interpolatePositions(float alpha)
     {
-        for(KittenModel kittenModel : mobModelArray)
+        for(IMobModel mobModel : mobModelArray)
         {
-            kittenModel.interpolatePositions(alpha);
+            mobModel.interpolatePositions(alpha);
         }
     }
 }
