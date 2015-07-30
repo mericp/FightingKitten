@@ -1,4 +1,4 @@
-package Models;
+package Objects.Base.BaseModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

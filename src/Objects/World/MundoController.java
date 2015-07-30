@@ -1,8 +1,9 @@
-package Controllers;
+package Objects.World;
 
 import DB.MySettings;
-import Objects.MundoModel;
-import Views.MundoView;
+import Objects.Kitten.KittenController;
+import Objects.World.MundoModel;
+import Objects.World.MundoView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;

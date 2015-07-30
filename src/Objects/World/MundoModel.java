@@ -1,10 +1,10 @@
-package Objects;
+package Objects.World;
 
 import DB.NotificationsDictionary;
-import DTOs.MobDto;
+import Objects.Base.BaseDto.MobDto;
 import Entities.WaypointListener;
-import Models.AbstractModel;
-import Models.IMobModel;
+import Objects.Base.BaseModel.AbstractModel;
+import Objects.Base.BaseModel.IMobModel;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;

@@ -1,12 +1,10 @@
-package Views;
+package Objects.Kitten;
 
-import ViewBase.Nekomata;
-import Controllers.KittenController;
+import Objects.Base.BaseDto.PositionDTO;
+import Objects.Base.BaseView.Nekomata;
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import DTOs.KittenDTOs;
 import Entities.KittenDragListener;
-import Objects.Kitten.KittenModel;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
@@ -53,7 +51,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         switch (notification)
         {
             case NotificationsDictionary.POSITION_SET:
-                KittenDTOs.PositionDTO dto = (KittenDTOs.PositionDTO) evt.getNewValue();
+                PositionDTO dto = (PositionDTO) evt.getNewValue();
                 setPosition(dto.x, dto.y);
                 break;
 

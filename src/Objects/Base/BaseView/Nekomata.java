@@ -1,4 +1,4 @@
-package ViewBase;
+package Objects.Base.BaseView;
 
 import ch.qos.logback.classic.Logger;
 import com.badlogic.gdx.Gdx;

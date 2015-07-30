@@ -1,12 +1,10 @@
-package Views;
+package Objects.World;
 
-import ViewBase.Nekomata;
+import Objects.Base.BaseView.Nekomata;
 import Background.Ground;
-import Controllers.MundoController;
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import DTOs.MobDto;
-import Objects.MundoModel;
+import Objects.Base.BaseDto.MobDto;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;

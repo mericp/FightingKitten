@@ -1,11 +1,11 @@
 package Objects.Kitten;
 
+import Objects.Base.BaseDto.PositionDTO;
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import DTOs.KittenDTOs;
 import Entities.ICollisionable;
-import Models.AbstractModel;
-import Models.IMobModel;
+import Objects.Base.BaseModel.AbstractModel;
+import Objects.Base.BaseModel.IMobModel;
 import PhysicalObjects.DynamicObject;
 import PhysicalObjects.PhysicalObjectsFactory;
 import PhysicalObjects.StaticObject;
@@ -61,7 +61,7 @@ public class KittenModel extends AbstractModel implements ICollisionable, IMobMo
     {
         dynamicBody.setPosition(x, y);
         wayPoint.setPosition(x, y);
-        this.notifyUpdate(NotificationsDictionary.POSITION_SET, new KittenDTOs.PositionDTO(x, y));
+        this.notifyUpdate(NotificationsDictionary.POSITION_SET, new PositionDTO(x, y));
     }
 
     @Override

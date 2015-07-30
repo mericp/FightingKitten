@@ -188,7 +188,7 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><strong><a href="../../../../com/badlogic/gdx/utils/Base64Coder.html#encodeLines(byte[])">encodeLines</a></strong>(byte[]&nbsp;in)</code>
-<div class="block">Encodes a byte array into Base 64 format and breaks the output into lines of 76 characters.</div>
+<div class="block">Encodes a byte array into Objects.Base 64 format and breaks the output into lines of 76 characters.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -198,7 +198,7 @@ extends java.lang.Object</pre>
            int&nbsp;iLen,
            int&nbsp;lineLen,
            java.lang.String&nbsp;lineSeparator)</code>
-<div class="block">Encodes a byte array into Base 64 format and breaks the output into lines.</div>
+<div class="block">Encodes a byte array into Objects.Base 64 format and breaks the output into lines.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -248,7 +248,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>encodeLines</h4>
 <pre>public static&nbsp;java.lang.String&nbsp;encodeLines(byte[]&nbsp;in)</pre>
-<div class="block">Encodes a byte array into Base 64 format and breaks the output into lines of 76 characters. This method is compatible with
+<div class="block">Encodes a byte array into Objects.Base 64 format and breaks the output into lines of 76 characters. This method is compatible with
  <code>sun.misc.BASE64Encoder.encodeBuffer(byte[])</code>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>in</code> - An array containing the data bytes to be encoded.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>A String containing the Base64 encoded data, broken into lines.</dd></dl>
@@ -265,7 +265,7 @@ extends java.lang.Object</pre>
                            int&nbsp;iLen,
                            int&nbsp;lineLen,
                            java.lang.String&nbsp;lineSeparator)</pre>
-<div class="block">Encodes a byte array into Base 64 format and breaks the output into lines.</div>
+<div class="block">Encodes a byte array into Objects.Base 64 format and breaks the output into lines.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>in</code> - An array containing the data bytes to be encoded.</dd><dd><code>iOff</code> - Offset of the first byte in <code>in</code> to be processed.</dd><dd><code>iLen</code> - Number of bytes to be processed in <code>in</code>, starting at <code>iOff</code>.</dd><dd><code>lineLen</code> - Line length for the output data. Should be a multiple of 4.</dd><dd><code>lineSeparator</code> - The line separator to be used to separate the output lines.</dd>
 <dt><span class="strong">Returns:</span></dt><dd>A String containing the Base64 encoded data, broken into lines.</dd></dl>
 </li>

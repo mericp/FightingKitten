@@ -1,4 +1,4 @@
-import Controllers.MundoController;
+import Objects.World.MundoController;
 import com.badlogic.gdx.Screen;
 
 public class GameScreen implements Screen

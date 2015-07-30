@@ -1,4 +1,4 @@
-package Models;
+package Objects.Base.BaseModel;
 
 import PhysicalObjects.DynamicObject;
 

@@ -1,7 +1,7 @@
-package DTOs;
+package Objects.Base.BaseDto;
 
-import ViewBase.Nekomata;
-import Models.IMobModel;
+import Objects.Base.BaseView.Nekomata;
+import Objects.Base.BaseModel.IMobModel;
 
 public class MobDto
 {
