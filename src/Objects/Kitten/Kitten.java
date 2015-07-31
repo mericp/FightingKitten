@@ -17,61 +17,46 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Kitten extends Actor implements ICollisionable
 {
-    //Model
-    private DynamicObject dynamicBody;
-    public StaticObject wayPoint;
-
-    //View
-    private Nekomata nekomata;
-    private PointLight lights;
-    private float angle;
-
     public Kitten(World world, RayHandler rayHandler)
     {
+        //Model
         dynamicBody = (DynamicObject)PhysicalObjectsFactory.create(DynamicObject.class, world, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
         dynamicBody.getBody().setUserData(this);
-
         wayPoint = (StaticObject)PhysicalObjectsFactory.create(StaticObject.class, world, 1, 1);
         wayPoint.getBody().setUserData(this);
 
+        //View
         TextureRegion texture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito");
         nekomata = new Nekomata(texture, 8, 12, 3, 0.20f);
-
         this.addListener(new KittenDragListener(this));
-
         this.setWidth(MySettings.KITTEN_HITBOX_WIDTH);
         this.setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
-
         this.lights = new PointLight(rayHandler, 300, new Color(0.7f,0.7f,0.7f, 0.5f), 400 * MySettings.PIXEL_METERS, 0, 0);
         this.lights.setSoft(true);
         this.lights.attachToBody(dynamicBody.getBody(), 0, 0);
         this.lights.setSoftnessLength(0.1f);
     }
 
+    // Relate model (body) with view (kitten and nekomata) <-- This seems a work for the Controller!
+    public void updateViewPosition()
+    {
+        this.setPosition(dynamicBody.getInterpolatedX(), dynamicBody.getInterpolatedY());
+        nekomata.setPosition(dynamicBody.getInterpolatedX(), dynamicBody.getInterpolatedY());
+    }
+
+    //#################################View#################################
+    private Nekomata nekomata;
+    private PointLight lights;
+    private float angle;
+
     @Override public void draw (Batch batch, float alpha)
     {
         nekomata.draw(batch, alpha);
     }
 
-    public void goToCoords(float x, float y)
-    {
-        //Angle
-        dynamicBody.setDirectionVector(x, y);
-
-        //Velocidad
-        dynamicBody.setLinearVelocity(80f);
-    }
-
     public void updateView()
     {
         updateAnimation();
-    }
-
-    // Relate model (body) with view (kitten and nekomata)
-    public void updateViewPosition()
-    {
-        this.setPosition(dynamicBody.getInterpolatedX(), dynamicBody.getInterpolatedY());
-        nekomata.setPosition(dynamicBody.getInterpolatedX(), dynamicBody.getInterpolatedY());
     }
 
     public void updateAnimation()
@@ -119,43 +104,48 @@ public class Kitten extends Actor implements ICollisionable
 
     private boolean goesEast()
     {
-        return (angle >= 0f && angle <= 22.5f) ||
-                (angle > 337.5f && angle <= 360f);
+        return (angle >= 0f && angle <= 22.5f) || (angle > 337.5f && angle <= 360f);
     }
-
     private boolean goesNortheast()
     {
         return angle > 22.5f && angle <= 67.5f;
     }
-
     private boolean goesNorth()
     {
         return angle > 67.5f && angle <= 112.5f;
     }
-
     private boolean goesNorthwest()
     {
         return angle > 112.5f && angle <= 157.5f;
     }
-
     private boolean goesWest()
     {
         return angle > 157.5f && angle <= 202.5f;
     }
-
     private boolean goesSouthwest()
     {
         return angle > 202.5f && angle <= 247.5f;
     }
-
     private boolean goesSouth()
     {
         return angle > 247.5f && angle <= 292.5f;
     }
-
     private boolean goesSoutheast()
     {
         return angle > 292.5f && angle <= 337.5f;
+    }
+
+    ////#################################Model#################################
+    private DynamicObject dynamicBody;
+    public StaticObject wayPoint;
+
+    public void goToCoords(float x, float y)
+    {
+        //Angle
+        dynamicBody.setDirectionVector(x, y);
+
+        //Velocidad
+        dynamicBody.setLinearVelocity(80f);
     }
 
     public void setModelPosition(float x, float y)
@@ -175,21 +165,6 @@ public class Kitten extends Actor implements ICollisionable
         return this.wayPoint;
     }
 
-    public int getCenterX()
-    {
-        return dynamicBody.getCenterX();
-    }
-
-    public int getCenterY()
-    {
-        return dynamicBody.getCenterY();
-    }
-
-    public void saveLastPosition()
-    {
-        this.dynamicBody.saveLastPosition();
-    }
-
     public void interpolatePositions(float alpha)
     {
         dynamicBody.interpolatePositions(alpha);
@@ -199,8 +174,10 @@ public class Kitten extends Actor implements ICollisionable
     @Override
     public void onCollide()
     {
+        //Model
         this.dynamicBody.setLinearVelocity(0f);
+
+        //View
         nekomata.setAnimation(18, false);
     }
-
 }
