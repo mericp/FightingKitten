@@ -1,10 +1,15 @@
 package Objects.Kitten;
 
+import DB.NotificationsDictionary;
+import Objects.Base.BaseDto.PositionDTO;
 import Objects.Base.BaseView.Nekomata;
 import DB.MySettings;
 import Entities.KittenDragListener;
 
-public class KittenView extends Nekomata
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class KittenView extends Nekomata implements PropertyChangeListener
 {
     private float angle;
     private KittenModel kittenModel;
@@ -20,6 +25,23 @@ public class KittenView extends Nekomata
 
         kittenModel = km;
         setPosition(kittenModel.getDynamicBody().getBottomLeftCornerX(), kittenModel.getDynamicBody().getBottomLeftCornerY());
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String notification = evt.getPropertyName();
+
+        switch (notification) {
+            case NotificationsDictionary.POSITION_SET:
+                PositionDTO dto = (PositionDTO) evt.getNewValue();
+                setPosition(dto.x, dto.y);
+                break;
+
+            case NotificationsDictionary.ANIMATION_CHANGED:
+                updateAnimation();
+                break;
+
+        }
     }
 
     public void updateAnimation()

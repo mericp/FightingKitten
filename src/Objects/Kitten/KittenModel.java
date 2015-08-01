@@ -1,7 +1,9 @@
 package Objects.Kitten;
 
 import DB.MySettings;
+import DB.NotificationsDictionary;
 import Entities.ICollisionable;
+import Objects.Base.BaseDto.PositionDTO;
 import Objects.Base.BaseModel.AbstractModel;
 import PhysicalObjects.DynamicObject;
 import PhysicalObjects.PhysicalObjectsFactory;
@@ -45,6 +47,7 @@ public class KittenModel extends AbstractModel implements ICollisionable
     {
         dynamicBody.setPosition(x, y);
         wayPoint.setPosition(x, y);
+        this.notifyUpdate(NotificationsDictionary.POSITION_SET, new PositionDTO(x, y));
     }
 
     public DynamicObject getDynamicBody()
@@ -60,12 +63,14 @@ public class KittenModel extends AbstractModel implements ICollisionable
     public void interpolatePositions(float alpha)
     {
         dynamicBody.interpolatePositions(alpha);
+        this.notifyUpdate(NotificationsDictionary.POSITION_INTERPOLATED, null);
     }
 
     @Override
     public void onCollide()
     {
         this.dynamicBody.setLinearVelocity(0f);
+        this.notifyUpdate(NotificationsDictionary.ANIMATION_CHANGED, null);
     }
 
     public void dragged(Vector2 clickPosition)

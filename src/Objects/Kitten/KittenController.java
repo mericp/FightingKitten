@@ -32,7 +32,7 @@ public class KittenController
 
     private KittenView createView(KittenModel model)
     {
-        KittenView kittenView = new KittenView(this, model, mc.getView().getRayHandler());
+        KittenView kittenView = new KittenView(model);
         model.addObserver(kittenView);
 
         return kittenView;
