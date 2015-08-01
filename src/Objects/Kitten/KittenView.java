@@ -3,16 +3,13 @@ package Objects.Kitten;
 import Objects.Base.BaseView.Nekomata;
 import DB.MySettings;
 import Entities.KittenDragListener;
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
-import com.badlogic.gdx.graphics.Color;
 
 public class KittenView extends Nekomata
 {
     private float angle;
     private KittenModel kittenModel;
 
-    public KittenView(KittenModel km, RayHandler rayHandler)
+    public KittenView(KittenModel km)
     {
         super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito"), 8, 12, 3, 0.20f);
 
@@ -23,16 +20,6 @@ public class KittenView extends Nekomata
 
         kittenModel = km;
         setPosition(kittenModel.getDynamicBody().getBottomLeftCornerX(), kittenModel.getDynamicBody().getBottomLeftCornerY());
-
-        setLights(rayHandler);
-    }
-
-    private void setLights(RayHandler rayHandler)
-    {
-        PointLight lights = new PointLight(rayHandler, 300, new Color(0.7f,0.7f,0.7f, 0.5f), 400 * MySettings.PIXEL_METERS, 0, 0);
-        lights.setSoft(true);
-        lights.attachToBody(kittenModel.getDynamicBody().getBody(), 0, 0);
-        lights.setSoftnessLength(0.1f);
     }
 
     public void updateAnimation()
