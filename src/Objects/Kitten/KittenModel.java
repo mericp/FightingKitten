@@ -2,13 +2,14 @@ package Objects.Kitten;
 
 import DB.MySettings;
 import Entities.ICollisionable;
+import Objects.Base.BaseModel.AbstractModel;
 import PhysicalObjects.DynamicObject;
 import PhysicalObjects.PhysicalObjectsFactory;
 import PhysicalObjects.StaticObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class KittenModel implements ICollisionable
+public class KittenModel extends AbstractModel implements ICollisionable
 {
     private final World mundo;
     private DynamicObject dynamicBody;

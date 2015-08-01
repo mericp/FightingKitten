@@ -12,11 +12,6 @@ public abstract class AbstractModel
         observer = new PropertyChangeSupport(this);
     }
 
-    protected void notifyUpdate(String valueName, Object newValue)
-    {
-        observer.firePropertyChange(valueName, null, newValue);
-    }
-
     public void addObserver(PropertyChangeListener observer)
     {
         this.observer.addPropertyChangeListener(observer);
@@ -25,5 +20,10 @@ public abstract class AbstractModel
     public void removeObserver(PropertyChangeListener observer)
     {
         this.observer.removePropertyChangeListener(observer);
+    }
+
+    protected void notifyUpdate(String valueName, Object newValue)
+    {
+        observer.firePropertyChange(valueName, null, newValue);
     }
 }
