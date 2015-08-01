@@ -1,35 +1,27 @@
 package Objects.Kitten;
 
-import Objects.Base.BaseDto.PositionDTO;
 import Objects.Base.BaseView.Nekomata;
 import DB.MySettings;
-import DB.NotificationsDictionary;
 import Entities.KittenDragListener;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-public class KittenView extends Nekomata implements PropertyChangeListener
+public class KittenView extends Nekomata
 {
-    private final KittenModel kittenModel;
-    private final KittenController kittenController;
     private float angle;
+    private KittenModel kittenModel;
 
-    public KittenView(KittenController kittenController, KittenModel kittenModel, RayHandler rayHandler)
+    public KittenView(KittenModel km, RayHandler rayHandler)
     {
         super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito"), 8, 12, 3, 0.20f);
-
-        this.kittenController = kittenController;
-        this.kittenModel = kittenModel;
 
         addListener(new KittenDragListener(this));
 
         this.setWidth(MySettings.KITTEN_HITBOX_WIDTH);
         this.setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
 
+        kittenModel = km;
         setPosition(kittenModel.getDynamicBody().getBottomLeftCornerX(), kittenModel.getDynamicBody().getBottomLeftCornerY());
 
         setLights(rayHandler);
@@ -43,35 +35,6 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         lights.setSoftnessLength(0.1f);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt)
-    {
-        String notification = evt.getPropertyName();
-
-        switch (notification)
-        {
-            case NotificationsDictionary.POSITION_SET:
-                PositionDTO dto = (PositionDTO) evt.getNewValue();
-                setPosition(dto.x, dto.y);
-                break;
-
-            case NotificationsDictionary.ANIMATION_CHANGED:
-                updateAnimation();
-                break;
-
-            case NotificationsDictionary.POSITION_INTERPOLATED:
-                interpolatePosition();
-                break;
-
-        }
-    }
-
-    private void interpolatePosition()
-    {
-        setPosition(kittenModel.getDynamicBody().getInterpolatedX(), kittenModel.getDynamicBody().getInterpolatedY());
-    }
-
-    @Override
     public void updateAnimation()
     {
         if(kittenModel.getDynamicBody().getBody().getLinearVelocity().isZero())
@@ -119,44 +82,32 @@ public class KittenView extends Nekomata implements PropertyChangeListener
     {
         return (angle >= 0f && angle <= 22.5f) || (angle > 337.5f && angle <= 360f);
     }
-
     private boolean goesNortheast()
     {
         return angle > 22.5f && angle <= 67.5f;
     }
-
     private boolean goesNorth()
     {
         return angle > 67.5f && angle <= 112.5f;
     }
-
     private boolean goesNorthwest()
     {
         return angle > 112.5f && angle <= 157.5f;
     }
-
     private boolean goesWest()
     {
         return angle > 157.5f && angle <= 202.5f;
     }
-
     private boolean goesSouthwest()
     {
         return angle > 202.5f && angle <= 247.5f;
     }
-
     private boolean goesSouth()
     {
         return angle > 247.5f && angle <= 292.5f;
     }
-
     private boolean goesSoutheast()
     {
         return angle > 292.5f && angle <= 337.5f;
-    }
-
-    public void dragged(Vector2 clickPosition)
-    {
-        kittenController.KittenDragged(clickPosition, kittenModel);
     }
 }
