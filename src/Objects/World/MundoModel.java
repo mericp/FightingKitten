@@ -1,10 +1,10 @@
 package Objects.World;
 
 import DB.NotificationsDictionary;
-import Objects.Base.BaseDto.MobDto;
 import Entities.WaypointListener;
 import Objects.Base.BaseModel.AbstractModel;
 import Objects.Base.BaseModel.IMobModel;
+import Objects.Base.MobDTO;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class MundoModel extends AbstractModel
         mundo.setContactListener(new WaypointListener());
     }
 
-    public void addMob(MobDto mob)
+    public void addMob(MobDTO mob)
     {
         mobModelArray.add(mob.model);
         notifyUpdate(NotificationsDictionary.MOB_ADDED, mob);

@@ -1,10 +1,10 @@
 package Objects.Kitten;
 
-import Objects.Base.BaseDto.MobDto;
+import Objects.Base.MobDTO;
 
 public class KittenDTOs
 {
-    public static class KittenDTO extends MobDto
+    public static class KittenDTO extends MobDTO
     {
         public KittenDTO(KittenModel kittenModel, KittenView kittenView)
         {

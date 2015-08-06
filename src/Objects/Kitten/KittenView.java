@@ -20,15 +20,15 @@ public class KittenView extends Nekomata implements PropertyChangeListener
 
     public KittenView(KittenController kittenController, KittenModel kittenModel, RayHandler rayHandler)
     {
-        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito"), 8, 12, 3, 0.20f);
+        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito"), 8, 12, 3, 0.20f, true);
 
         this.kittenController = kittenController;
         this.kittenModel = kittenModel;
 
         addListener(new KittenDragListener(this));
 
-        this.setWidth(MySettings.KITTEN_HITBOX_WIDTH);
-        this.setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
+        setWidth(MySettings.KITTEN_HITBOX_WIDTH);
+        setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
 
         setPosition(kittenModel.getDynamicBody().getBottomLeftCornerX(), kittenModel.getDynamicBody().getBottomLeftCornerY());
 
@@ -77,7 +77,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         if(kittenModel.getDynamicBody().getBody().getLinearVelocity().isZero())
         {
             //The kitten is sitting.
-            this.setAnimation(18, false);
+            setAnimation(18, false);
         }
         else
         {
@@ -85,32 +85,32 @@ public class KittenView extends Nekomata implements PropertyChangeListener
 
             if (goesEast())
             {
-                this.setAnimation(8, false);
+                setAnimation(8, false);
             } else if (goesNortheast())
             {
-                this.setAnimation(13, false);
+                setAnimation(13, false);
             } else if (goesNorth())
             {
-                this.setAnimation(12, false);
+                setAnimation(12, false);
             } else if (goesNorthwest())
             {
-                this.setAnimation(5, false);
+                setAnimation(5, false);
             }
             else if (goesWest())
             {
-                this.setAnimation(4, false);
+                setAnimation(4, false);
             }
             else if (goesSouthwest())
             {
-                this.setAnimation(1, false);
+                setAnimation(1, false);
             }
             else if (goesSouth())
             {
-                this.setAnimation(0, false);
+                setAnimation(0, false);
             }
             else if (goesSoutheast())
             {
-                this.setAnimation(9, false);
+                setAnimation(9, false);
             }
         }
     }

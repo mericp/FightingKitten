@@ -6,6 +6,6 @@ import com.badlogic.gdx.utils.Disposable;
 
 public interface IAtlasDAO extends Disposable
 {
-    public TextureAtlas getAtlas();
-    public TextureRegion getTexture(String texturePath);
+    TextureAtlas getAtlas();
+    TextureRegion getTexture(String texturePath);
 }

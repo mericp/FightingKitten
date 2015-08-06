@@ -1,9 +1,8 @@
 package Objects.World;
 
 import DB.MySettings;
+import Objects.AddButton.AddButtonController;
 import Objects.Kitten.KittenController;
-import Objects.World.MundoModel;
-import Objects.World.MundoView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,8 +14,6 @@ public class MundoController implements PropertyChangeListener
 {
     private MundoModel mundoModel;
     private MundoView mundoView;
-
-    public KittenController kittenController;
 
     private float timeStep = 0;
 
@@ -46,7 +43,16 @@ public class MundoController implements PropertyChangeListener
 
     private void drawDefaults()
     {
-        kittenController = new KittenController(this);
+        KittenController kittenController = new KittenController(this);
+        kittenController.createKitten(new Vector2(50, 450));
+
+        AddButtonController addButtonController = new AddButtonController(this);
+        addButtonController.createButton(50, 50);
+    }
+
+    public void addButtonClicked()
+    {
+        KittenController kittenController = new KittenController(this);
         kittenController.createKitten(new Vector2(50, 450));
     }
 
@@ -88,11 +94,11 @@ public class MundoController implements PropertyChangeListener
 
     public MundoModel getModel()
     {
-        return this.mundoModel;
+        return mundoModel;
     }
     public MundoView getView()
     {
-        return this.mundoView;
+        return mundoView;
     }
 
     @Override

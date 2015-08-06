@@ -4,7 +4,7 @@ import Objects.Base.BaseView.Nekomata;
 import Background.Ground;
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import Objects.Base.BaseDto.MobDto;
+import Objects.Base.MobDTO;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -53,7 +53,7 @@ public class MundoView extends Stage implements PropertyChangeListener
         switch (notification)
         {
             case NotificationsDictionary.MOB_ADDED:
-                MobDto newMob = (MobDto)evt.getNewValue();
+                MobDTO newMob = (MobDTO)evt.getNewValue();
                 addMobView(newMob.view);
                 break;
 

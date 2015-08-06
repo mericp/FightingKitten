@@ -23,15 +23,13 @@ public abstract class Nekomata extends Actor
 
     private float stateTime = 0f;   //It's a counter that controls the time that each frame has to be shown.
 
-    private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = (Logger) LoggerFactory.getLogger(getClass());
 
-    protected Nekomata(){}
-    
     //originalTexture: The originalTexture region that contains all the frames of the animation.
     //numRows, numCols: Number of rows and columns that the originalTexture has.
     //numFrames: The number of frames for this animation.
     //durationFrame: Duration of each frame.
-    protected Nekomata(TextureRegion texture, int numRows, int numCols, int numFramesPerAnimation, float durationFrame)
+    protected Nekomata(TextureRegion texture, int numRows, int numCols, int numFramesPerAnimation, float durationFrame, boolean reverse)
     {
         if (texture == null)
         {
@@ -44,8 +42,8 @@ public abstract class Nekomata extends Actor
         int frameHeight = texture.getRegionHeight()/ numRows;
 
         //Now we set calculated values as Actor's properties.
-        this.setWidth(frameWidth);
-        this.setHeight(frameHeight);
+        setWidth(frameWidth);
+        setHeight(frameHeight);
 
         //Split original originalTexture into individual textures containing one frame each.
         TextureRegion[][] frames = texture.split(frameWidth, frameHeight);
@@ -55,7 +53,7 @@ public abstract class Nekomata extends Actor
         
         int numFrame;
 
-        AnimacionConfig animation = new AnimacionConfig(numFramesPerAnimation, true);
+        AnimacionConfig animation = new AnimacionConfig(numFramesPerAnimation, reverse);
 
         for (int i = 0; i < numRows; i++)
         {
@@ -202,13 +200,13 @@ public abstract class Nekomata extends Actor
         batch.draw(currentFrame,
                 getX() + Offset.x,
                 getY() + Offset.y,
-                this.getOriginX(),
-                this.getOriginY(),
-                this.getWidth(),
-                this.getHeight(),
-                this.getScaleX(),
-                this.getScaleY(),
-                this.getRotation());
+                getOriginX(),
+                getOriginY(),
+                getWidth(),
+                getHeight(),
+                getScaleX(),
+                getScaleY(),
+                getRotation());
         
         //Restore original color.
         batch.setColor(oldColor);
@@ -218,7 +216,7 @@ public abstract class Nekomata extends Actor
     {
         if(currentAnimation.dieAfterAnimationCompleted)
         {
-            this.getParent().removeActor(this);
+            getParent().removeActor(this);
         }
 
         if(nextAnimationId >= 0)
