@@ -1,4 +1,4 @@
-package Background;
+package Objects.Ground;
 
 import DB.MySettings;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,11 +9,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
-public class Ground extends TiledMap
+public class Grass extends TiledMap
 {
     private final OrthogonalTiledMapRenderer mapRenderer;
 
-    public Ground()
+    public Grass()
     {
         this.mapRenderer = new OrthogonalTiledMapRenderer(this);
         this.createTileMap();

@@ -1,10 +1,12 @@
-package Objects.Kitten;
+package Objects.Kitten.MVC;
 
+import Listeners.KittenClickedListener;
 import Objects.Base.BaseDto.PositionDTO;
 import Objects.Base.BaseView.Nekomata;
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import Entities.KittenDragListener;
+import Listeners.KittenDragListener;
+import Objects.Kitten.KittenAnimationDictionary;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
@@ -17,6 +19,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
     private final KittenModel kittenModel;
     private final KittenController kittenController;
     private float angle;
+    private KittenAnimationDictionary animationDictionary;
 
     public KittenView(KittenController kittenController, KittenModel kittenModel, RayHandler rayHandler)
     {
@@ -25,7 +28,11 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         this.kittenController = kittenController;
         this.kittenModel = kittenModel;
 
+        animationDictionary = new KittenAnimationDictionary();
+        animationDictionary.Create();
+
         addListener(new KittenDragListener(this));
+        addListener(new KittenClickedListener(this));
 
         setWidth(MySettings.KITTEN_HITBOX_WIDTH);
         setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
@@ -74,10 +81,16 @@ public class KittenView extends Nekomata implements PropertyChangeListener
     @Override
     public void updateAnimation()
     {
-        if(kittenModel.getDynamicBody().getBody().getLinearVelocity().isZero())
+        boolean sitting = kittenModel.getDynamicBody().getBody().getLinearVelocity().isZero();
+        boolean selected = isSelected && sitting;
+
+        if(selected)
         {
-            //The kitten is sitting.
-            setAnimation(18, false);
+            animate("Selected");
+        }
+        else if (sitting)
+        {
+            animate("Sitting");
         }
         else
         {
@@ -85,34 +98,42 @@ public class KittenView extends Nekomata implements PropertyChangeListener
 
             if (goesEast())
             {
-                setAnimation(8, false);
-            } else if (goesNortheast())
+                animate("GoingEast");
+            }
+            else if (goesNortheast())
             {
-                setAnimation(13, false);
-            } else if (goesNorth())
+                animate("GoingNorthEast");
+            }
+            else if (goesNorth())
             {
-                setAnimation(12, false);
-            } else if (goesNorthwest())
+                animate("GoingNorth");
+            }
+            else if (goesNorthwest())
             {
-                setAnimation(5, false);
+                animate("GoingNorthWest");
             }
             else if (goesWest())
             {
-                setAnimation(4, false);
+                animate("GoingWest");
             }
             else if (goesSouthwest())
             {
-                setAnimation(1, false);
+                animate("GoingSouthWest");
             }
             else if (goesSouth())
             {
-                setAnimation(0, false);
+                animate("GoingSouth");
             }
             else if (goesSoutheast())
             {
-                setAnimation(9, false);
+                animate("GoingSouthEast");
             }
         }
+    }
+
+    private void animate(String name)
+    {
+        setAnimation(animationDictionary.getAnimationNumber(name), false);
     }
 
     private boolean goesEast()
@@ -158,5 +179,16 @@ public class KittenView extends Nekomata implements PropertyChangeListener
     public void dragged(Vector2 clickPosition)
     {
         kittenController.KittenDragged(clickPosition, kittenModel);
+    }
+
+    private boolean isSelected = false;
+    public void mousehover()
+    {
+        isSelected = true;
+    }
+
+    public void mouseleft()
+    {
+        isSelected = false;
     }
 }

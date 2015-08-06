@@ -2,7 +2,7 @@ package Objects.World;
 
 import DB.MySettings;
 import Objects.AddButton.AddButtonController;
-import Objects.Kitten.KittenController;
+import Objects.Kitten.MVC.KittenController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;

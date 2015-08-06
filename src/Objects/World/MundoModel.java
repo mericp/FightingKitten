@@ -1,7 +1,7 @@
 package Objects.World;
 
 import DB.NotificationsDictionary;
-import Entities.WaypointListener;
+import Listeners.WaypointListener;
 import Objects.Base.BaseModel.AbstractModel;
 import Objects.Base.BaseModel.IMobModel;
 import Objects.Base.MobDTO;

@@ -1,7 +1,7 @@
 package Objects.World;
 
 import Objects.Base.BaseView.Nekomata;
-import Background.Ground;
+import Objects.Ground.Grass;
 import DB.MySettings;
 import DB.NotificationsDictionary;
 import Objects.Base.MobDTO;
@@ -26,7 +26,7 @@ public class MundoView extends Stage implements PropertyChangeListener
     private final Box2DDebugRenderer worldRenderer;
 
     private final List<Nekomata> mobViewArray = new ArrayList<>();
-    private final Ground battlefield;
+    private final Grass battlefield;
 
     public MundoView(MundoController mundoController)
     {
@@ -42,7 +42,7 @@ public class MundoView extends Stage implements PropertyChangeListener
         this.rayHandler.setAmbientLight(0.2f, 0.2f, 0.2f, 0.5f);
         this.getViewport().setCamera(camera);
 
-        battlefield = new Ground();
+        battlefield = new Grass();
     }
 
     @Override

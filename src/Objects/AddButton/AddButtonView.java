@@ -2,7 +2,7 @@ package Objects.AddButton;
 
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import Entities.AddButtonClickedListener;
+import Listeners.AddButtonClickedListener;
 import Objects.Base.BaseDto.PositionDTO;
 import Objects.Base.BaseView.Nekomata;
 import java.beans.PropertyChangeEvent;

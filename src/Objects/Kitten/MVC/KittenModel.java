@@ -1,9 +1,9 @@
-package Objects.Kitten;
+package Objects.Kitten.MVC;
 
 import Objects.Base.BaseDto.PositionDTO;
 import DB.MySettings;
 import DB.NotificationsDictionary;
-import Entities.ICollisionable;
+import Listeners.ICollisionable;
 import Objects.Base.BaseModel.AbstractModel;
 import Objects.Base.BaseModel.IMobModel;
 import PhysicalObjects.DynamicObject;
