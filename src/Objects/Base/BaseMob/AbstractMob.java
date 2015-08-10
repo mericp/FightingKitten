@@ -1,6 +1,5 @@
-package Objects.AddButton;
+package Objects.Base.BaseMob;
 
-import DB.MySettings;
 import DB.NotificationsDictionary;
 import Objects.Base.BaseDto.PositionDTO;
 import Objects.Base.BaseModel.AbstractModel;
@@ -9,20 +8,18 @@ import PhysicalObjects.DynamicObject;
 import PhysicalObjects.PhysicalObjectsFactory;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class AddButtonModel extends AbstractModel implements IMobModel
+public class AbstractMob extends AbstractModel implements IMobModel
 {
-    private final World mundo;
-    private DynamicObject dynamicBody;
+    protected DynamicObject dynamicBody;
 
-    public AddButtonModel(World mundo)
-    {
-        this.mundo = mundo;
-        setDynamicBody();
+    public AbstractMob(World w, int dynamicBodyWidth, int dynamicBodyHeight) {
+        super(w);
+        setDynamicBody(dynamicBodyWidth, dynamicBodyHeight);
     }
 
-    private void setDynamicBody()
+    protected void setDynamicBody(int width, int height)
     {
-        dynamicBody = (DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, mundo, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
+        dynamicBody = (DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, world, width, height);
         dynamicBody.getBody().setUserData(this);
     }
 

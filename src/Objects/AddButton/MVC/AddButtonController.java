@@ -1,5 +1,6 @@
-package Objects.AddButton;
+package Objects.AddButton.MVC;
 
+import Objects.AddButton.ButtonDTOs;
 import Objects.World.MundoController;
 import com.badlogic.gdx.math.Vector2;
 

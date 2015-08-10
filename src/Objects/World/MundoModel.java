@@ -12,13 +12,12 @@ import java.util.List;
 
 public class MundoModel extends AbstractModel
 {
-    private final World mundo;
     private final List<IMobModel> mobModelArray = new ArrayList<>();
 
     public MundoModel()
     {
-        mundo = new World(new Vector2(0, 0), false);
-        mundo.setContactListener(new WaypointListener());
+        super(new World(new Vector2(0, 0), false));
+        world.setContactListener(new WaypointListener());
     }
 
     public void addMob(MobDTO mob)
@@ -29,7 +28,7 @@ public class MundoModel extends AbstractModel
 
     public World getMundo()
     {
-        return mundo;
+        return world;
     }
 
     public void saveLastPosition()

@@ -1,47 +1,28 @@
 package Objects.Kitten.MVC;
 
-import Objects.Base.BaseDto.PositionDTO;
 import DB.MySettings;
 import DB.NotificationsDictionary;
 import Listeners.ICollisionable;
-import Objects.Base.BaseModel.AbstractModel;
-import Objects.Base.BaseModel.IMobModel;
-import PhysicalObjects.DynamicObject;
+import Objects.Base.BaseMob.AbstractMob;
 import PhysicalObjects.PhysicalObjectsFactory;
 import PhysicalObjects.StaticObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class KittenModel extends AbstractModel implements ICollisionable, IMobModel
+public class KittenModel extends AbstractMob implements ICollisionable
 {
-    private final World mundo;
-    private DynamicObject dynamicBody;
     private StaticObject wayPoint;
 
-    public KittenModel(World mundo)
+    public KittenModel(World w)
     {
-        this.mundo = mundo;
-
-        setDynamicBody();
+        super(w, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
         setWayPoint();
-    }
-
-    private void setDynamicBody()
-    {
-        dynamicBody = (DynamicObject)PhysicalObjectsFactory.create(DynamicObject.class, mundo, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
-        dynamicBody.getBody().setUserData(this);
     }
 
     private void setWayPoint()
     {
-        wayPoint = (StaticObject)PhysicalObjectsFactory.create(StaticObject.class, mundo, 1, 1);
+        wayPoint = (StaticObject)PhysicalObjectsFactory.create(StaticObject.class, world, 1, 1);
         wayPoint.getBody().setUserData(this);
-    }
-
-    @Override
-    public DynamicObject getDynamicBody()
-    {
-        return this.dynamicBody;
     }
 
     public StaticObject getWayPoint()
@@ -59,9 +40,8 @@ public class KittenModel extends AbstractModel implements ICollisionable, IMobMo
     @Override
     public void setPosition(float x, float y)
     {
-        dynamicBody.setPosition(x, y);
+        super.setPosition(x, y);
         wayPoint.setPosition(x, y);
-        this.notifyUpdate(NotificationsDictionary.POSITION_SET, new PositionDTO(x, y));
     }
 
     @Override

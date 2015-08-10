@@ -125,6 +125,11 @@ public class DynamicObject implements IPhysicalObject
         return (int)(convertToPixels(this.interpoledPosition.y - heightOfTheBody / 2));
     }
 
+    public Vector2 getBoxPosition()
+    {
+        return new Vector2(interpoledPosition.x, interpoledPosition.y);
+    }
+
     public void setDirectionVector(float detinationX, float destinationY)
     {
         //Move to 0,0 to get position vector.

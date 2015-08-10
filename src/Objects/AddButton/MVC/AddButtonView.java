@@ -1,4 +1,4 @@
-package Objects.AddButton;
+package Objects.AddButton.MVC;
 
 import DB.MySettings;
 import DB.NotificationsDictionary;

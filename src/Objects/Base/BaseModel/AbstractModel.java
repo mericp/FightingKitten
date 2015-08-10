@@ -1,29 +1,14 @@
 package Objects.Base.BaseModel;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import com.badlogic.gdx.physics.box2d.World;
 
-public abstract class AbstractModel
+public abstract class AbstractModel extends Observable
 {
-    protected final PropertyChangeSupport observer;
+    protected World world;
 
-    public AbstractModel()
+    public AbstractModel(World w)
     {
-        observer = new PropertyChangeSupport(this);
-    }
-
-    protected void notifyUpdate(String valueName, Object newValue)
-    {
-        observer.firePropertyChange(valueName, null, newValue);
-    }
-
-    public void addObserver(PropertyChangeListener observer)
-    {
-        this.observer.addPropertyChangeListener(observer);
-    }
-
-    public void removeObserver(PropertyChangeListener observer)
-    {
-        this.observer.removePropertyChangeListener(observer);
+        super();
+        world = w;
     }
 }

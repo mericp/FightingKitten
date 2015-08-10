@@ -1,12 +1,12 @@
 
 atlas.png
-size: 420,292
+size: 804,836
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 Grass
   rotate: false
-  xy: 388, 260
+  xy: 772, 804
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -18,9 +18,22 @@ addButton
   orig: 64, 32
   offset: 0, 0
   index: -1
-gatito
+dragon
   rotate: false
   xy: 2, 36
+  size: 768, 800
+  orig: 768, 800
+  offset: 0, 0
+  index: -1
+
+atlas2.png
+size: 386,258
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gatito
+  rotate: false
+  xy: 2, 2
   size: 384, 256
   orig: 384, 256
   offset: 0, 0

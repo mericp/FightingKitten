@@ -1,6 +1,6 @@
 package Listeners;
 
-import Objects.AddButton.AddButtonView;
+import Objects.AddButton.MVC.AddButtonView;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
