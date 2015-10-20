@@ -34,8 +34,8 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         addListener(new KittenDragListener(this));
         addListener(new KittenClickedListener(this));
 
-        setWidth(MySettings.KITTEN_HITBOX_WIDTH);
-        setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
+        setWidth(MySettings.TILE_WIDTH);
+        setHeight(MySettings.TILE_HEIGHT);
 
         setPosition(kittenModel.getDynamicBody().getBottomLeftCornerX(), kittenModel.getDynamicBody().getBottomLeftCornerY());
 

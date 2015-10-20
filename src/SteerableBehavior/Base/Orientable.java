@@ -13,6 +13,6 @@ public class Orientable implements IOrientable{
 
     @Override
     public void set(float radians) {
-        this.orientation = radians % MathUtils.PI2;
+        orientation = radians % MathUtils.PI2;
     }
 }

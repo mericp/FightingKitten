@@ -21,8 +21,8 @@ public class MySettings
     public static final float METERS_PIXEL = 100f;
     public static final float FIXED_TIMESTEP = 30/1000f;   //33 times per second.
 
-    public static final int KITTEN_HITBOX_WIDTH = 32;
-    public static final int KITTEN_HITBOX_HEIGHT = 32;
+    public static final int TILE_WIDTH = 32;
+    public static final int TILE_HEIGHT = 32;
 
     // Resources
     public static final String IMAGES_FOLDER = "assets/Images/";

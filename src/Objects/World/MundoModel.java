@@ -5,6 +5,8 @@ import Listeners.WaypointListener;
 import Objects.Base.BaseModel.AbstractModel;
 import Objects.Base.BaseModel.IMobModel;
 import Objects.Base.MobDTO;
+import SteerableBehavior.AI.Automaton;
+import SteerableBehavior.AI.IAutomaton;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
@@ -36,6 +38,18 @@ public class MundoModel extends AbstractModel
         for(IMobModel mobModel : mobModelArray)
         {
             mobModel.getDynamicBody().saveLastPosition();
+        }
+    }
+
+    public void updateAI(float delta)
+    {
+        for(IMobModel mobModel : mobModelArray)
+        {
+            if(mobModel instanceof Automaton)
+            {
+                Automaton a = (Automaton)mobModel;
+                if (a.getSteeringBehavior() != null) { a.calculateSteering(delta); }
+            }
         }
     }
 

@@ -8,6 +8,6 @@ public class AddButtonModel extends AbstractMob
 {
     public AddButtonModel(World w)
     {
-        super(w, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
+        super(w, MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT);
     }
 }

@@ -4,6 +4,7 @@ import Objects.Base.BaseModel.AbstractModel;
 import SteerableBehavior.Interfaces.ISteerable;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Steerable extends AbstractModel implements ISteerable {
     protected boolean tagged = false;
@@ -11,6 +12,9 @@ public class Steerable extends AbstractModel implements ISteerable {
     public Orientable orientation = new Orientable();
     public Dinamic motion = new Dinamic();
     public Collisionable hitbox = new Collisionable();
+
+    public Steerable(){ super (); }
+    public Steerable(World w){super(w);}
 
     @Override public void setTagged(boolean tagged) { this.tagged = tagged; }
     @Override public boolean isTagged() { return tagged; }

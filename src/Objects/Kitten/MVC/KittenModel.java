@@ -16,7 +16,7 @@ public class KittenModel extends AbstractMob implements ICollisionable
 
     public KittenModel(World w)
     {
-        super(w, MySettings.KITTEN_HITBOX_WIDTH, MySettings.KITTEN_HITBOX_HEIGHT);
+        super(w, MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT);
         setWayPoint();
     }
 

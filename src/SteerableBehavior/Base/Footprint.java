@@ -1,28 +1,33 @@
 package SteerableBehavior.Base;
 
-import SteerableBehavior.Interfaces.ISpatial;
-import java.util.Iterator;
+import DB.MySettings;
 
 public class Footprint {
-    public Iterator iterator;
+    public int x;
+    public int y;
+    public float duration;
 
-    public void add(float x, float y)
+    public Footprint(int x, int y)
     {
-
+        setTileCenter(x, y);
+        duration = 0;
     }
 
-    public void add(ISpatial spatial)
+    public Footprint(float x, float y)
     {
-
+        setTileCenter((int) x, (int) y);
+        duration = 0;
     }
 
-    public void update(float delta)
+    public Footprint(Spatial espacial)
     {
-
+        setTileCenter((int) espacial.getX(), (int) espacial.getY());
+        duration = 0;
     }
 
-    public void setTimeDecay(float timeDecayFootprint)
+    private void setTileCenter(int x, int y)
     {
-
+        this.x = x - x % MySettings.TILE_HEIGHT + MySettings.TILE_HEIGHT / 2;
+        this.y = y - y % MySettings.TILE_HEIGHT + MySettings.TILE_HEIGHT / 2;
     }
 }

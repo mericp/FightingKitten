@@ -27,13 +27,20 @@ dragon
   index: -1
 
 atlas2.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 gatito
   rotate: false
   xy: 2, 2
+  size: 384, 256
+  orig: 384, 256
+  offset: 0, 0
+  index: -1
+monsters
+  rotate: false
+  xy: 388, 2
   size: 384, 256
   orig: 384, 256
   offset: 0, 0

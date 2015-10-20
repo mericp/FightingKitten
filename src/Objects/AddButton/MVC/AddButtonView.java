@@ -21,8 +21,8 @@ public class AddButtonView extends Nekomata implements PropertyChangeListener {
 
         addListener(new AddButtonClickedListener(this));
 
-        setWidth(MySettings.KITTEN_HITBOX_WIDTH);
-        setHeight(MySettings.KITTEN_HITBOX_HEIGHT);
+        setWidth(MySettings.TILE_WIDTH);
+        setHeight(MySettings.TILE_HEIGHT);
 
         setPosition(model.getDynamicBody().getBottomLeftCornerX(), model.getDynamicBody().getBottomLeftCornerY());
     }

@@ -2,13 +2,13 @@ package Objects.Base.BaseMob;
 
 import DB.NotificationsDictionary;
 import Objects.Base.BaseDto.PositionDTO;
-import Objects.Base.BaseModel.AbstractModel;
 import Objects.Base.BaseModel.IMobModel;
 import PhysicalObjects.DynamicObject;
 import PhysicalObjects.PhysicalObjectsFactory;
+import SteerableBehavior.SteerableAgent;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class AbstractMob extends AbstractModel implements IMobModel
+public class AbstractMob extends SteerableAgent implements IMobModel
 {
     protected DynamicObject dynamicBody;
 

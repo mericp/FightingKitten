@@ -2,7 +2,6 @@ package Objects.World;
 
 import DB.MySettings;
 import Objects.AddButton.MVC.AddButtonController;
-import Objects.Dragon.MVC.DragonController;
 import Objects.Kitten.MVC.KittenController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -44,14 +43,14 @@ public class MundoController implements PropertyChangeListener
 
     private void drawDefaults()
     {
-        KittenController kittenController = new KittenController(this);
-        kittenController.createKitten(new Vector2(50, 450));
+        //DragonController dragon = new DragonController(this);
+        //dragon.createDragon(1000, 450);
 
         AddButtonController addButtonController = new AddButtonController(this);
         addButtonController.createButton(100, 200);
 
-        DragonController dragon = new DragonController(this);
-        dragon.createDragon(1000, 450);
+        KittenController kittenController = new KittenController(this);
+        kittenController.createKitten(new Vector2(50, 450));
     }
 
     public void addButtonClicked()
@@ -62,9 +61,17 @@ public class MundoController implements PropertyChangeListener
 
     public void render(float delta)
     {
-        Gdx.gl.glClearColor(0/2.55f, 0/2.55f, 0/2.55f, 1f);
+        Gdx.gl.glClearColor(0 / 2.55f, 0 / 2.55f, 0 / 2.55f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        updateAI(delta);
+        updatePhysics(delta);
+
+        mundoView.draw();
+    }
+
+    private void updatePhysics(float delta)
+    {
         timeStep += delta;
 
         while (timeStep >= MySettings.FIXED_TIMESTEP)
@@ -82,7 +89,11 @@ public class MundoController implements PropertyChangeListener
 
         //Render the last physics simulation.
         mundoView.act(delta);
-        mundoView.draw();
+    }
+
+    private void updateAI(float delta)
+    {
+        mundoModel.updateAI(delta);
     }
 
     public void resize(int width, int height)
