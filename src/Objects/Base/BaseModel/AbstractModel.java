@@ -11,4 +11,9 @@ public abstract class AbstractModel extends Observable
         super();
         world = w;
     }
+
+    public AbstractModel()
+    {
+        super();
+    }
 }
