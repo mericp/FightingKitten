@@ -33,7 +33,5 @@ public class Collisionable implements ICollisionable {
     }
 
     @Override
-    public void onCollide() {
-
-    }
+    public void onCollide(){};
 }

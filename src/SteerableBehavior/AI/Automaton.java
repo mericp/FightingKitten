@@ -5,7 +5,7 @@ import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.math.Vector2;
 
-public class Automaton extends SteerableAgent implements IAutomaton{
+public abstract class Automaton extends SteerableAgent implements IAutomaton{
     protected SteeringBehavior<Vector2> steeringBehavior;
     protected SteeringAcceleration<Vector2> steeringOutput;
 
@@ -16,7 +16,10 @@ public class Automaton extends SteerableAgent implements IAutomaton{
 
     public Automaton() { steeringOutput = new SteeringAcceleration<>(new Vector2()); }
 
-    @Override public void setSteeringBehavior(SteeringBehavior<Vector2> steeringBehavior) { steeringBehavior = steeringBehavior; }
+    @Override
+    public abstract void onCollide();
+
+    @Override public void setSteeringBehavior(SteeringBehavior<Vector2> steeringBehavior) { this.steeringBehavior = steeringBehavior; }
     public SteeringBehavior<Vector2> getSteeringBehavior() { return steeringBehavior; }
 
     @Override public void setIndependentFacing (boolean b) { independentFacing = b; }

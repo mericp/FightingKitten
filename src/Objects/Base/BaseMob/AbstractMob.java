@@ -8,7 +8,7 @@ import PhysicalObjects.PhysicalObjectsFactory;
 import SteerableBehavior.SteerableAgent;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class AbstractMob extends SteerableAgent implements IMobModel
+public abstract class AbstractMob extends SteerableAgent implements IMobModel
 {
     protected DynamicObject dynamicBody;
 
@@ -28,14 +28,13 @@ public class AbstractMob extends SteerableAgent implements IMobModel
         return dynamicBody;
     }
 
-    @Override
-    public void interpolatePositions(float alpha) {
-
-    }
+    @Override public abstract void interpolatePositions(float alpha);
 
     @Override
     public void setPosition(float x, float y) {
         dynamicBody.setPosition(x, y);
         this.notifyUpdate(NotificationsDictionary.POSITION_SET, new PositionDTO(x, y));
     }
+
+    @Override public abstract void onCollide();
 }

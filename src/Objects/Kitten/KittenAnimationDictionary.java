@@ -3,7 +3,7 @@ package Objects.Kitten;
 import java.util.HashMap;
 
 public class KittenAnimationDictionary {
-    private HashMap<String, Integer> animations = new HashMap<String,Integer>();
+    private HashMap<String, Integer> animations = new HashMap<>();
 
     public void Create()
     {

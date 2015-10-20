@@ -3,6 +3,7 @@ package Objects.World;
 import DB.MySettings;
 import Objects.AddButton.MVC.AddButtonController;
 import Objects.Kitten.MVC.KittenController;
+import Objects.Monster.MVC.MonsterController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
@@ -43,20 +44,20 @@ public class MundoController implements PropertyChangeListener
 
     private void drawDefaults()
     {
-        //DragonController dragon = new DragonController(this);
-        //dragon.createDragon(1000, 450);
-
         AddButtonController addButtonController = new AddButtonController(this);
         addButtonController.createButton(100, 200);
 
         KittenController kittenController = new KittenController(this);
-        kittenController.createKitten(new Vector2(50, 450));
+        kittenController.create(new Vector2(50, 450));
+
+        MonsterController monsterController = new MonsterController(this);
+        monsterController.create(new Vector2(60, 60));
     }
 
     public void addButtonClicked()
     {
         KittenController kittenController = new KittenController(this);
-        kittenController.createKitten(new Vector2(50, 450));
+        kittenController.create(new Vector2(50, 450));
     }
 
     public void render(float delta)

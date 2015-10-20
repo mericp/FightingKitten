@@ -4,7 +4,7 @@ import SteerableBehavior.Base.*;
 import SteerableBehavior.Base.Steerable;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class SteerableAgent extends Steerable {
+public abstract class SteerableAgent extends Steerable {
     public Pursuable pursuable = new Pursuable();
 
     public SteerableAgent(){ super(); }
@@ -21,4 +21,6 @@ public class SteerableAgent extends Steerable {
             pursuable.getFootprint().addFootprint(x, y);
         }
     }
+
+    public abstract void onCollide();
 }

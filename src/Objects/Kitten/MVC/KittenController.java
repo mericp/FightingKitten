@@ -16,36 +16,36 @@ public class KittenController
         mundo = mcpar.getModel().getMundo();
     }
 
-    public void createKitten(Vector2 position)
+    public void create(Vector2 position)
     {
         KittenModel model = createModel(position);
         KittenView view = createView(model);
-        AddKittenToWorld(model, view);
+        addToWorld(model, view);
     }
 
     private KittenModel createModel(Vector2 position)
     {
-        KittenModel kittenModel = new KittenModel(mundo);
-        kittenModel.setPosition(position.x, position.y);
+        KittenModel model = new KittenModel(mundo);
+        model.setPosition(position.x, position.y);
 
-        return kittenModel;
+        return model;
     }
 
     private KittenView createView(KittenModel model)
     {
-        KittenView kittenView = new KittenView(this, model, mc.getView().getRayHandler());
-        model.addObserver(kittenView);
+        KittenView view = new KittenView(this, model, mc.getView().getRayHandler());
+        model.addObserver(view);
 
-        return kittenView;
+        return view;
     }
 
-    private void AddKittenToWorld(KittenModel model, KittenView view)
+    private void addToWorld(KittenModel model, KittenView view)
     {
         KittenDTOs.KittenDTO k = new KittenDTOs.KittenDTO(model, view);
         mc.getModel().addMob(k);
     }
 
-    public void KittenDragged(Vector2 clickPosition, KittenModel kittenModel)
+    public void dragged(Vector2 clickPosition, KittenModel kittenModel)
     {
         kittenModel.dragged(clickPosition);
     }

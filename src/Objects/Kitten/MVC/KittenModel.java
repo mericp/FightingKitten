@@ -5,12 +5,10 @@ import DB.NotificationsDictionary;
 import Objects.Base.BaseMob.AbstractMob;
 import PhysicalObjects.PhysicalObjectsFactory;
 import PhysicalObjects.StaticObject;
-import SteerableBehavior.Interfaces.ICollisionable;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class KittenModel extends AbstractMob implements ICollisionable
+public class KittenModel extends AbstractMob
 {
     private StaticObject wayPoint;
 
@@ -29,31 +27,6 @@ public class KittenModel extends AbstractMob implements ICollisionable
     public StaticObject getWayPoint()
     {
         return this.wayPoint;
-    }
-
-    @Override
-    public Rectangle get() {
-        return null;
-    }
-
-    @Override
-    public int getWidth() {
-        return 0;
-    }
-
-    @Override
-    public int getHeight() {
-        return 0;
-    }
-
-    @Override
-    public void setWidth(int width) {
-
-    }
-
-    @Override
-    public void setHeight(int height) {
-
     }
 
     @Override

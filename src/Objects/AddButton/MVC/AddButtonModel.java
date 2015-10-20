@@ -10,4 +10,14 @@ public class AddButtonModel extends AbstractMob
     {
         super(w, MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT);
     }
+
+    @Override
+    public void interpolatePositions(float alpha) {
+
+    }
+
+    @Override
+    public void onCollide() {
+
+    }
 }
