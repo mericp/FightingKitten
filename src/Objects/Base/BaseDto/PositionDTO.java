@@ -1,13 +1,7 @@
-package Objects.Base.BaseDto;
+package Objects.Base.BaseDTO;
 
-public class PositionDTO
-{
-    public final float x;
-    public final float y;
-
-    public PositionDTO(float x, float y)
-    {
-        this.x = x;
-        this.y = y;
-    }
+/**
+ * Created by Meri on 21/10/2015.
+ */
+public class PositionDTO {
 }
