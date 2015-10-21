@@ -1,0 +1,46 @@
+Working with gdxAI
+
+1º Explicar un poco qué es gdxAI y sus features más destacadas. https://github.com/libgdx/gdx-ai/wiki
+
+You will have to update your LibGDX(https://libgdx.badlogicgames.com/nightlies/) and Box2D (https://libgdx.badlogicgames.com/box2dlights/) libraries
+
+2º Explicar Steering Behavior. (https://github.com/libgdx/gdx-ai/wiki/Steering-Behaviors)
+PRIMERO
+En primer lugar encapsulamos todas las propiedades de un actor:
+Interfaz ISteerableAgent impletementa:
+    -Posicion = ISpatial
+    -Hitbox = ICollisionable
+    -Velocidad & Aceleración = IDinamic
+    -Orientación = IOrientable
+El resultado de encapsular todo esto es SteerableAgent (Explicar el principio de composición)
+
+Explicar velocidad angular, velocidad lineal  http://hyperphysics.phy-astr.gsu.edu/hbase/mot.html#motcon
+Explicar lo de las huellas
+
+
+SEGUNDO
+-Dos tipos de objetos: Los autónomos y los no autónomos.
+Los autónomos llevan una IA (monstruos)
+Los no autónomos son constrolados por el usuario o por parámetros prefijados. (Player)
+
+Creamos un Automaton que hereda de Steerable (A través de AbstractMob).
+Esta clase contiene:
+    SteeringBehavior: Es el comportamiento que regula su movimiento (la IA)
+    SteeringAcceleration: Es la dirección hacia donde debe moverse (vector direccion), y es calculada por SteeringBehavior
+
+ARRIVE (https://libgdx.badlogicgames.com/gdx-ai/docs/com/badlogic/gdx/ai/steer/behaviors/Arrive.html)
+Anteriormente, para mover a un gatito, utilizábamos sensores de colisión (waypoints), de tal forma que cuando el gatito llegaba al waypoint, saltaba el evento
+"oncolide" y seteábamos la velocidad del gatito a 0.
+Con el gdxAI ya no utilizaremos colisiones, sino "behaviors".
+El fact de llegar al waypoint es ahora el "arrive behavior".
+El gatito tiene el behavior de "Arrive" sobre el Steerable "Waypoint":
+setSteeringBehavior(new Arrive(this, wayPoint));
+Siempre perseguirá al waypoint. Ahora, para mover al gatito, no es necesario cambiar el waypoint Y notificar el cambio, sino que, al moficar
+la posición del Waypoint, el gatito automáticamente lo seguirá.
+
+
+PATHFINDING
+Consideraremos que los gatitos son autónomos, porque el player puede indicarles a qué coordenadas quiere que lleguen, pero no cómo deben llegar. Por ejemplo,
+ si entre nuestro gatito y el waypoint hubiera un laberinto, el gatito debería aplicar un "pathfinding behavior" para llegar hasta él.
+
+
