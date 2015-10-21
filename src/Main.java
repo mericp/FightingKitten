@@ -1,4 +1,4 @@
-import DB.MySettings;
+import DB.StringRes.MySettings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -8,12 +8,9 @@ public class Main extends Game
 {
     public static void main (String[] arg)
     {
-        if(MySettings.DEV_MODE)
-        {
-            TexturePacker.process(MySettings.IMAGES_FOLDER, MySettings.ATLAS_FOLDER, MySettings.ATLAS_NAME);
-        }
-
         System.setProperty("user.name", "Mery");
+
+        TexturePacker.process(MySettings.IMAGES_FOLDER, MySettings.ATLAS_FOLDER, MySettings.ATLAS_NAME);
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = MySettings.TITLE;
@@ -26,8 +23,7 @@ public class Main extends Game
         new LwjglApplication(new Main(), cfg);
     }
 
-    @Override
-    public void create()
+    @Override public void create()
     {
         this.setScreen(new GameScreen());
     }

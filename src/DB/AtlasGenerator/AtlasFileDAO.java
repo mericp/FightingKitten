@@ -1,4 +1,4 @@
-package DB.Atlas;
+package DB.AtlasGenerator;
 
 import ch.qos.logback.classic.Logger;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;

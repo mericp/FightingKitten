@@ -1,20 +1,18 @@
 package SteerableBehavior.Base;
 
-import Objects.Base.BaseModel.AbstractModel;
 import SteerableBehavior.Interfaces.ISteerable;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
-public class Steerable extends AbstractModel implements ISteerable {
+public class Steerable extends Observable implements ISteerable {
     protected boolean tagged = false;
-    public Spatial position = new Spatial();
+    public Vector2 position = new Vector2();
     public Orientable orientation = new Orientable();
     public Dinamic motion = new Dinamic();
     public Collisionable hitbox = new Collisionable();
+    public Pursuable pursuable = new Pursuable();
 
     public Steerable(){ super (); }
-    public Steerable(World w){super(w);}
 
     @Override public void setTagged(boolean tagged) { this.tagged = tagged; }
     @Override public boolean isTagged() { return tagged; }
@@ -40,8 +38,18 @@ public class Steerable extends AbstractModel implements ISteerable {
     @Override public void setMaxLinearAcceleration(float maxAcelLineal) { motion.getAcceleration().setMax(maxAcelLineal); }
     @Override public void setMaxAngularSpeed(float maxAngularSpeed) { motion.getVelocity().setMaxAngular(maxAngularSpeed); }
     @Override public void setMaxAngularAcceleration(float maxAcelAngular) { motion.getAcceleration().setMaxAngular(maxAcelAngular); }
+    public void setPosition(Vector2 newPosition)
+    {
+        position.set(newPosition);
+        hitbox.get().setCenter(newPosition);
 
-    @Override public Vector2 getPosition() { return position.get(); }
+        if (pursuable.get())
+        {
+            pursuable.getFootprint().addFootprint(newPosition);
+        }
+    }
+
+    @Override public Vector2 getPosition() { return position; }
     @Override public float getOrientation() { return orientation.get(); }
     @Override public Vector2 getLinearVelocity() { return motion.getVelocity().get(); }
     @Override public float getAngularVelocity() { return motion.getVelocity().getAngular(); }

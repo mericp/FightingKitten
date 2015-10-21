@@ -1,12 +1,11 @@
 package Objects.Kitten.MVC;
 
-import Listeners.KittenClickedListener;
-import Objects.Base.BaseDto.PositionDTO;
+import Objects.Kitten.Listeners.KittenClickedListener;
 import Objects.Base.BaseView.Nekomata;
-import DB.MySettings;
-import DB.NotificationsDictionary;
-import Listeners.KittenDragListener;
-import Objects.Kitten.KittenAnimationDictionary;
+import DB.StringRes.MySettings;
+import DB.StringRes.NotificationsDictionary;
+import Objects.Kitten.Listeners.KittenDragListener;
+import DB.StringRes.KittenAnimationDictionary;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
@@ -23,7 +22,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
 
     public KittenView(KittenController controller, KittenModel model, RayHandler rayHandler)
     {
-        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture("gatito"), 8, 12, 3, 0.20f, true);
+        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.KITTEN_CHARSET), 8, 12, 3, 0.20f, true);
 
         this.controller = controller;
         this.model = model;
@@ -58,7 +57,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         switch (notification)
         {
             case NotificationsDictionary.POSITION_SET:
-                PositionDTO dto = (PositionDTO) evt.getNewValue();
+                Vector2 dto = (Vector2) evt.getNewValue();
                 setPosition(dto.x, dto.y);
                 break;
 
@@ -186,7 +185,6 @@ public class KittenView extends Nekomata implements PropertyChangeListener
     {
         isSelected = true;
     }
-
     public void mouseleft()
     {
         isSelected = false;

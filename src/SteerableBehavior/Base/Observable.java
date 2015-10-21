@@ -1,4 +1,4 @@
-package Objects.Base.BaseModel;
+package SteerableBehavior.Base;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

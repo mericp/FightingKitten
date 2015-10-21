@@ -1,7 +1,7 @@
 package SteerableBehavior.Base;
 
-import DB.MySettings;
-
+import DB.StringRes.MySettings;
+import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 
@@ -17,22 +17,17 @@ public class FootprintPath {
 
     public void setFootPrintDecayTime (float footPrintDecayTime) {   this.footPrintDecayTime = footPrintDecayTime; }
 
-    public void addFootprint(Spatial spatial)
-    {
-        addFootprint(spatial.getX(), spatial.getY());
-    }
-
-    public void addFootprint(float x, float y)
+    public void addFootprint(Vector2 position)
     {
         Footprint footprint = path.peekFirst();
 
-        if (sameTile(x, y, footprint))
+        if (sameTile(position, footprint))
         {
             footprint.duration = 0f;
         }
         else
         {
-            path.addFirst(new Footprint(x, y));
+            path.addFirst(new Footprint(position));
         }
     }
 
@@ -50,29 +45,12 @@ public class FootprintPath {
         }
     }
 
-    private boolean sameTile (Spatial spatial, Footprint footprint)
+    private boolean sameTile (Vector2 position, Footprint footprint)
     {
-        return sameTile(spatial.getX(), spatial.getY(), footprint);
+        return sameTile(position.x, position.y, footprint);
     }
 
-    private boolean sameTile(float x, float y, Footprint footprint)
-    {
-        boolean isSameTile;
-
-        if (footprint == null)
-        {
-            isSameTile = false;
-        }
-        else if ( footprint.x /  MySettings.TILE_HEIGHT  == x /  MySettings.TILE_HEIGHT  &&
-                footprint.y /  MySettings.TILE_HEIGHT  == y /  MySettings.TILE_HEIGHT  )
-        {
-            isSameTile = true;
-        }
-        else
-        {
-            isSameTile = false;
-        }
-
-        return isSameTile;
+    private boolean sameTile(float x, float y, Footprint footprint) {
+        return footprint != null && footprint.center.x / MySettings.TILE_HEIGHT == x / MySettings.TILE_HEIGHT && footprint.center.y / MySettings.TILE_HEIGHT == y / MySettings.TILE_HEIGHT;
     }
 }

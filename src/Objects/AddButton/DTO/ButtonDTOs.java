@@ -1,13 +1,13 @@
-package Objects.AddButton;
+package Objects.AddButton.DTO;
 
-import Objects.Base.BaseModel.IMobModel;
+import Objects.Base.BaseMob.AbstractMob;
 import Objects.Base.BaseView.Nekomata;
-import Objects.Base.MobDTO;
+import Objects.Base.BaseDTO.MobDTO;
 
 public class ButtonDTOs
 {
     public static class ButtonDTO extends MobDTO{
-        public ButtonDTO(IMobModel model, Nekomata view) {
+        public ButtonDTO(AbstractMob model, Nekomata view) {
             super(model, view);
         }
     }

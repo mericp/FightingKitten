@@ -1,26 +1,24 @@
 package Objects.Kitten.MVC;
 
-import DB.MySettings;
-import DB.NotificationsDictionary;
+import DB.StringRes.NotificationsDictionary;
 import Objects.Base.BaseMob.AbstractMob;
-import PhysicalObjects.PhysicalObjectsFactory;
+import PhysicalObjects.DynamicObject;
 import PhysicalObjects.StaticObject;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class KittenModel extends AbstractMob
 {
     private StaticObject wayPoint;
 
-    public KittenModel(World w)
+    public KittenModel(DynamicObject body, StaticObject wayPoint)
     {
-        super(w, MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT);
-        setWayPoint();
+        super(body);
+        setWayPoint(wayPoint);
     }
 
-    private void setWayPoint()
+    private void setWayPoint(StaticObject wayPoint)
     {
-        wayPoint = (StaticObject)PhysicalObjectsFactory.create(StaticObject.class, world, 1, 1);
+        this.wayPoint = wayPoint;
         wayPoint.getBody().setUserData(this);
     }
 
@@ -29,11 +27,9 @@ public class KittenModel extends AbstractMob
         return this.wayPoint;
     }
 
-    @Override
-    public void onCollide()
-    {
-        this.dynamicBody.setLinearVelocity(0f);
-        this.notifyUpdate(NotificationsDictionary.ANIMATION_CHANGED, null);
+    public void onCollide() {
+        dynamicBody.setLinearVelocity(0f);
+        notifyUpdate(NotificationsDictionary.ANIMATION_CHANGED, null);
     }
 
     @Override
@@ -41,13 +37,6 @@ public class KittenModel extends AbstractMob
     {
         super.setPosition(x, y);
         wayPoint.setPosition(x, y);
-    }
-
-    @Override
-    public void interpolatePositions(float alpha)
-    {
-        dynamicBody.interpolatePositions(alpha);
-        this.notifyUpdate(NotificationsDictionary.POSITION_INTERPOLATED, null);
     }
 
     public void goToCoords(float x, float y)

@@ -1,6 +1,6 @@
-package Objects.World;
+package Objects.World.MVC;
 
-import DB.MySettings;
+import DB.StringRes.MySettings;
 import Objects.AddButton.MVC.AddButtonController;
 import Objects.Kitten.MVC.KittenController;
 import Objects.Monster.MVC.MonsterController;
@@ -11,14 +11,14 @@ import com.badlogic.gdx.math.Vector2;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class MundoController implements PropertyChangeListener
+public class WorldController implements PropertyChangeListener
 {
-    private MundoModel mundoModel;
-    private MundoView mundoView;
+    private WorldModel worldModel;
+    private WorldView worldView;
 
     private float timeStep = 0;
 
-    public MundoController()
+    public WorldController()
     {
         createStructure();
         setInputSources();
@@ -28,17 +28,17 @@ public class MundoController implements PropertyChangeListener
 
     private void createStructure()
     {
-        mundoModel = new MundoModel();
-        mundoView = new MundoView(this);
+        worldModel = new WorldModel();
+        worldView = new WorldView(this);
 
-        mundoModel.addObserver(mundoView);
-        mundoModel.addObserver(this);
+        worldModel.addObserver(worldView);
+        worldModel.addObserver(this);
     }
 
     private void setInputSources()
     {
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(mundoView);
+        inputMultiplexer.addProcessor(worldView);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -68,7 +68,7 @@ public class MundoController implements PropertyChangeListener
         updateAI(delta);
         updatePhysics(delta);
 
-        mundoView.draw();
+        worldView.draw();
     }
 
     private void updatePhysics(float delta)
@@ -78,43 +78,43 @@ public class MundoController implements PropertyChangeListener
         while (timeStep >= MySettings.FIXED_TIMESTEP)
         {
             //Physics simulation
-            mundoModel.saveLastPosition(); //Save the last position of kittens' bodies.
-            mundoModel.getMundo().step(MySettings.FIXED_TIMESTEP, 8, 6); //Simulate one step
+            worldModel.saveLastPosition(); //Save the last position of kittens' bodies.
+            worldModel.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6); //Simulate one step
 
             timeStep -= MySettings.FIXED_TIMESTEP;
         }
 
         float alphaTimeStep = timeStep/MySettings.FIXED_TIMESTEP; //Accumulate remainder.
 
-        mundoModel.interpolatePositions(alphaTimeStep);
+        worldModel.interpolatePositions(alphaTimeStep);
 
         //Render the last physics simulation.
-        mundoView.act(delta);
+        worldView.act(delta);
     }
 
     private void updateAI(float delta)
     {
-        mundoModel.updateAI(delta);
+        worldModel.updateAI(delta);
     }
 
-    public void resize(int width, int height)
+    public void resize()
     {
-        mundoView.resize(width, height);
+        worldView.resize();
     }
 
     public void dispose()
     {
-        mundoView.dispose();
+        worldView.dispose();
         MySettings.ATLAS_DAO.getAtlasDAO().dispose();
     }
 
-    public MundoModel getModel()
+    public WorldModel getModel()
     {
-        return mundoModel;
+        return worldModel;
     }
-    public MundoView getView()
+    public WorldView getView()
     {
-        return mundoView;
+        return worldView;
     }
 
     @Override

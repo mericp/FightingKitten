@@ -1,6 +1,6 @@
-package DB.Atlas;
+package DB.AtlasGenerator;
 
-import DB.MySettings;
+import DB.StringRes.MySettings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -25,7 +25,6 @@ public class AtlasFile
 
     private void getAltasFile()
     {
-        //Cargamos el atlas en memoria
         atlas = new TextureAtlas(Gdx.files.internal(MySettings.ATLAS_FOLDER + MySettings.ATLAS_NAME + MySettings.ATLAS_EXTENSION));
     }
 }

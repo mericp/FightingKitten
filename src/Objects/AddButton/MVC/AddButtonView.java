@@ -1,30 +1,29 @@
 package Objects.AddButton.MVC;
 
-import DB.MySettings;
-import DB.NotificationsDictionary;
-import Listeners.AddButtonClickedListener;
-import Objects.Base.BaseDto.PositionDTO;
+import DB.StringRes.MySettings;
+import DB.StringRes.NotificationsDictionary;
+import Objects.AddButton.Listeners.AddButtonClickedListener;
 import Objects.Base.BaseView.Nekomata;
+import com.badlogic.gdx.math.Vector2;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class AddButtonView extends Nekomata implements PropertyChangeListener {
-    private final AddButtonModel model;
     private final AddButtonController controller;
 
     public AddButtonView(AddButtonController c, AddButtonModel m)
     {
-        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture("addButton"), 1, 2, 2, 0.80f, false);
+        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.BUTTONS_CHARSET), 1, 2, 2, 0.80f, false);
 
         controller = c;
-        model = m;
 
         addListener(new AddButtonClickedListener(this));
 
         setWidth(MySettings.TILE_WIDTH);
         setHeight(MySettings.TILE_HEIGHT);
 
-        setPosition(model.getDynamicBody().getBottomLeftCornerX(), model.getDynamicBody().getBottomLeftCornerY());
+        setPosition(m.getDynamicBody().getBottomLeftCornerX(), m.getDynamicBody().getBottomLeftCornerY());
     }
 
     @Override
@@ -35,7 +34,7 @@ public class AddButtonView extends Nekomata implements PropertyChangeListener {
         switch (notification)
         {
             case NotificationsDictionary.POSITION_SET:
-                PositionDTO dto = (PositionDTO) evt.getNewValue();
+                Vector2 dto = (Vector2) evt.getNewValue();
                 setPosition(dto.x, dto.y);
                 break;
 

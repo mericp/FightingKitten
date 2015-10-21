@@ -1,4 +1,4 @@
-package Objects.Kitten;
+package DB.StringRes;
 
 import java.util.HashMap;
 

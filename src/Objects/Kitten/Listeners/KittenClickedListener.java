@@ -1,4 +1,4 @@
-package Listeners;
+package Objects.Kitten.Listeners;
 
 import Objects.Kitten.MVC.KittenView;
 import com.badlogic.gdx.scenes.scene2d.Actor;

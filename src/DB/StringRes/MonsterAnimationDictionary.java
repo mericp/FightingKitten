@@ -1,4 +1,4 @@
-package Objects.Monster;
+package DB.StringRes;
 
 import java.util.HashMap;
 

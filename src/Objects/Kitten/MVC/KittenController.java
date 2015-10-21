@@ -1,19 +1,20 @@
 package Objects.Kitten.MVC;
 
+import DB.StringRes.MySettings;
 import Objects.Kitten.DTO.KittenDTOs;
-import Objects.World.MundoController;
+import Objects.World.MVC.WorldController;
+import PhysicalObjects.DynamicObject;
+import PhysicalObjects.PhysicalObjectsFactory;
+import PhysicalObjects.StaticObject;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class KittenController
 {
-    private MundoController mc;
-    private World mundo;
+    private WorldController mc;
 
-    public KittenController(MundoController mcpar)
+    public KittenController(WorldController mcpar)
     {
         mc = mcpar;
-        mundo = mcpar.getModel().getMundo();
     }
 
     public void create(Vector2 position)
@@ -25,7 +26,7 @@ public class KittenController
 
     private KittenModel createModel(Vector2 position)
     {
-        KittenModel model = new KittenModel(mundo);
+        KittenModel model = new KittenModel((DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, mc.getModel().getWorld(), MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT), (StaticObject)PhysicalObjectsFactory.create(StaticObject.class, mc.getModel().getWorld(), 1, 1));
         model.setPosition(position.x, position.y);
 
         return model;

@@ -1,4 +1,4 @@
-package DB;
+package DB.StringRes;
 
 public class NotificationsDictionary
 {

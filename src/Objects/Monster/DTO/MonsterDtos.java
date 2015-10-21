@@ -1,6 +1,6 @@
-package Objects.Monster;
+package Objects.Monster.DTO;
 
-import Objects.Base.MobDTO;
+import Objects.Base.BaseDTO.MobDTO;
 import Objects.Monster.MVC.MonsterModel;
 import Objects.Monster.MVC.MonsterView;
 

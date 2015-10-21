@@ -1,4 +1,4 @@
-package DB.Atlas;
+package DB.AtlasGenerator;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

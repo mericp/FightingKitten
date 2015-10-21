@@ -3,18 +3,15 @@ package PhysicalObjects;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-
-import static DB.MySettings.METERS_PIXEL;
-import static DB.MySettings.PIXEL_METERS;
+import static DB.StringRes.MySettings.METERS_PIXEL;
+import static DB.StringRes.MySettings.PIXEL_METERS;
 
 public class DynamicObject implements IPhysicalObject
 {
     private final World world;
-
     private Body body;
     private float widthOfTheBody;
     private float heightOfTheBody;
-
     private final Vector2 directionVector;
 
     // Interpolation
@@ -24,12 +21,11 @@ public class DynamicObject implements IPhysicalObject
     public DynamicObject(World world, int width, int height)
     {
         this.world = world;
-        this.widthOfTheBody = convertToMeters(width);
-        this.heightOfTheBody = convertToMeters(height);
-        this.directionVector = new Vector2();
-
-        this.lastPosition = new Vector2();
-        this.interpoledPosition = new Vector2();
+        widthOfTheBody = convertToMeters(width);
+        heightOfTheBody = convertToMeters(height);
+        directionVector = new Vector2();
+        lastPosition = new Vector2();
+        interpoledPosition = new Vector2();
     }
 
     @Override
@@ -123,11 +119,6 @@ public class DynamicObject implements IPhysicalObject
     public int getInterpolatedY()
     {
         return (int)(convertToPixels(this.interpoledPosition.y - heightOfTheBody / 2));
-    }
-
-    public Vector2 getBoxPosition()
-    {
-        return new Vector2(interpoledPosition.x, interpoledPosition.y);
     }
 
     public void setDirectionVector(float detinationX, float destinationY)

@@ -1,4 +1,4 @@
-package DB.Atlas;
+package DB.AtlasGenerator;
 
 public enum AtlasDAOFactory
 {
@@ -12,5 +12,5 @@ public enum AtlasDAOFactory
 
     public abstract IAtlasDAO getAtlasDAO();
 
-    private AtlasDAOFactory() {}
+    AtlasDAOFactory() {}
 }

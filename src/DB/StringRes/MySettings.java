@@ -1,6 +1,6 @@
-package DB;
+package DB.StringRes;
 
-import DB.Atlas.AtlasDAOFactory;
+import DB.AtlasGenerator.AtlasDAOFactory;
 
 public class MySettings
 {
@@ -11,10 +11,6 @@ public class MySettings
     public static final int FOREGROUND_FPS = 5000;
     public static final int SCREEN_WIDTH = 1200;
     public static final int SCREEN_HEIGHT = 900;
-
-    // Run mode
-    public static final boolean DEV_MODE = true;
-
 
     // Physics
     public static final float PIXEL_METERS = 0.01f;
@@ -31,4 +27,10 @@ public class MySettings
     public static final String ATLAS_NAME = "atlas";
     public static final String ATLAS_EXTENSION = ".atlas";
     public static final AtlasDAOFactory ATLAS_DAO = AtlasDAOFactory.FILE;
+
+    ///Charsets
+    public static final String KITTEN_CHARSET = "gatito";
+    public static final String BUTTONS_CHARSET = "addButton";
+    public static final String GROUND_CHARSET = "Grass";
+    public static final String MONSTER_CHARSET = "monsters";
 }

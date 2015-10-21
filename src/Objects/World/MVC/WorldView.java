@@ -1,10 +1,10 @@
-package Objects.World;
+package Objects.World.MVC;
 
 import Objects.Base.BaseView.Nekomata;
 import Objects.Ground.Grass;
-import DB.MySettings;
-import DB.NotificationsDictionary;
-import Objects.Base.MobDTO;
+import DB.StringRes.MySettings;
+import DB.StringRes.NotificationsDictionary;
+import Objects.Base.BaseDTO.MobDTO;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,10 +15,9 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MundoView extends Stage implements PropertyChangeListener
+public class WorldView extends Stage implements PropertyChangeListener
 {
-    private final MundoController mundoController;
-    private final MundoModel mundoModel;
+    private final WorldModel worldModel;
 
     private final RayHandler rayHandler;
     private final OrthographicCamera camera;
@@ -28,13 +27,12 @@ public class MundoView extends Stage implements PropertyChangeListener
     private final List<Nekomata> mobViewArray = new ArrayList<>();
     private final Grass battlefield;
 
-    public MundoView(MundoController mundoController)
+    public WorldView(WorldController mundoController)
     {
-        this.mundoController = mundoController;
-        mundoModel = this.mundoController.getModel();
+        worldModel = mundoController.getModel();
 
         RayHandler.useDiffuseLight(true);
-        this.rayHandler = new RayHandler(mundoModel.getMundo());
+        this.rayHandler = new RayHandler(worldModel.getWorld());
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.boxCamera = new OrthographicCamera(Gdx.graphics.getWidth() * MySettings.PIXEL_METERS, Gdx.graphics.getHeight() * MySettings.PIXEL_METERS);
         this.worldRenderer = new Box2DDebugRenderer();
@@ -81,11 +79,11 @@ public class MundoView extends Stage implements PropertyChangeListener
         super.draw();
 
         //Box2dLights
-        rayHandler.setCombinedMatrix(boxCamera.combined);
+        rayHandler.setCombinedMatrix(boxCamera);
         rayHandler.updateAndRender();
 
         //Draws Box2d Hitboxes:
-        worldRenderer.render(mundoModel.getMundo(), boxCamera.combined);
+        worldRenderer.render(worldModel.getWorld(), boxCamera.combined);
     }
 
     private void updateMobsView()
@@ -100,7 +98,7 @@ public class MundoView extends Stage implements PropertyChangeListener
     public void dispose()
     {
         rayHandler.dispose();
-        mundoModel.getMundo().dispose();
+        worldModel.getWorld().dispose();
         worldRenderer.dispose();
         battlefield.dispose();
     }
@@ -111,7 +109,7 @@ public class MundoView extends Stage implements PropertyChangeListener
         addActor(newMobView);
     }
 
-    public void resize(int width, int height)
+    public void resize()
     {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

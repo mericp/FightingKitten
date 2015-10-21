@@ -1,40 +1,37 @@
 package Objects.Base.BaseMob;
 
-import DB.NotificationsDictionary;
-import Objects.Base.BaseDto.PositionDTO;
-import Objects.Base.BaseModel.IMobModel;
+import DB.StringRes.NotificationsDictionary;
 import PhysicalObjects.DynamicObject;
-import PhysicalObjects.PhysicalObjectsFactory;
-import SteerableBehavior.SteerableAgent;
-import com.badlogic.gdx.physics.box2d.World;
+import SteerableBehavior.Base.Steerable;
+import com.badlogic.gdx.math.Vector2;
 
-public abstract class AbstractMob extends SteerableAgent implements IMobModel
+public abstract class AbstractMob extends Steerable
 {
     protected DynamicObject dynamicBody;
 
-    public AbstractMob(World w, int dynamicBodyWidth, int dynamicBodyHeight) {
-        super(w);
-        setDynamicBody(dynamicBodyWidth, dynamicBodyHeight);
+    public AbstractMob(DynamicObject dynamicBody) {
+        super();
+        setDynamicBody(dynamicBody);
     }
 
-    protected void setDynamicBody(int width, int height)
+    protected void setDynamicBody(DynamicObject dynamicBody)
     {
-        dynamicBody = (DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, world, width, height);
+        this.dynamicBody = dynamicBody;
         dynamicBody.getBody().setUserData(this);
     }
 
-    @Override
     public DynamicObject getDynamicBody() {
         return dynamicBody;
     }
 
-    @Override public abstract void interpolatePositions(float alpha);
-
-    @Override
-    public void setPosition(float x, float y) {
-        dynamicBody.setPosition(x, y);
-        this.notifyUpdate(NotificationsDictionary.POSITION_SET, new PositionDTO(x, y));
+    public void interpolatePositions(float alpha)
+    {
+        dynamicBody.interpolatePositions(alpha);
+        notifyUpdate(NotificationsDictionary.POSITION_INTERPOLATED, null);
     }
 
-    @Override public abstract void onCollide();
+    public void setPosition(float x, float y) {
+        dynamicBody.setPosition(x, y);
+        notifyUpdate(NotificationsDictionary.POSITION_SET, new Vector2(x, y));
+    }
 }

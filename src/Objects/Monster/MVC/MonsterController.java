@@ -1,18 +1,18 @@
 package Objects.Monster.MVC;
 
-import Objects.Monster.MonsterDtos;
-import Objects.World.MundoController;
+import DB.StringRes.MySettings;
+import Objects.Monster.DTO.MonsterDtos;
+import Objects.World.MVC.WorldController;
+import PhysicalObjects.DynamicObject;
+import PhysicalObjects.PhysicalObjectsFactory;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class MonsterController {
-    private MundoController mc;
-    private World mundo;
+    private WorldController mc;
 
-    public MonsterController(MundoController mcpar)
+    public MonsterController(WorldController mcpar)
     {
         mc = mcpar;
-        mundo = mcpar.getModel().getMundo();
     }
 
     public void create(Vector2 position)
@@ -24,8 +24,8 @@ public class MonsterController {
 
     private MonsterModel createModel(Vector2 position)
     {
-        MonsterModel model = new MonsterModel(mundo);
-        model.setPosition(position.x, position.y);
+        MonsterModel model = new MonsterModel((DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, mc.getModel().getWorld(), MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT));
+        model.setPosition(position);
 
         return model;
     }

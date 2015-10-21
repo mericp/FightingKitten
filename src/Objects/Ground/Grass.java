@@ -1,6 +1,6 @@
 package Objects.Ground;
 
-import DB.MySettings;
+import DB.StringRes.MySettings;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -21,7 +21,7 @@ public class Grass extends TiledMap
 
     private void createTileMap()
     {
-        TextureRegion grassTexture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture("Grass");
+        TextureRegion grassTexture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.GROUND_CHARSET);
         Cell cell;
         StaticTiledMapTile tile;
 

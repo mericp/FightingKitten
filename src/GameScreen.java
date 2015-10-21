@@ -1,33 +1,27 @@
-import Objects.World.MundoController;
+import Objects.World.MVC.WorldController;
 import com.badlogic.gdx.Screen;
 
 public class GameScreen implements Screen
 {
-    private final MundoController mundoController;
+    private final WorldController worldController;
 
     public GameScreen()
     {
-        mundoController = new MundoController();
+        worldController = new WorldController();
     }
 
-    @Override
-    public void render(float delta)
+    @Override public void render(float delta)
     {
-        mundoController.render(delta);
+        worldController.render(delta);
     }
-
-    @Override
-    public void resize(int width, int height)
+    @Override public void resize(int width, int height)
     {
-        mundoController.resize(width, height);
+        worldController.resize();
     }
-
-    @Override
-    public void dispose()
+    @Override public void dispose()
     {
-        mundoController.dispose();
+        worldController.dispose();
     }
-
     @Override public void hide(){}
     @Override public void pause(){}
     @Override public void resume(){}

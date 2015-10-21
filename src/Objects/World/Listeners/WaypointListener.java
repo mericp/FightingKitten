@@ -1,4 +1,4 @@
-package Listeners;
+package Objects.World.Listeners;
 
 import SteerableBehavior.Interfaces.ICollisionable;
 import com.badlogic.gdx.physics.box2d.Contact;

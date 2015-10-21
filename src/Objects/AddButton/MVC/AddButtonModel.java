@@ -1,23 +1,12 @@
 package Objects.AddButton.MVC;
 
-import DB.MySettings;
 import Objects.Base.BaseMob.AbstractMob;
-import com.badlogic.gdx.physics.box2d.World;
+import PhysicalObjects.DynamicObject;
 
 public class AddButtonModel extends AbstractMob
 {
-    public AddButtonModel(World w)
+    public AddButtonModel(DynamicObject body)
     {
-        super(w, MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT);
-    }
-
-    @Override
-    public void interpolatePositions(float alpha) {
-
-    }
-
-    @Override
-    public void onCollide() {
-
+        super(body);
     }
 }

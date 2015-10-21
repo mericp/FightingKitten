@@ -1,11 +1,12 @@
 package SteerableBehavior.AI;
 
-import SteerableBehavior.SteerableAgent;
+import Objects.Base.BaseMob.AbstractMob;
+import PhysicalObjects.DynamicObject;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Automaton extends SteerableAgent implements IAutomaton{
+public abstract class Automaton extends AbstractMob implements IAutomaton{
     protected SteeringBehavior<Vector2> steeringBehavior;
     protected SteeringAcceleration<Vector2> steeringOutput;
 
@@ -14,10 +15,11 @@ public abstract class Automaton extends SteerableAgent implements IAutomaton{
     public float newX;
     public float newY;
 
-    public Automaton() { steeringOutput = new SteeringAcceleration<>(new Vector2()); }
-
-    @Override
-    public abstract void onCollide();
+    public Automaton(DynamicObject body)
+    {
+        super(body);
+        steeringOutput = new SteeringAcceleration<>(new Vector2());
+    }
 
     @Override public void setSteeringBehavior(SteeringBehavior<Vector2> steeringBehavior) { this.steeringBehavior = steeringBehavior; }
     public SteeringBehavior<Vector2> getSteeringBehavior() { return steeringBehavior; }
@@ -32,15 +34,15 @@ public abstract class Automaton extends SteerableAgent implements IAutomaton{
 
     private void applySteering(SteeringAcceleration<Vector2> steering, float delta)
     {
-        //Posicion:
-        newX = position.getX() + getLinearVelocity().x * delta;
-        newY = position.getY() + getLinearVelocity().y * delta;
-        setPosition(newX, newY);
+        //Position:
+        newX = position.x + getLinearVelocity().x * delta;
+        newY = position.y + getLinearVelocity().y * delta;
+        setPosition(new Vector2(newX, newY));
 
-        //Velocidad:
+        //Velocity:
         getLinearVelocity().mulAdd(steering.linear, delta).limit(getMaxLinearSpeed());
 
-        //Orientacion:
+        //Orientation:
         if (independentFacing)
         {
             newOrientation = getOrientation() + getAngularVelocity() * delta;

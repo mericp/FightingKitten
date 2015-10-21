@@ -1,24 +1,24 @@
-package Objects.World;
+package Objects.World.MVC;
 
-import DB.NotificationsDictionary;
-import Listeners.WaypointListener;
-import Objects.Base.BaseModel.AbstractModel;
-import Objects.Base.BaseModel.IMobModel;
-import Objects.Base.MobDTO;
+import DB.StringRes.NotificationsDictionary;
+import Objects.World.Listeners.WaypointListener;
+import Objects.Base.BaseMob.AbstractMob;
 import SteerableBehavior.AI.Automaton;
-import SteerableBehavior.AI.IAutomaton;
+import SteerableBehavior.Base.Observable;
+import Objects.Base.BaseDTO.MobDTO;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MundoModel extends AbstractModel
+public class WorldModel extends Observable
 {
-    private final List<IMobModel> mobModelArray = new ArrayList<>();
+    private final List<AbstractMob> mobModelArray = new ArrayList<>();
+    private World world;
 
-    public MundoModel()
+    public WorldModel()
     {
-        super(new World(new Vector2(0, 0), false));
+        world = new World(new Vector2(0, 0), false);
         world.setContactListener(new WaypointListener());
     }
 
@@ -28,14 +28,14 @@ public class MundoModel extends AbstractModel
         notifyUpdate(NotificationsDictionary.MOB_ADDED, mob);
     }
 
-    public World getMundo()
+    public World getWorld()
     {
         return world;
     }
 
     public void saveLastPosition()
     {
-        for(IMobModel mobModel : mobModelArray)
+        for(AbstractMob mobModel : mobModelArray)
         {
             mobModel.getDynamicBody().saveLastPosition();
         }
@@ -43,7 +43,7 @@ public class MundoModel extends AbstractModel
 
     public void updateAI(float delta)
     {
-        for(IMobModel mobModel : mobModelArray)
+        for(AbstractMob mobModel : mobModelArray)
         {
             if(mobModel instanceof Automaton)
             {
@@ -55,7 +55,7 @@ public class MundoModel extends AbstractModel
 
     public void interpolatePositions(float alpha)
     {
-        for(IMobModel mobModel : mobModelArray)
+        for(AbstractMob mobModel : mobModelArray)
         {
             mobModel.interpolatePositions(alpha);
         }

@@ -3,8 +3,8 @@ package PhysicalObjects;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
-import static DB.MySettings.METERS_PIXEL;
-import static DB.MySettings.PIXEL_METERS;
+import static DB.StringRes.MySettings.METERS_PIXEL;
+import static DB.StringRes.MySettings.PIXEL_METERS;
 
 public class StaticObject implements IPhysicalObject
 {

@@ -1,33 +1,23 @@
 package SteerableBehavior.Base;
 
-import DB.MySettings;
+import DB.StringRes.MySettings;
+import com.badlogic.gdx.math.Vector2;
 
 public class Footprint {
-    public int x;
-    public int y;
+    public Vector2 center;
     public float duration;
 
-    public Footprint(int x, int y)
+    public Footprint(Vector2 position)
     {
-        setTileCenter(x, y);
+        setTileCenter(position);
         duration = 0;
     }
 
-    public Footprint(float x, float y)
+    private void setTileCenter(Vector2 position)
     {
-        setTileCenter((int) x, (int) y);
-        duration = 0;
-    }
+        float x = position.x - position.x % MySettings.TILE_HEIGHT + MySettings.TILE_HEIGHT / 2;
+        float y = position.y - position.y % MySettings.TILE_HEIGHT + MySettings.TILE_HEIGHT / 2;
 
-    public Footprint(Spatial espacial)
-    {
-        setTileCenter((int) espacial.getX(), (int) espacial.getY());
-        duration = 0;
-    }
-
-    private void setTileCenter(int x, int y)
-    {
-        this.x = x - x % MySettings.TILE_HEIGHT + MySettings.TILE_HEIGHT / 2;
-        this.y = y - y % MySettings.TILE_HEIGHT + MySettings.TILE_HEIGHT / 2;
+        center = new Vector2(x, y);
     }
 }

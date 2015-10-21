@@ -1,16 +1,19 @@
 package Objects.AddButton.MVC;
 
-import Objects.AddButton.ButtonDTOs;
-import Objects.World.MundoController;
+import DB.StringRes.MySettings;
+import Objects.AddButton.DTO.ButtonDTOs;
+import Objects.World.MVC.WorldController;
+import PhysicalObjects.DynamicObject;
+import PhysicalObjects.PhysicalObjectsFactory;
 import com.badlogic.gdx.math.Vector2;
 
 public class AddButtonController
 {
-    private MundoController mc;
+    private WorldController worldController;
 
-    public AddButtonController(MundoController mcpar)
+    public AddButtonController(WorldController worldController)
     {
-        mc = mcpar;
+        this.worldController = worldController;
     }
 
     public void createButton(int x, int y)
@@ -22,7 +25,7 @@ public class AddButtonController
 
     private AddButtonModel createModel(Vector2 position)
     {
-        AddButtonModel model = new AddButtonModel(mc.getModel().getMundo());
+        AddButtonModel model = new AddButtonModel((DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, worldController.getModel().getWorld(), MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT));
         model.setPosition(position.x, position.y);
 
         return model;
@@ -39,12 +42,12 @@ public class AddButtonController
     private void AddToWorld(AddButtonModel model, AddButtonView view)
     {
         ButtonDTOs.ButtonDTO k = new ButtonDTOs.ButtonDTO(model, view);
-        mc.getModel().addMob(k);
+        worldController.getModel().addMob(k);
     }
 
 
     public void buttonClicked()
     {
-        mc.addButtonClicked();
+        worldController.addButtonClicked();
     }
 }
