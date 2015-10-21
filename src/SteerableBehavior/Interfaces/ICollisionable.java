@@ -8,5 +8,4 @@ public interface ICollisionable {
     int getHeight();
     void setWidth(int width);
     void setHeight(int height);
-    void onCollide();
 }

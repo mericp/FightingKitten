@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
+import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -16,14 +17,17 @@ public class WorldController implements PropertyChangeListener
     private WorldModel worldModel;
     private WorldView worldView;
 
-    private float timeStep = 0;
-
     public WorldController()
     {
+        JOptionPane loading = new JOptionPane("Loading...");
+        loading.show();
+
         createStructure();
         setInputSources();
 
         drawDefaults();
+
+        loading.hide();
     }
 
     private void createStructure()
@@ -45,13 +49,13 @@ public class WorldController implements PropertyChangeListener
     private void drawDefaults()
     {
         AddButtonController addButtonController = new AddButtonController(this);
-        addButtonController.createButton(100, 200);
+        addButtonController.createButton(10, 135);
 
         KittenController kittenController = new KittenController(this);
         kittenController.create(new Vector2(50, 450));
 
         MonsterController monsterController = new MonsterController(this);
-        monsterController.create(new Vector2(60, 60));
+        monsterController.create(new Vector2(1100, 450));
     }
 
     public void addButtonClicked()
@@ -73,22 +77,6 @@ public class WorldController implements PropertyChangeListener
 
     private void updatePhysics(float delta)
     {
-        timeStep += delta;
-
-        while (timeStep >= MySettings.FIXED_TIMESTEP)
-        {
-            //Physics simulation
-            worldModel.saveLastPosition(); //Save the last position of kittens' bodies.
-            worldModel.getWorld().step(MySettings.FIXED_TIMESTEP, 8, 6); //Simulate one step
-
-            timeStep -= MySettings.FIXED_TIMESTEP;
-        }
-
-        float alphaTimeStep = timeStep/MySettings.FIXED_TIMESTEP; //Accumulate remainder.
-
-        worldModel.interpolatePositions(alphaTimeStep);
-
-        //Render the last physics simulation.
         worldView.act(delta);
     }
 

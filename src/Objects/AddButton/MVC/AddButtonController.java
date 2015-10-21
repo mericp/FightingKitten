@@ -1,10 +1,7 @@
 package Objects.AddButton.MVC;
 
-import DB.StringRes.MySettings;
 import Objects.AddButton.DTO.ButtonDTOs;
 import Objects.World.MVC.WorldController;
-import PhysicalObjects.DynamicObject;
-import PhysicalObjects.PhysicalObjectsFactory;
 import com.badlogic.gdx.math.Vector2;
 
 public class AddButtonController
@@ -25,7 +22,7 @@ public class AddButtonController
 
     private AddButtonModel createModel(Vector2 position)
     {
-        AddButtonModel model = new AddButtonModel((DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, worldController.getModel().getWorld(), MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT));
+        AddButtonModel model = new AddButtonModel();
         model.setPosition(position.x, position.y);
 
         return model;

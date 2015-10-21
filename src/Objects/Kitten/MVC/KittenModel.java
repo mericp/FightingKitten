@@ -1,53 +1,42 @@
 package Objects.Kitten.MVC;
 
-import DB.StringRes.NotificationsDictionary;
-import Objects.Base.BaseMob.AbstractMob;
-import PhysicalObjects.DynamicObject;
-import PhysicalObjects.StaticObject;
+import SteerableBehavior.AI.Automaton;
+import SteerableBehavior.AI.Waypoint;
+import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.math.Vector2;
 
-public class KittenModel extends AbstractMob
+public class KittenModel extends Automaton
 {
-    private StaticObject wayPoint;
+    private Waypoint wayPoint;
 
-    public KittenModel(DynamicObject body, StaticObject wayPoint)
+    public KittenModel(Waypoint wayPoint)
     {
-        super(body);
-        setWayPoint(wayPoint);
-    }
-
-    private void setWayPoint(StaticObject wayPoint)
-    {
+        super();
         this.wayPoint = wayPoint;
-        wayPoint.getBody().setUserData(this);
+
+        configMotion();
+
+        setSteeringBehavior(configArrive());
     }
 
-    public StaticObject getWayPoint()
+    private void configMotion()
     {
-        return this.wayPoint;
+        motion.getVelocity().setMax(50);
+        motion.getAcceleration().setMax(100);
     }
 
-    public void onCollide() {
-        dynamicBody.setLinearVelocity(0f);
-        notifyUpdate(NotificationsDictionary.ANIMATION_CHANGED, null);
-    }
-
-    @Override
-    public void setPosition(float x, float y)
+    private Arrive configArrive()
     {
-        super.setPosition(x, y);
-        wayPoint.setPosition(x, y);
-    }
+        Arrive behavior = new Arrive(this, wayPoint);
 
-    public void goToCoords(float x, float y)
-    {
-        dynamicBody.setDirectionVector(x, y); //Angle
-        dynamicBody.setLinearVelocity(80f); //Velocity
+        behavior.setArrivalTolerance(1);
+        behavior.setDecelerationRadius(50);
+
+        return behavior;
     }
 
     public void dragged(Vector2 clickPosition)
     {
-        getWayPoint().setPosition(clickPosition.x, clickPosition.y);
-        goToCoords(getWayPoint().getBottomLeftCornerX(), getWayPoint().getBottomLeftCornerY());
+        wayPoint.setPosition(clickPosition);
     }
 }

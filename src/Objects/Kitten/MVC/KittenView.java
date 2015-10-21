@@ -6,9 +6,6 @@ import DB.StringRes.MySettings;
 import DB.StringRes.NotificationsDictionary;
 import Objects.Kitten.Listeners.KittenDragListener;
 import DB.StringRes.KittenAnimationDictionary;
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,10 +14,10 @@ public class KittenView extends Nekomata implements PropertyChangeListener
 {
     private final KittenModel model;
     private final KittenController controller;
-    private float angle;
+    private Double angle;
     private KittenAnimationDictionary animationDictionary;
 
-    public KittenView(KittenController controller, KittenModel model, RayHandler rayHandler)
+    public KittenView(KittenController controller, KittenModel model)
     {
         super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.KITTEN_CHARSET), 8, 12, 3, 0.20f, true);
 
@@ -36,17 +33,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         setWidth(MySettings.TILE_WIDTH);
         setHeight(MySettings.TILE_HEIGHT);
 
-        setPosition(model.getDynamicBody().getBottomLeftCornerX(), model.getDynamicBody().getBottomLeftCornerY());
-
-        setLights(rayHandler);
-    }
-
-    private void setLights(RayHandler rayHandler)
-    {
-        PointLight lights = new PointLight(rayHandler, 300, new Color(0.7f,0.7f,0.7f, 0.5f), 400 * MySettings.PIXEL_METERS, 0, 0);
-        lights.setSoft(true);
-        lights.attachToBody(model.getDynamicBody().getBody(), 0, 0);
-        lights.setSoftnessLength(0.1f);
+        setPosition(model.getPosition().x, model.getPosition().y);
     }
 
     @Override
@@ -64,23 +51,13 @@ public class KittenView extends Nekomata implements PropertyChangeListener
             case NotificationsDictionary.ANIMATION_CHANGED:
                 updateAnimation();
                 break;
-
-            case NotificationsDictionary.POSITION_INTERPOLATED:
-                interpolatePosition();
-                break;
-
         }
     }
-
-    private void interpolatePosition()
-    {
-        setPosition(model.getDynamicBody().getInterpolatedX(), model.getDynamicBody().getInterpolatedY());
-    }
-
     @Override
     public void updateAnimation()
     {
-        boolean sitting = model.getDynamicBody().getBody().getLinearVelocity().isZero();
+        setPosition(model.getPosition().x, model.getPosition().y);
+        boolean sitting = model.getLinearVelocity().isZero();
         boolean selected = isSelected && sitting;
 
         if(selected)
@@ -93,7 +70,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         }
         else
         {
-            angle = model.getDynamicBody().getVectorDireccion().angle();
+            angle = (Math.toDegrees(model.getOrientation()) + 360) % 360;
 
             if (goesEast())
             {

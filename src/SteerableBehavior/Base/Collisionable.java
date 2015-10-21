@@ -31,7 +31,4 @@ public class Collisionable implements ICollisionable {
     public void setHeight(int height) {
         hitbox.setHeight(height);
     }
-
-    @Override
-    public void onCollide(){};
 }

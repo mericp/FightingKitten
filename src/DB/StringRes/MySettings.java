@@ -10,12 +10,10 @@ public class MySettings
     public static final boolean V_SYNC_ENABLED = false;
     public static final int FOREGROUND_FPS = 5000;
     public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 900;
+    public static final int SCREEN_HEIGHT = 650;
 
     // Physics
     public static final float PIXEL_METERS = 0.01f;
-    public static final float METERS_PIXEL = 100f;
-    public static final float FIXED_TIMESTEP = 30/1000f;   //33 times per second.
 
     public static final int TILE_WIDTH = 32;
     public static final int TILE_HEIGHT = 32;

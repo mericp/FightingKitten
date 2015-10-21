@@ -1,9 +1,9 @@
 package Objects.World.MVC;
 
 import DB.StringRes.NotificationsDictionary;
-import Objects.World.Listeners.WaypointListener;
 import Objects.Base.BaseMob.AbstractMob;
 import SteerableBehavior.AI.Automaton;
+import SteerableBehavior.AI.IAutomaton;
 import SteerableBehavior.Base.Observable;
 import Objects.Base.BaseDTO.MobDTO;
 import com.badlogic.gdx.math.Vector2;
@@ -19,7 +19,6 @@ public class WorldModel extends Observable
     public WorldModel()
     {
         world = new World(new Vector2(0, 0), false);
-        world.setContactListener(new WaypointListener());
     }
 
     public void addMob(MobDTO mob)
@@ -33,31 +32,19 @@ public class WorldModel extends Observable
         return world;
     }
 
-    public void saveLastPosition()
-    {
-        for(AbstractMob mobModel : mobModelArray)
-        {
-            mobModel.getDynamicBody().saveLastPosition();
-        }
-    }
-
     public void updateAI(float delta)
     {
         for(AbstractMob mobModel : mobModelArray)
         {
-            if(mobModel instanceof Automaton)
+            if(mobModel instanceof IAutomaton)
             {
-                Automaton a = (Automaton)mobModel;
-                if (a.getSteeringBehavior() != null) { a.calculateSteering(delta); }
-            }
-        }
-    }
+                IAutomaton a = (Automaton)mobModel;
 
-    public void interpolatePositions(float alpha)
-    {
-        for(AbstractMob mobModel : mobModelArray)
-        {
-            mobModel.interpolatePositions(alpha);
+                if (a.getSteeringBehavior() != null)
+                {
+                    a.calculateSteering(delta);
+                }
+            }
         }
     }
 }

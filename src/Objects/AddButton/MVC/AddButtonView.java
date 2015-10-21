@@ -5,7 +5,6 @@ import DB.StringRes.NotificationsDictionary;
 import Objects.AddButton.Listeners.AddButtonClickedListener;
 import Objects.Base.BaseView.Nekomata;
 import com.badlogic.gdx.math.Vector2;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -23,7 +22,7 @@ public class AddButtonView extends Nekomata implements PropertyChangeListener {
         setWidth(MySettings.TILE_WIDTH);
         setHeight(MySettings.TILE_HEIGHT);
 
-        setPosition(m.getDynamicBody().getBottomLeftCornerX(), m.getDynamicBody().getBottomLeftCornerY());
+        setPosition(m.getPosition().x, m.getPosition().y);
     }
 
     @Override

@@ -1,11 +1,8 @@
 package Objects.Kitten.MVC;
 
-import DB.StringRes.MySettings;
 import Objects.Kitten.DTO.KittenDTOs;
 import Objects.World.MVC.WorldController;
-import PhysicalObjects.DynamicObject;
-import PhysicalObjects.PhysicalObjectsFactory;
-import PhysicalObjects.StaticObject;
+import SteerableBehavior.AI.Waypoint;
 import com.badlogic.gdx.math.Vector2;
 
 public class KittenController
@@ -26,7 +23,10 @@ public class KittenController
 
     private KittenModel createModel(Vector2 position)
     {
-        KittenModel model = new KittenModel((DynamicObject) PhysicalObjectsFactory.create(DynamicObject.class, mc.getModel().getWorld(), MySettings.TILE_WIDTH, MySettings.TILE_HEIGHT), (StaticObject)PhysicalObjectsFactory.create(StaticObject.class, mc.getModel().getWorld(), 1, 1));
+        Waypoint waypoint = new Waypoint();
+        waypoint.setPosition(position);
+
+        KittenModel model = new KittenModel(waypoint);
         model.setPosition(position.x, position.y);
 
         return model;
@@ -34,7 +34,7 @@ public class KittenController
 
     private KittenView createView(KittenModel model)
     {
-        KittenView view = new KittenView(this, model, mc.getView().getRayHandler());
+        KittenView view = new KittenView(this, model);
         model.addObserver(view);
 
         return view;

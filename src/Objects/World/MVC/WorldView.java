@@ -5,7 +5,6 @@ import Objects.Ground.Grass;
 import DB.StringRes.MySettings;
 import DB.StringRes.NotificationsDictionary;
 import Objects.Base.BaseDTO.MobDTO;
-import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -19,7 +18,6 @@ public class WorldView extends Stage implements PropertyChangeListener
 {
     private final WorldModel worldModel;
 
-    private final RayHandler rayHandler;
     private final OrthographicCamera camera;
     private final OrthographicCamera boxCamera;
     private final Box2DDebugRenderer worldRenderer;
@@ -31,14 +29,11 @@ public class WorldView extends Stage implements PropertyChangeListener
     {
         worldModel = mundoController.getModel();
 
-        RayHandler.useDiffuseLight(true);
-        this.rayHandler = new RayHandler(worldModel.getWorld());
-        this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.boxCamera = new OrthographicCamera(Gdx.graphics.getWidth() * MySettings.PIXEL_METERS, Gdx.graphics.getHeight() * MySettings.PIXEL_METERS);
-        this.worldRenderer = new Box2DDebugRenderer();
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        boxCamera = new OrthographicCamera(Gdx.graphics.getWidth() * MySettings.PIXEL_METERS, Gdx.graphics.getHeight() * MySettings.PIXEL_METERS);
+        worldRenderer = new Box2DDebugRenderer();
 
-        this.rayHandler.setAmbientLight(0.2f, 0.2f, 0.2f, 0.5f);
-        this.getViewport().setCamera(camera);
+        getViewport().setCamera(camera);
 
         battlefield = new Grass();
     }
@@ -78,10 +73,6 @@ public class WorldView extends Stage implements PropertyChangeListener
 
         super.draw();
 
-        //Box2dLights
-        rayHandler.setCombinedMatrix(boxCamera);
-        rayHandler.updateAndRender();
-
         //Draws Box2d Hitboxes:
         worldRenderer.render(worldModel.getWorld(), boxCamera.combined);
     }
@@ -97,7 +88,6 @@ public class WorldView extends Stage implements PropertyChangeListener
     @Override
     public void dispose()
     {
-        rayHandler.dispose();
         worldModel.getWorld().dispose();
         worldRenderer.dispose();
         battlefield.dispose();
@@ -113,10 +103,5 @@ public class WorldView extends Stage implements PropertyChangeListener
     {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    }
-
-    public RayHandler getRayHandler()
-    {
-        return rayHandler;
     }
 }
