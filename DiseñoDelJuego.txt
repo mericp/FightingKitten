@@ -1,3 +1,0 @@
-diseño del juego:
-que el gatito se levante cuando pasas el raton por encima
-que el botón aumente y disminuya su tamaño
