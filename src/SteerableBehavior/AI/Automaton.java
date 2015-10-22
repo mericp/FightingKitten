@@ -40,11 +40,17 @@ public abstract class Automaton extends AbstractMob implements IAutomaton{
     {
         newX = position.x + getLinearVelocity().x * delta;
         newY = position.y + getLinearVelocity().y * delta;
-        setPosition(new Vector2(newX, newY));
+
+        super.setPosition(new Vector2(newX, newY));
     }
 
     private void setVelocity(SteeringAcceleration<Vector2> steering, float delta)
     {
+        if (steering.isZero())
+        {
+            motion.getVelocity().get().setZero();
+        }
+
         getLinearVelocity().mulAdd(steering.linear, delta).limit(getMaxLinearSpeed());
     }
 

@@ -2,7 +2,6 @@ package Objects.Kitten.MVC;
 
 import Objects.Kitten.DTO.KittenDTOs;
 import Objects.World.MVC.WorldController;
-import SteerableBehavior.AI.Waypoint;
 import com.badlogic.gdx.math.Vector2;
 
 public class KittenController
@@ -23,13 +22,7 @@ public class KittenController
 
     private KittenModel createModel(Vector2 position)
     {
-        Waypoint waypoint = new Waypoint();
-        waypoint.setPosition(position);
-
-        KittenModel model = new KittenModel(waypoint);
-        model.setPosition(position.x, position.y);
-
-        return model;
+        return new KittenModel(position);
     }
 
     private KittenView createView(KittenModel model)

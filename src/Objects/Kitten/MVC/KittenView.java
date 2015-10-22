@@ -12,7 +12,7 @@ import java.beans.PropertyChangeListener;
 
 public class KittenView extends Nekomata implements PropertyChangeListener
 {
-    private final KittenModel model;
+    private  KittenModel model;
     private final KittenController controller;
     private Double angle;
     private KittenAnimationDictionary animationDictionary;
@@ -57,7 +57,9 @@ public class KittenView extends Nekomata implements PropertyChangeListener
     public void updateAnimation()
     {
         setPosition(model.getPosition().x, model.getPosition().y);
-        boolean sitting = model.getLinearVelocity().isZero();
+
+        boolean sitting = model.getLinearVelocity().isZero(0.1f);
+
         boolean selected = isSelected && sitting;
 
         if(selected)

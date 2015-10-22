@@ -1,7 +1,7 @@
 package Objects.Kitten.MVC;
 
 import SteerableBehavior.AI.Automaton;
-import SteerableBehavior.AI.Waypoint;
+import Objects.Waypoint.Waypoint;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.math.Vector2;
 
@@ -9,30 +9,33 @@ public class KittenModel extends Automaton
 {
     private Waypoint wayPoint;
 
-    public KittenModel(Waypoint wayPoint)
+    public KittenModel(Vector2 position)
     {
         super();
-        this.wayPoint = wayPoint;
 
-        configMotion();
+        wayPoint = new Waypoint(position);
 
-        setSteeringBehavior(configArrive());
+        setPosition(position);
+        setMotion();
+        setBehavior();
     }
 
-    private void configMotion()
+    private void setMotion()
     {
-        motion.getVelocity().setMax(50);
-        motion.getAcceleration().setMax(100);
+        setMaxLinearSpeed(50);
+        setMaxLinearAcceleration(100);
+
+        setTagged(true);
     }
 
-    private Arrive configArrive()
+    private void setBehavior()
     {
         Arrive behavior = new Arrive(this, wayPoint);
 
-        behavior.setArrivalTolerance(1);
-        behavior.setDecelerationRadius(50);
+        behavior.setArrivalTolerance(0.1f);
+        behavior.setDecelerationRadius(5);
 
-        return behavior;
+        setSteeringBehavior(behavior);
     }
 
     public void dragged(Vector2 clickPosition)

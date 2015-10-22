@@ -73,7 +73,6 @@ public class WorldView extends Stage implements PropertyChangeListener
 
         super.draw();
 
-        //Draws Box2d Hitboxes:
         worldRenderer.render(worldModel.getWorld(), boxCamera.combined);
     }
 

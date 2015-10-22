@@ -4,7 +4,6 @@ import SteerableBehavior.Interfaces.ICollisionable;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Collisionable implements ICollisionable {
-    //Collisionable
     protected Rectangle hitbox = new Rectangle();
 
     @Override
