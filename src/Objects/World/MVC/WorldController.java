@@ -8,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
-import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -19,15 +18,10 @@ public class WorldController implements PropertyChangeListener
 
     public WorldController()
     {
-        JOptionPane loading = new JOptionPane("Loading...");
-        loading.show();
-
         createStructure();
         setInputSources();
 
         drawDefaults();
-
-        loading.hide();
     }
 
     private void createStructure()
