@@ -1,11 +1,13 @@
 package Objects.Monster.MVC;
 
+import Objects.Base.BaseMob.AbstractMob;
 import Objects.Monster.DTO.MonsterDtos;
 import Objects.World.MVC.WorldController;
 import com.badlogic.gdx.math.Vector2;
 
 public class MonsterController {
     private WorldController mc;
+    private MonsterModel model;
 
     public MonsterController(WorldController mcpar)
     {
@@ -14,25 +16,25 @@ public class MonsterController {
 
     public void create(Vector2 position)
     {
-        MonsterModel model = createModel(position);
+        createModel(position);
         MonsterView view = createView(model);
         addToWorld(model, view);
     }
 
-    private MonsterModel createModel(Vector2 position)
+    private void createModel(Vector2 position)
     {
-        MonsterModel model = new MonsterModel();
+        model = new MonsterModel(position);
         model.setPosition(position);
-
-        return model;
     }
 
     private MonsterView createView(MonsterModel model)
     {
-        MonsterView view = new MonsterView(model);
-        model.addObserver(view);
+        return new MonsterView(model);
+    }
 
-        return view;
+    public void setTarget(AbstractMob target)
+    {
+        model.setTarget(target);
     }
 
     private void addToWorld(MonsterModel model, MonsterView view)

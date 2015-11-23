@@ -3,14 +3,11 @@ package Objects.Kitten.MVC;
 import Objects.Kitten.Listeners.KittenClickedListener;
 import Objects.Base.BaseView.Nekomata;
 import DB.StringRes.MySettings;
-import DB.StringRes.NotificationsDictionary;
 import Objects.Kitten.Listeners.KittenDragListener;
 import DB.StringRes.KittenAnimationDictionary;
 import com.badlogic.gdx.math.Vector2;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-public class KittenView extends Nekomata implements PropertyChangeListener
+public class KittenView extends Nekomata
 {
     private  KittenModel model;
     private final KittenController controller;
@@ -19,7 +16,7 @@ public class KittenView extends Nekomata implements PropertyChangeListener
 
     public KittenView(KittenController controller, KittenModel model)
     {
-        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.KITTEN_CHARSET), 8, 12, 3, 0.20f, true);
+        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.KITTEN), 8, 12, 3, 0.20f, true);
 
         this.controller = controller;
         this.model = model;
@@ -36,23 +33,6 @@ public class KittenView extends Nekomata implements PropertyChangeListener
         setPosition(model.getPosition().x, model.getPosition().y);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt)
-    {
-        String notification = evt.getPropertyName();
-
-        switch (notification)
-        {
-            case NotificationsDictionary.POSITION_SET:
-                Vector2 dto = (Vector2) evt.getNewValue();
-                setPosition(dto.x, dto.y);
-                break;
-
-            case NotificationsDictionary.ANIMATION_CHANGED:
-                updateAnimation();
-                break;
-        }
-    }
     @Override
     public void updateAnimation()
     {

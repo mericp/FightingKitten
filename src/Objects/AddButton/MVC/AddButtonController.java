@@ -30,10 +30,7 @@ public class AddButtonController
 
     private AddButtonView createView(AddButtonModel model)
     {
-        AddButtonView view = new AddButtonView(this, model);
-        model.addObserver(view);
-
-        return view;
+        return new AddButtonView(this, model);
     }
 
     private void AddToWorld(AddButtonModel model, AddButtonView view)

@@ -1,4 +1,4 @@
-package Objects.Ground;
+package Objects.Environment;
 
 import DB.StringRes.MySettings;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,13 +15,13 @@ public class Grass extends TiledMap
 
     public Grass()
     {
-        this.mapRenderer = new OrthogonalTiledMapRenderer(this);
-        this.createTileMap();
+        mapRenderer = new OrthogonalTiledMapRenderer(this);
+        createTileMap();
     }
 
     private void createTileMap()
     {
-        TextureRegion grassTexture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.GROUND_CHARSET);
+        TextureRegion texture = MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.GROUND);
         Cell cell;
         StaticTiledMapTile tile;
 
@@ -32,7 +32,7 @@ public class Grass extends TiledMap
         {
             for (int y = 0; y < 200; y++)
             {
-                tile = new StaticTiledMapTile(grassTexture);
+                tile = new StaticTiledMapTile(texture);
                 cell = new Cell();
                 cell.setTile(tile);
                 ground.setCell(x, y, cell);

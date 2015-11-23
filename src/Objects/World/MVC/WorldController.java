@@ -8,7 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
-import javax.swing.*;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -19,15 +19,10 @@ public class WorldController implements PropertyChangeListener
 
     public WorldController()
     {
-        JOptionPane loading = new JOptionPane("Loading...");
-        loading.show();
-
         createStructure();
         setInputSources();
 
         drawDefaults();
-
-        loading.hide();
     }
 
     private void createStructure()
@@ -36,7 +31,6 @@ public class WorldController implements PropertyChangeListener
         worldView = new WorldView(this);
 
         worldModel.addObserver(worldView);
-        worldModel.addObserver(this);
     }
 
     private void setInputSources()
@@ -45,6 +39,7 @@ public class WorldController implements PropertyChangeListener
         inputMultiplexer.addProcessor(worldView);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
+
 
     private void drawDefaults()
     {
@@ -56,6 +51,7 @@ public class WorldController implements PropertyChangeListener
 
         MonsterController monsterController = new MonsterController(this);
         monsterController.create(new Vector2(1100, 450));
+        monsterController.setTarget(kittenController.model);
     }
 
     public void addButtonClicked()

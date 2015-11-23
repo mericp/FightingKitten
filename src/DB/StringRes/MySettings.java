@@ -27,8 +27,9 @@ public class MySettings
     public static final AtlasDAOFactory ATLAS_DAO = AtlasDAOFactory.FILE;
 
     ///Charsets
-    public static final String KITTEN_CHARSET = "gatito";
-    public static final String BUTTONS_CHARSET = "addButton";
-    public static final String GROUND_CHARSET = "Grass";
-    public static final String MONSTER_CHARSET = "monsters";
+    public static final String KITTEN = "gatito";
+    public static final String BUTTON = "addButton";
+    public static final String GROUND = "Grass";
+    public static final String WALL = "muro";
+    public static final String MONSTER = "monsters";
 }

@@ -1,7 +1,7 @@
 package Objects.World.MVC;
 
 import Objects.Base.BaseView.Nekomata;
-import Objects.Ground.Grass;
+import Objects.Environment.Grass;
 import DB.StringRes.MySettings;
 import DB.StringRes.NotificationsDictionary;
 import Objects.Base.BaseDTO.MobDTO;
@@ -68,7 +68,6 @@ public class WorldView extends Stage implements PropertyChangeListener
 
 
         battlefield.setView(camera);
-
         battlefield.render();
 
         super.draw();

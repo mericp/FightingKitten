@@ -4,7 +4,7 @@ import SteerableBehavior.Interfaces.ISteerable;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-public class Steerable extends Observable implements ISteerable {
+public class SteerableAgent implements ISteerable {
     protected boolean tagged = false;
     public Vector2 position = new Vector2();
     public Orientable orientation = new Orientable();
@@ -12,13 +12,12 @@ public class Steerable extends Observable implements ISteerable {
     public Collisionable hitbox = new Collisionable();
     public Pursuable pursuable = new Pursuable();
 
-    public Steerable(){ super (); }
+    public SteerableAgent(){ super (); }
 
     @Override public void setTagged(boolean tagged) { this.tagged = tagged; }
     @Override public boolean isTagged() { return tagged; }
 
-    @Override
-    public Vector2 newVector() { return new Vector2(); }
+    @Override public Vector2 newVector() { return new Vector2(); }
 
     @Override
     public float vectorToAngle(Vector2 vector) {
