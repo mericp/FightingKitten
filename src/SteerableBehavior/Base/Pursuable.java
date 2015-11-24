@@ -3,7 +3,7 @@ package SteerableBehavior.Base;
 import SteerableBehavior.Interfaces.IPursuable;
 
 public class Pursuable implements IPursuable{
-    protected FootprintPath footprint;
+    protected SmellTrails smellTrails;
     protected boolean pursuable = false;
 
     @Override
@@ -18,13 +18,12 @@ public class Pursuable implements IPursuable{
     }
 
     @Override
-    public void setFootprint(FootprintPath footprint) {
-        this.footprint = footprint;
+    public void setSmellTrails(SmellTrails smellTrails) {
+        this.smellTrails = smellTrails;
     }
 
     @Override
-    public FootprintPath getFootprint()
-    {
-        return footprint;
+    public SmellTrails getSmellTrails() {
+        return smellTrails;
     }
 }

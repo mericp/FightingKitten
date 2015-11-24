@@ -1,10 +1,10 @@
 package SteerableBehavior.Interfaces;
 
-import SteerableBehavior.Base.FootprintPath;
+import SteerableBehavior.Base.SmellTrails;
 
 public interface IPursuable {
     void set(boolean isPursuable);
     boolean get();
-    void setFootprint(FootprintPath footprint);
-    FootprintPath getFootprint();
+    void setSmellTrails(SmellTrails smellTrails);
+    SmellTrails getSmellTrails();
 }

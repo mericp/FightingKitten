@@ -2,7 +2,7 @@ package Objects.Kitten.MVC;
 
 import SteerableBehavior.AI.Automaton;
 import Objects.Waypoint.Waypoint;
-import SteerableBehavior.Base.FootprintPath;
+import SteerableBehavior.Base.SmellTrails;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,7 +17,7 @@ public class KittenModel extends Automaton
         wayPoint = new Waypoint(position);
 
         pursuable.set(true);
-        pursuable.setFootprint(new FootprintPath());
+        pursuable.setSmellTrails(new SmellTrails());
 
         setPosition(position);
         setMotion();

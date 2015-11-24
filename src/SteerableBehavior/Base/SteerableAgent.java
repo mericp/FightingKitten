@@ -44,7 +44,7 @@ public class SteerableAgent implements ISteerable {
 
         if (pursuable.get())
         {
-            pursuable.getFootprint().addFootprint(newPosition);
+            pursuable.getSmellTrails().addSmellTrail(newPosition);
         }
     }
 

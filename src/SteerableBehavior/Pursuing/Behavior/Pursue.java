@@ -1,6 +1,6 @@
 package SteerableBehavior.Pursuing.Behavior;
 
-import SteerableBehavior.Base.Footprint;
+import SteerableBehavior.Base.SmellTrail;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
@@ -28,7 +28,7 @@ public class Pursue extends SteeringBehavior<Vector2>
     {
         SteeringAcceleration<Vector2> realSteering;
 
-        if(CanMoveStraightForward() || CanMoveToLastFootprint())
+        if(CanMoveStraightForward() || CanMoveToLastSmellTrail())
         {
             realSteering = accelerateTowardsTheTarget(accelerationVector);
         }
@@ -45,17 +45,17 @@ public class Pursue extends SteeringBehavior<Vector2>
         return !collides(target.getCoords().x, target.getCoords().y);
     }
 
-    private boolean CanMoveToLastFootprint()
+    private boolean CanMoveToLastSmellTrail()
     {
-        Iterator<Footprint> iterator = target.getSteerableAgent().pursuable.getFootprint().iterator();
+        Iterator<SmellTrail> iterator = target.getSteerableAgent().pursuable.getSmellTrails().iterator();
 
         while (iterator.hasNext())
         {
-            Footprint footprint = iterator.next();
+            SmellTrail smellTrail = iterator.next();
 
-            if (!collides(footprint.center.x, footprint.center.y))
+            if (!collides(smellTrail.center.x, smellTrail.center.y))
             {
-                target.setCoords(footprint.center);
+                target.setCoords(smellTrail.center);
                 return true;
             }
         }

@@ -3,11 +3,11 @@ package SteerableBehavior.Base;
 import DB.StringRes.MySettings;
 import com.badlogic.gdx.math.Vector2;
 
-public class Footprint {
+public class SmellTrail {
     public Vector2 center;
     public float duration;
 
-    public Footprint(Vector2 position)
+    public SmellTrail(Vector2 position)
     {
         setTileCenter(position);
         duration = 0;
