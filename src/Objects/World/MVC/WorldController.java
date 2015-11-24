@@ -1,7 +1,7 @@
 package Objects.World.MVC;
 
 import DB.StringRes.MySettings;
-import Objects.AddButton.MVC.AddButtonController;
+import Objects.Environment.AddButton.MVC.AddButtonController;
 import Objects.Kitten.MVC.KittenController;
 import Objects.Monster.MVC.MonsterController;
 import com.badlogic.gdx.Gdx;
@@ -40,11 +40,10 @@ public class WorldController implements PropertyChangeListener
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-
     private void drawDefaults()
     {
         AddButtonController addButtonController = new AddButtonController(this);
-        addButtonController.createButton(10, 135);
+        addButtonController.createButton(0, 0);
 
         KittenController kittenController = new KittenController(this);
         kittenController.create(new Vector2(50, 450));

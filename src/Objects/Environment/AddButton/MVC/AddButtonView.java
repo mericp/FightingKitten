@@ -1,7 +1,7 @@
-package Objects.AddButton.MVC;
+package Objects.Environment.AddButton.MVC;
 
 import DB.StringRes.MySettings;
-import Objects.AddButton.Listeners.AddButtonClickedListener;
+import Objects.Environment.AddButton.Listeners.AddButtonClickedListener;
 import Objects.Base.BaseView.Nekomata;
 
 public class AddButtonView extends Nekomata {

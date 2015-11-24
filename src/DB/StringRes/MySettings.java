@@ -9,8 +9,8 @@ public class MySettings
     public static final boolean FULL_SCREEN = false;
     public static final boolean V_SYNC_ENABLED = false;
     public static final int FOREGROUND_FPS = 5000;
-    public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 650;
+    public static final int SCREEN_WIDTH = 1280;
+    public static final int SCREEN_HEIGHT = 640;
 
     // Physics
     public static final float PIXEL_METERS = 0.01f;

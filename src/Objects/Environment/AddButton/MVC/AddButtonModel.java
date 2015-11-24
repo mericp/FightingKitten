@@ -1,4 +1,4 @@
-package Objects.AddButton.MVC;
+package Objects.Environment.AddButton.MVC;
 
 import Objects.Base.BaseMob.AbstractMob;
 

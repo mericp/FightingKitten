@@ -1,4 +1,4 @@
-package Objects.AddButton.DTO;
+package Objects.Environment.AddButton.DTO;
 
 import Objects.Base.BaseMob.AbstractMob;
 import Objects.Base.BaseView.Nekomata;
