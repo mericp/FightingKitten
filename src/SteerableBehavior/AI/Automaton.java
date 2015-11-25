@@ -10,12 +10,10 @@ public abstract class Automaton extends AbstractMob implements IAutomaton{
     protected SteeringAcceleration<Vector2> steeringOutput;
     protected boolean independentFacing = false;
     public float newOrientation;
-    public float newX;
-    public float newY;
 
-    public Automaton()
+    public Automaton(Vector2 position, boolean pursuable, float maxLinearSpeed, float maxLinearAcceleration)
     {
-        super();
+        super(position, pursuable, maxLinearSpeed, maxLinearAcceleration);
         steeringOutput = new SteeringAcceleration<>(new Vector2());
     }
 
@@ -27,21 +25,19 @@ public abstract class Automaton extends AbstractMob implements IAutomaton{
     {
         steeringBehavior.calculateSteering(steeringOutput);
         applySteering(steeringOutput, delta);
+        pursuable.updateSmellTrail(delta);
     }
 
-    private void applySteering(SteeringAcceleration<Vector2> steering, float delta)
+    protected void applySteering(SteeringAcceleration<Vector2> steering, float delta)
     {
-        setPosition(delta);
+        changePosition(calculateNewPosition(delta));
         setVelocity(steering, delta);
         setOrientation(steering, delta);
     }
 
-    private void setPosition(float delta)
+    private Vector2 calculateNewPosition(float delta)
     {
-        newX = position.x + getLinearVelocity().x * delta;
-        newY = position.y + getLinearVelocity().y * delta;
-
-        super.setPosition(new Vector2(newX, newY));
+        return new Vector2(position.x + getLinearVelocity().x * delta, position.y + getLinearVelocity().y * delta);
     }
 
     private void setVelocity(SteeringAcceleration<Vector2> steering, float delta)

@@ -1,6 +1,6 @@
 package Objects.Kitten.DTO;
 
-import Objects.Base.BaseDTO.MobDTO;
+import Objects.Base.BaseDto.MobDTO;
 import Objects.Kitten.MVC.KittenModel;
 import Objects.Kitten.MVC.KittenView;
 

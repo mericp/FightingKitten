@@ -5,17 +5,29 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class SteerableAgent implements ISteerable {
-    protected boolean tagged = false;
-    public Vector2 position = new Vector2();
-    public Orientable orientation = new Orientable();
-    public Dinamic motion = new Dinamic();
-    public Collisionable hitbox = new Collisionable();
-    public Pursuable pursuable = new Pursuable();
+    protected Vector2 position;
+    protected Orientable orientation;
+    protected Dinamic motion;
+    protected Collisionable hitbox;
+    protected Pursuable pursuable;
 
-    public SteerableAgent(){ super (); }
+    public SteerableAgent(Vector2 position, boolean pursuable, float maxLinearSpeed, float maxLinearAcceleration)
+    {
+        super ();
+        hitbox = new Collisionable();
+        orientation = new Orientable();
+        motion = new Dinamic();
+        this.pursuable = new Pursuable(pursuable);
 
-    @Override public void setTagged(boolean tagged) { this.tagged = tagged; }
-    @Override public boolean isTagged() { return tagged; }
+        changePosition(position);
+        setMotion(maxLinearSpeed, maxLinearAcceleration);
+    }
+
+    private void setMotion(float maxLinearSpeed, float maxLinearAcceleration)
+    {
+        setMaxLinearSpeed(maxLinearSpeed);
+        setMaxLinearAcceleration(maxLinearAcceleration);
+    }
 
     @Override public Vector2 newVector() { return new Vector2(); }
 
@@ -37,14 +49,19 @@ public class SteerableAgent implements ISteerable {
     @Override public void setMaxLinearAcceleration(float maxAcelLineal) { motion.getAcceleration().setMax(maxAcelLineal); }
     @Override public void setMaxAngularSpeed(float maxAngularSpeed) { motion.getVelocity().setMaxAngular(maxAngularSpeed); }
     @Override public void setMaxAngularAcceleration(float maxAcelAngular) { motion.getAcceleration().setMaxAngular(maxAcelAngular); }
-    public void setPosition(Vector2 newPosition)
+    protected void changePosition(Vector2 newPosition)
     {
+        if(position == null)
+        {
+            position = new Vector2();
+        }
+
         position.set(newPosition);
         hitbox.get().setCenter(newPosition);
 
-        if (pursuable.get())
+        if (pursuable.is())
         {
-            pursuable.getSmellTrails().addSmellTrail(newPosition);
+            pursuable.addSmellTrailAt(newPosition);
         }
     }
 
@@ -53,8 +70,13 @@ public class SteerableAgent implements ISteerable {
     @Override public Vector2 getLinearVelocity() { return motion.getVelocity().get(); }
     @Override public float getAngularVelocity() { return motion.getVelocity().getAngular(); }
     @Override public float getBoundingRadius() { return (hitbox.getWidth() + hitbox.getHeight()) / 4; }
+
+    @Override public boolean isTagged() { return false; }
+    @Override public void setTagged(boolean b) {}
+
     @Override public float getMaxLinearSpeed() { return motion.getVelocity().getMax(); }
     @Override public float getMaxLinearAcceleration() { return motion.getAcceleration().getMax(); }
     @Override public float getMaxAngularSpeed() { return motion.getVelocity().getMaxAngular(); }
     @Override public float getMaxAngularAcceleration() { return motion.getAcceleration().getMaxAngular(); }
+    public Pursuable getPursuable(){ return pursuable; }
 }

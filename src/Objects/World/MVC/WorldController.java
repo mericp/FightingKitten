@@ -45,11 +45,12 @@ public class WorldController implements PropertyChangeListener
         AddButtonController addButtonController = new AddButtonController(this);
         addButtonController.createButton(0, 0);
 
+        MonsterController monsterController = new MonsterController(this);
+        monsterController.create(new Vector2(500, 450));
+
         KittenController kittenController = new KittenController(this);
         kittenController.create(new Vector2(50, 450));
 
-        MonsterController monsterController = new MonsterController(this);
-        monsterController.create(new Vector2(1100, 450));
         monsterController.setTarget(kittenController.model);
     }
 
@@ -65,12 +66,12 @@ public class WorldController implements PropertyChangeListener
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         updateAI(delta);
-        updatePhysics(delta);
+        updateView(delta);
 
         worldView.draw();
     }
 
-    private void updatePhysics(float delta)
+    private void updateView(float delta)
     {
         worldView.act(delta);
     }

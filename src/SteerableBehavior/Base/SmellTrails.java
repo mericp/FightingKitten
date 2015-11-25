@@ -1,30 +1,29 @@
 package SteerableBehavior.Base;
 
 import DB.StringRes.MySettings;
+import DB.TileGenerator.Map;
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayDeque;
 import java.util.Iterator;
-
 
 public class SmellTrails {
     private ArrayDeque<SmellTrail> path;
     private float smellTrailDecayTime = 20f;
 
     public SmellTrails()
-    {   path = new ArrayDeque<>(); }
-
-    public Iterator<SmellTrail> iterator() {   return path.iterator(); }
-
-    public void setSmellTrailDecayTime (float smellTrailDecayTime)
     {
-        this.smellTrailDecayTime = smellTrailDecayTime;
+        path = new ArrayDeque<>();
     }
 
-    public void addSmellTrail(Vector2 position)
+    public Iterator<SmellTrail> getIterator() {
+        return path.iterator();
+    }
+
+    public void add(Vector2 position)
     {
         SmellTrail smellTrail = path.peekFirst();
 
-        if (sameTile(position, smellTrail))
+        if (sameTile(position.x, position.y, smellTrail))
         {
             smellTrail.duration = 0f;
         }
@@ -44,16 +43,22 @@ public class SmellTrails {
             smellTrail = iterator.next();
             smellTrail.duration += delta;
 
-            if (smellTrail.duration > smellTrailDecayTime) iterator.remove();
+            if (smellTrail.duration > smellTrailDecayTime)
+            {
+                iterator.remove();
+            }
         }
     }
 
-    private boolean sameTile (Vector2 position, SmellTrail smellTrail)
-    {
-        return sameTile(position.x, position.y, smellTrail);
-    }
-
     private boolean sameTile(float x, float y, SmellTrail smellTrail) {
-        return smellTrail != null && smellTrail.center.x / MySettings.TILE_HEIGHT == x / MySettings.TILE_HEIGHT && smellTrail.center.y / MySettings.TILE_HEIGHT == y / MySettings.TILE_HEIGHT;
+        if(smellTrail != null )
+        {
+            if(smellTrail.center.x == x && smellTrail.center.y == y)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

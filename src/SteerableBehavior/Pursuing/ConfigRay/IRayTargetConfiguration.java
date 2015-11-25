@@ -5,5 +5,5 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Iterator;
 
 public interface IRayTargetConfiguration {
-    Iterator<Ray<Vector2>> updateTarget (float x, float y);
+    Ray<Vector2> updateTarget (float x, float y);
 }

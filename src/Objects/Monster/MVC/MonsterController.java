@@ -1,8 +1,8 @@
 package Objects.Monster.MVC;
 
-import Objects.Base.BaseMob.AbstractMob;
 import Objects.Monster.DTO.MonsterDtos;
 import Objects.World.MVC.WorldController;
+import SteerableBehavior.Base.SteerableAgent;
 import com.badlogic.gdx.math.Vector2;
 
 public class MonsterController {
@@ -24,7 +24,6 @@ public class MonsterController {
     private void createModel(Vector2 position)
     {
         model = new MonsterModel(position);
-        model.setPosition(position);
     }
 
     private MonsterView createView(MonsterModel model)
@@ -32,7 +31,7 @@ public class MonsterController {
         return new MonsterView(model);
     }
 
-    public void setTarget(AbstractMob target)
+    public void setTarget(SteerableAgent target)
     {
         model.setTarget(target);
     }

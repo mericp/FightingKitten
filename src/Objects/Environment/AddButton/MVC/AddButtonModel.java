@@ -1,11 +1,12 @@
 package Objects.Environment.AddButton.MVC;
 
 import Objects.Base.BaseMob.AbstractMob;
+import com.badlogic.gdx.math.Vector2;
 
 public class AddButtonModel extends AbstractMob
 {
-    public AddButtonModel()
+    public AddButtonModel(Vector2 position)
     {
-        super();
+        super(position, false, 0, 0);
     }
 }

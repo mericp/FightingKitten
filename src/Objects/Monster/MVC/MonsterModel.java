@@ -1,10 +1,9 @@
 package Objects.Monster.MVC;
 
-import Objects.Base.BaseMob.AbstractMob;
 import SteerableBehavior.AI.Automaton;
-import SteerableBehavior.Pursuing.Behavior.Pursue;
+import SteerableBehavior.Base.SteerableAgent;
+import SteerableBehavior.BehaviorsFactory;
 import SteerableBehavior.Pursuing.Behavior.Target;
-import SteerableBehavior.Pursuing.CollisionDetector.RayWallDetector;
 import SteerableBehavior.Pursuing.ConfigRay.RayTargetSingle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -13,21 +12,25 @@ public class MonsterModel extends Automaton {
 
     public MonsterModel(Vector2 position)
     {
-        super();
-
-        setPosition(position);
-        setMaxLinearSpeed(50);
-        setMaxLinearAcceleration(100);
+        super(position, true, 50, 100);
+        this.target = new Target(this, new RayTargetSingle(this));
     }
 
-    public void setTarget(AbstractMob target)
+    @Override public void calculateSteering(float delta)
     {
-        this.target = new Target(this, target.getPosition(), new RayTargetSingle(this));
-        setBehavior();
+        steeringBehavior.calculateSteering(steeringOutput);
+        applySteering(steeringOutput, delta);
+        pursuable.updateSmellTrail(delta);
     }
 
-    private void setBehavior()
+    public void setTarget(SteerableAgent target)
     {
-        setSteeringBehavior(new Pursue(this, target, new RayWallDetector()));
+        this.target = new Target(target, new RayTargetSingle(this));
+        setSteeringBehavior(BehaviorsFactory.COLLECTION.pursue(this, this.target));
+    }
+
+    public Target getTarget()
+    {
+        return target;
     }
 }

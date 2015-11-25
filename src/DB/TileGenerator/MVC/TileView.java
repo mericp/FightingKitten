@@ -1,19 +1,17 @@
-package DB.TileGenerator;
+package DB.TileGenerator.MVC;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 
-public class Tile extends TiledMapTileLayer.Cell{
-    private Vector2 position;
-    private boolean collidable;
+public class TileView extends TiledMapTileLayer.Cell{
+    private TileModel model;
 
-    public Tile(Vector2 position, TextureRegion texture, boolean collidable)
+    public TileView(TextureRegion texture, TileModel model)
     {
-        this.position = position;
         setTexture(texture);
-        this.collidable = collidable;
+        this.model = model;
     }
 
     private void setTexture(TextureRegion texture)
@@ -23,11 +21,6 @@ public class Tile extends TiledMapTileLayer.Cell{
 
     public Vector2 getPosition()
     {
-        return position;
-    }
-
-    public boolean getCollidable()
-    {
-        return collidable;
+        return model.getPosition();
     }
 }

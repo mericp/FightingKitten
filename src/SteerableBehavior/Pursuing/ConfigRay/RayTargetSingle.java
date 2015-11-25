@@ -10,15 +10,14 @@ public class RayTargetSingle extends RayTargetConfiguration
     public RayTargetSingle(ISteerable owner)
     {
         super(owner);
-        setRays(1);
     }
 
-    public Iterator<Ray<Vector2>> updateTarget (float x, float y)
+    public Ray<Vector2> updateTarget (float x, float y)
     {
-        rays[0].start.set(owner.getPosition());
-        rays[0].end.set(x, y);
+        ray.start.set(owner.getPosition());
+        ray.end.set(new Vector2(x, y));
 
-        return getRays();
+        return getRay();
     }
 
 }

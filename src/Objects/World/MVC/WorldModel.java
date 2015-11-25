@@ -1,11 +1,11 @@
 package Objects.World.MVC;
 
 import DB.StringRes.NotificationsDictionary;
+import Objects.Base.BaseDto.MobDTO;
 import Objects.Base.BaseMob.AbstractMob;
 import SteerableBehavior.AI.Automaton;
 import SteerableBehavior.AI.IAutomaton;
 import SteerableBehavior.Base.Observable;
-import Objects.Base.BaseDTO.MobDTO;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;

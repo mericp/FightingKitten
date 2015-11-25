@@ -5,31 +5,28 @@ import SteerableBehavior.Pursuing.ConfigRay.IRayTargetConfiguration;
 import com.badlogic.gdx.math.Vector2;
 
 public class Target {
-    private SteerableAgent steerableAgent;
-    private Vector2 targetCoords = new Vector2();
+    private Vector2 alternativeTarget;
     private IRayTargetConfiguration rayTargetConfig;
+    private SteerableAgent target;
 
-    public Target(SteerableAgent steerableAgent, Vector2 targetCoords, IRayTargetConfiguration rayTargetConfig)
+    public Target(SteerableAgent target, IRayTargetConfiguration rayTargetConfig)
     {
-        this.steerableAgent = steerableAgent;
-        this.targetCoords = targetCoords;
+        this.target = target;
+        this.alternativeTarget = target.getPosition();
         this.rayTargetConfig = rayTargetConfig;
     }
 
-    public SteerableAgent getSteerableAgent() {
-        return steerableAgent;
+    public SteerableAgent get()
+    {
+        return target;
     }
 
-    public void setSteerableAgent(SteerableAgent target) {
-        this.steerableAgent = target;
+    public Vector2 getAlternativeTargetCoords() {
+        return alternativeTarget;
     }
 
-    public Vector2 getCoords() {
-        return targetCoords;
-    }
-
-    public void setCoords(Vector2 targetCoords) {
-        this.targetCoords = targetCoords;
+    public void setAlternativeTargetCoords(Vector2 alternativeTarget) {
+        this.alternativeTarget = alternativeTarget;
     }
 
     public IRayTargetConfiguration getRayConfig() {

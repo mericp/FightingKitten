@@ -22,10 +22,7 @@ public class AddButtonController
 
     private AddButtonModel createModel(Vector2 position)
     {
-        AddButtonModel model = new AddButtonModel();
-        model.setPosition(position.x, position.y);
-
-        return model;
+        return new AddButtonModel(position);
     }
 
     private AddButtonView createView(AddButtonModel model)
