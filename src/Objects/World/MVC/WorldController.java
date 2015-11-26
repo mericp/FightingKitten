@@ -1,13 +1,14 @@
 package Objects.World.MVC;
 
 import DB.StringRes.MySettings;
-import Objects.AddButton.MVC.AddButtonController;
+import Objects.Environment.AddButton.MVC.AddButtonController;
 import Objects.Kitten.MVC.KittenController;
 import Objects.Monster.MVC.MonsterController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -30,7 +31,6 @@ public class WorldController implements PropertyChangeListener
         worldView = new WorldView(this);
 
         worldModel.addObserver(worldView);
-        worldModel.addObserver(this);
     }
 
     private void setInputSources()
@@ -43,13 +43,15 @@ public class WorldController implements PropertyChangeListener
     private void drawDefaults()
     {
         AddButtonController addButtonController = new AddButtonController(this);
-        addButtonController.createButton(10, 135);
-
-        KittenController kittenController = new KittenController(this);
-        kittenController.create(new Vector2(50, 450));
+        addButtonController.createButton(0, 0);
 
         MonsterController monsterController = new MonsterController(this);
-        monsterController.create(new Vector2(1100, 450));
+        monsterController.create(new Vector2(500, 450));
+
+        KittenController kittenController = new KittenController(this);
+        kittenController.create(new Vector2(50, 150));
+
+        monsterController.setTarget(kittenController.model);
     }
 
     public void addButtonClicked()
@@ -64,12 +66,12 @@ public class WorldController implements PropertyChangeListener
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         updateAI(delta);
-        updatePhysics(delta);
+        updateView(delta);
 
         worldView.draw();
     }
 
-    private void updatePhysics(float delta)
+    private void updateView(float delta)
     {
         worldView.act(delta);
     }

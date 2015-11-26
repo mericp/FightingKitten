@@ -6,29 +6,36 @@ filter: Nearest,Nearest
 repeat: none
 Grass
   rotate: false
-  xy: 774, 260
+  xy: 774, 294
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 addButton
   rotate: false
-  xy: 2, 2
+  xy: 2, 36
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 gatito
   rotate: false
-  xy: 2, 36
+  xy: 2, 70
   size: 384, 256
   orig: 384, 256
   offset: 0, 0
   index: -1
 monsters
   rotate: false
-  xy: 388, 36
+  xy: 388, 70
   size: 384, 256
   orig: 384, 256
+  offset: 0, 0
+  index: -1
+muro
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1

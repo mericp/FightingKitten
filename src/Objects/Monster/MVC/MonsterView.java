@@ -1,19 +1,18 @@
 package Objects.Monster.MVC;
 
 import DB.StringRes.MySettings;
-import DB.StringRes.NotificationsDictionary;
 import Objects.Base.BaseView.Nekomata;
 import DB.StringRes.MonsterAnimationDictionary;
-import com.badlogic.gdx.math.Vector2;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-public class MonsterView extends Nekomata implements PropertyChangeListener {
+public class MonsterView extends Nekomata{
     private MonsterAnimationDictionary animationDictionary;
+    private MonsterModel model;
 
     public MonsterView(MonsterModel model)
     {
-        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.MONSTER_CHARSET), 8, 12, 3, 0.20f, true);
+        super(MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.MONSTER), 8, 12, 3, 0.20f, true);
+
+        this.model = model;
 
         animationDictionary = new MonsterAnimationDictionary();
         animationDictionary.Create();
@@ -26,28 +25,12 @@ public class MonsterView extends Nekomata implements PropertyChangeListener {
 
     @Override
     public void updateAnimation() {
+        setPosition(model.getPosition().x, model.getPosition().y);
         animate("GoingSouth");
     }
 
     private void animate(String name)
     {
         setAnimation(animationDictionary.getAnimationNumber(name), false);
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        String notification = evt.getPropertyName();
-
-        switch (notification)
-        {
-            case NotificationsDictionary.POSITION_SET:
-                Vector2 dto = (Vector2) evt.getNewValue();
-                setPosition(dto.x, dto.y);
-                break;
-
-            case NotificationsDictionary.ANIMATION_CHANGED:
-                updateAnimation();
-                break;
-        }
     }
 }

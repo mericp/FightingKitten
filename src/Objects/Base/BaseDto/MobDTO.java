@@ -1,4 +1,4 @@
-package Objects.Base.BaseDTO;
+package Objects.Base.BaseDto;
 
 import Objects.Base.BaseMob.AbstractMob;
 import Objects.Base.BaseView.Nekomata;

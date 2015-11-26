@@ -1,10 +1,10 @@
 package Objects.World.MVC;
 
+import Objects.Base.BaseDto.MobDTO;
 import Objects.Base.BaseView.Nekomata;
-import Objects.Ground.Grass;
+import Objects.World.Map.MapController;
 import DB.StringRes.MySettings;
 import DB.StringRes.NotificationsDictionary;
-import Objects.Base.BaseDTO.MobDTO;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -23,7 +23,7 @@ public class WorldView extends Stage implements PropertyChangeListener
     private final Box2DDebugRenderer worldRenderer;
 
     private final List<Nekomata> mobViewArray = new ArrayList<>();
-    private final Grass battlefield;
+    private final MapController battlefield;
 
     public WorldView(WorldController mundoController)
     {
@@ -35,7 +35,7 @@ public class WorldView extends Stage implements PropertyChangeListener
 
         getViewport().setCamera(camera);
 
-        battlefield = new Grass();
+        battlefield = new MapController();
     }
 
     @Override
@@ -58,17 +58,15 @@ public class WorldView extends Stage implements PropertyChangeListener
     {
         updateMobsView();
 
-        camera.position.x = 600;
-        camera.position.y = 450;
+        camera.position.x = MySettings.SCREEN_WIDTH - 640;
+        camera.position.y = MySettings.SCREEN_HEIGHT - 320;
         camera.update();
 
         boxCamera.position.x = 600 * MySettings.PIXEL_METERS;
         boxCamera.position.y = 450 * MySettings.PIXEL_METERS;
         boxCamera.update();
 
-
-        battlefield.setView(camera);
-
+        battlefield.setCamera(camera);
         battlefield.render();
 
         super.draw();

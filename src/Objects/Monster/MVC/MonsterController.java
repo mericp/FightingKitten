@@ -2,10 +2,12 @@ package Objects.Monster.MVC;
 
 import Objects.Monster.DTO.MonsterDtos;
 import Objects.World.MVC.WorldController;
+import Behaviors.Base.SuperClasses.SteerableAgent;
 import com.badlogic.gdx.math.Vector2;
 
 public class MonsterController {
     private WorldController mc;
+    private MonsterModel model;
 
     public MonsterController(WorldController mcpar)
     {
@@ -14,25 +16,24 @@ public class MonsterController {
 
     public void create(Vector2 position)
     {
-        MonsterModel model = createModel(position);
+        createModel(position);
         MonsterView view = createView(model);
         addToWorld(model, view);
     }
 
-    private MonsterModel createModel(Vector2 position)
+    private void createModel(Vector2 position)
     {
-        MonsterModel model = new MonsterModel();
-        model.setPosition(position);
-
-        return model;
+        model = new MonsterModel(position);
     }
 
     private MonsterView createView(MonsterModel model)
     {
-        MonsterView view = new MonsterView(model);
-        model.addObserver(view);
+        return new MonsterView(model);
+    }
 
-        return view;
+    public void setTarget(SteerableAgent target)
+    {
+        model.setTarget(target);
     }
 
     private void addToWorld(MonsterModel model, MonsterView view)
