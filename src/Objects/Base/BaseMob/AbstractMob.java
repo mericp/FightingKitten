@@ -1,6 +1,6 @@
 package Objects.Base.BaseMob;
 
-import SteerableBehavior.Base.SteerableAgent;
+import Behaviors.Base.SuperClasses.SteerableAgent;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class AbstractMob extends SteerableAgent

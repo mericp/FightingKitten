@@ -1,8 +1,8 @@
 package Objects.Kitten.MVC;
 
-import SteerableBehavior.AI.Automaton;
+import Behaviors.Base.SuperClasses.Automaton;
 import Objects.Waypoint.Waypoint;
-import SteerableBehavior.BehaviorsFactory;
+import Behaviors.BehaviorsFactory;
 import com.badlogic.gdx.math.Vector2;
 
 public class KittenModel extends Automaton

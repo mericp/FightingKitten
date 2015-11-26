@@ -1,10 +1,10 @@
 package Objects.Monster.MVC;
 
-import SteerableBehavior.AI.Automaton;
-import SteerableBehavior.Base.SteerableAgent;
-import SteerableBehavior.BehaviorsFactory;
-import SteerableBehavior.Pursuing.Behavior.Target;
-import SteerableBehavior.Pursuing.ConfigRay.RayTargetSingle;
+import Behaviors.Base.SuperClasses.Automaton;
+import Behaviors.Base.SuperClasses.SteerableAgent;
+import Behaviors.BehaviorsFactory;
+import Behaviors.Pursuing.Behavior.Target;
+import Behaviors.Pursuing.ConfigRay.RayTargetSingle;
 import com.badlogic.gdx.math.Vector2;
 
 public class MonsterModel extends Automaton {

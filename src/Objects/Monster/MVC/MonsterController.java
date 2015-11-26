@@ -2,7 +2,7 @@ package Objects.Monster.MVC;
 
 import Objects.Monster.DTO.MonsterDtos;
 import Objects.World.MVC.WorldController;
-import SteerableBehavior.Base.SteerableAgent;
+import Behaviors.Base.SuperClasses.SteerableAgent;
 import com.badlogic.gdx.math.Vector2;
 
 public class MonsterController {

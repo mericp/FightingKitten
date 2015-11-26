@@ -49,7 +49,7 @@ public class WorldController implements PropertyChangeListener
         monsterController.create(new Vector2(500, 450));
 
         KittenController kittenController = new KittenController(this);
-        kittenController.create(new Vector2(50, 450));
+        kittenController.create(new Vector2(50, 150));
 
         monsterController.setTarget(kittenController.model);
     }
