@@ -1,7 +1,7 @@
 package Behaviors.Base.SuperClasses;
 
 import Behaviors.Base.Interfaces.IAutomaton;
-import Objects.Base.BaseMob.AbstractMob;
+import Objects.Base.AbstractMob;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.math.Vector2;

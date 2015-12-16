@@ -1,4 +1,5 @@
-import Objects.World.MVC.WorldController;
+import Objects.Catalog.ObjectsFactory;
+import Objects.Catalog.World.MVC.WorldController;
 import com.badlogic.gdx.Screen;
 
 public class GameScreen implements Screen
@@ -7,7 +8,7 @@ public class GameScreen implements Screen
 
     public GameScreen()
     {
-        worldController = new WorldController();
+        worldController = ObjectsFactory.COLLECTION.world();
     }
 
     @Override public void render(float delta)
