@@ -5,7 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 public class Observable
 {
-    protected final PropertyChangeSupport observer;
+    private final PropertyChangeSupport observer;
 
     public Observable()
     {
@@ -20,10 +20,5 @@ public class Observable
     public void addObserver(PropertyChangeListener observer)
     {
         this.observer.addPropertyChangeListener(observer);
-    }
-
-    public void removeObserver(PropertyChangeListener observer)
-    {
-        this.observer.removePropertyChangeListener(observer);
     }
 }

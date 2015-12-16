@@ -12,8 +12,8 @@ import java.util.Iterator;
 
 public class Pursue extends SteeringBehavior<Vector2>
 {
-    protected Target target;
-    protected RaycastCollisionDetector<Vector2> wallCollisionDetector;
+    private final Target target;
+    private final RaycastCollisionDetector<Vector2> wallCollisionDetector;
 
     public Pursue(Steerable owner, Target target)
     {

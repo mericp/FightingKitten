@@ -4,46 +4,44 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Velocity
 {
-    protected Vector2 velocity = new Vector2();
-    protected float maxVelocity = 50f;
-    protected float modVelocity = 1.0f;
-    protected float angularVelocity;
-    protected float maxAngularVelocity = 5f;
+    private final Vector2 vector;
+    private float max;
+    private float angular;
+    private float maxAngular;
+
+    public Velocity()
+    {
+        vector = new Vector2();
+        max = 50f;
+        maxAngular = 5f;
+    }
 
     public Vector2 get() {
-        return velocity;
+        return vector;
     }
 
     public float getMax()
     {
-        return  maxVelocity;
-    }
-
-    public float getModular() {
-        return modVelocity;
+        return  max;
     }
 
     public float getAngular() {
-        return angularVelocity;
+        return angular;
     }
 
     public float getMaxAngular() {
-        return maxAngularVelocity;
+        return maxAngular;
     }
 
     public void setMax(float maxVelocity) {
-        this.maxVelocity = maxVelocity;
-    }
-
-    public void setModular(float modVelocity) {
-        this.modVelocity = modVelocity;
+        this.max = maxVelocity;
     }
 
     public void setAngular(float angularVelocity) {
-        this.angularVelocity = angularVelocity;
+        this.angular = angularVelocity;
     }
 
     public void setMaxAngular(float maxAngularVelocity) {
-        this.maxAngularVelocity = maxAngularVelocity;
+        this.maxAngular = maxAngularVelocity;
     }
 }

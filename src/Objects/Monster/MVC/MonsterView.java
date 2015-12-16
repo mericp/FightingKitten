@@ -5,8 +5,8 @@ import Objects.Base.BaseView.Nekomata;
 import DB.StringRes.MonsterAnimationDictionary;
 
 public class MonsterView extends Nekomata{
-    private MonsterAnimationDictionary animationDictionary;
-    private MonsterModel model;
+    private final MonsterAnimationDictionary animationDictionary;
+    private final MonsterModel model;
 
     public MonsterView(MonsterModel model)
     {

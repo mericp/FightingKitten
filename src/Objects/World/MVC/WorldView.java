@@ -90,7 +90,7 @@ public class WorldView extends Stage implements PropertyChangeListener
         battlefield.dispose();
     }
 
-    public void addMobView(Nekomata newMobView)
+    private void addMobView(Nekomata newMobView)
     {
         mobViewArray.add(newMobView);
         addActor(newMobView);

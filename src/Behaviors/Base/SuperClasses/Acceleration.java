@@ -2,8 +2,8 @@ package Behaviors.Base.SuperClasses;
 
 public class Acceleration
 {
-    protected float maxAcceleration = 200f;
-    protected float maxAngularAcceleration = 5f;
+    private float maxAcceleration = 200f;
+    private float maxAngularAcceleration = 5f;
 
     public float getMax() {
         return maxAcceleration;

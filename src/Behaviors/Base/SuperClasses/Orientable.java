@@ -4,7 +4,7 @@ import Behaviors.Base.Interfaces.IOrientable;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Orientable implements IOrientable{
-    protected float orientation = 0;
+    private float orientation = 0;
 
     @Override
     public float get() {

@@ -6,24 +6,20 @@ import com.badlogic.gdx.math.Vector2;
 
 public class KittenController
 {
-    private WorldController mc;
-    public KittenModel model;
+    private final WorldController mc;
+    public final KittenModel model;
 
-    public KittenController(WorldController mcpar)
+    public KittenController(WorldController mcpar, Vector2 position)
     {
         mc = mcpar;
+        model = new KittenModel(position);
+        config();
     }
 
-    public void create(Vector2 position)
+    public void config()
     {
-        createModel(position);
         KittenView view = createView(model);
         addToWorld(model, view);
-    }
-
-    private void createModel(Vector2 position)
-    {
-        model = new KittenModel(position);
     }
 
     private KittenView createView(KittenModel model)

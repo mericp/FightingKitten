@@ -1,4 +1,4 @@
-package Behaviors.Pursuing.ConfigRay;
+package Behaviors.Pursuing.Rays;
 
 import com.badlogic.gdx.ai.utils.Ray;
 import com.badlogic.gdx.math.Vector2;

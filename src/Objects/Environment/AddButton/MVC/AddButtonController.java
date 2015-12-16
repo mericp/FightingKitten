@@ -6,26 +6,25 @@ import com.badlogic.gdx.math.Vector2;
 
 public class AddButtonController
 {
-    private WorldController worldController;
+    private final WorldController worldController;
 
-    public AddButtonController(WorldController worldController)
+    public AddButtonController(WorldController worldController, Vector2 position)
     {
         this.worldController = worldController;
+        config(position);
     }
 
-    public void createButton(int x, int y)
+    private void config(Vector2 position)
     {
-        AddButtonModel model = createModel(new Vector2(x, y));
-        AddButtonView view = createView(model);
-        AddToWorld(model, view);
+        AddButtonModel model = newModel(position);
+        AddToWorld(model, newView(model));
     }
 
-    private AddButtonModel createModel(Vector2 position)
+    private AddButtonModel newModel(Vector2 position)
     {
         return new AddButtonModel(position);
     }
-
-    private AddButtonView createView(AddButtonModel model)
+    private AddButtonView newView(AddButtonModel model)
     {
         return new AddButtonView(this, model);
     }
@@ -35,7 +34,6 @@ public class AddButtonController
         ButtonDTOs.ButtonDTO k = new ButtonDTOs.ButtonDTO(model, view);
         worldController.getModel().addMob(k);
     }
-
 
     public void buttonClicked()
     {

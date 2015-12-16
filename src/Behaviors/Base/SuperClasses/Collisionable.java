@@ -4,7 +4,7 @@ import Behaviors.Base.Interfaces.ICollisionable;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Collisionable implements ICollisionable {
-    protected Rectangle hitbox;
+    private final Rectangle hitbox;
 
     public Collisionable()
     {

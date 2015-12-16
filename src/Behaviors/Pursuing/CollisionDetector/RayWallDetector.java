@@ -37,7 +37,7 @@ public class RayWallDetector implements RaycastCollisionDetector<Vector2> {
         int d = 0;
         int dy = Math.abs(y2 - y1);
         int dx = Math.abs(x2 - x1);
-        int dy2 = (dy << 1); // slope scaling factors to avoid floating
+        int dy2 = (dy << 1); // slope scaling factors to avoidWall floating
         int dx2 = (dx << 1); // point
 
         int ix = x1 < x2 ? 1 : -1; // increment direction

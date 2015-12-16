@@ -14,7 +14,7 @@ import java.util.List;
 public class WorldModel extends Observable
 {
     private final List<AbstractMob> mobModelArray = new ArrayList<>();
-    private World world;
+    private final World world;
 
     public WorldModel()
     {

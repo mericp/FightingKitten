@@ -3,7 +3,7 @@ package Objects.World.Map;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class MapController{
-    private MapView view;
+    private final MapView view;
 
     public MapController()
     {

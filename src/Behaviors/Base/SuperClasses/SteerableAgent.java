@@ -6,10 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public class SteerableAgent implements ISteerable {
     protected Vector2 position;
-    protected Orientable orientation;
-    protected Dinamic motion;
-    protected Collisionable hitbox;
-    protected Pursuable pursuable;
+    protected final Orientable orientation;
+    protected final Dinamic motion;
+    private final Collisionable hitbox;
+    protected final Pursuable pursuable;
 
     public SteerableAgent(Vector2 position, boolean pursuable, float maxLinearSpeed, float maxLinearAcceleration)
     {

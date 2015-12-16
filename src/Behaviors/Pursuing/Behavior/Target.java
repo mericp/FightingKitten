@@ -1,13 +1,13 @@
 package Behaviors.Pursuing.Behavior;
 
 import Behaviors.Base.SuperClasses.SteerableAgent;
-import Behaviors.Pursuing.ConfigRay.IRayTargetConfiguration;
+import Behaviors.Pursuing.Rays.IRayTargetConfiguration;
 import com.badlogic.gdx.math.Vector2;
 
 public class Target {
     private Vector2 alternativeTarget;
-    private IRayTargetConfiguration rayTargetConfig;
-    private SteerableAgent target;
+    private final IRayTargetConfiguration rayTargetConfig;
+    private final SteerableAgent target;
 
     public Target(SteerableAgent target, IRayTargetConfiguration rayTargetConfig)
     {
@@ -31,9 +31,5 @@ public class Target {
 
     public IRayTargetConfiguration getRayConfig() {
         return rayTargetConfig;
-    }
-
-    public void setRayConfig(IRayTargetConfiguration rayTargetConfig) {
-        this.rayTargetConfig = rayTargetConfig;
     }
 }

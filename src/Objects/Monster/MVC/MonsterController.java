@@ -6,24 +6,20 @@ import Behaviors.Base.SuperClasses.SteerableAgent;
 import com.badlogic.gdx.math.Vector2;
 
 public class MonsterController {
-    private WorldController mc;
-    private MonsterModel model;
+    private final WorldController mc;
+    private final MonsterModel model;
 
-    public MonsterController(WorldController mcpar)
+    public MonsterController(WorldController mcpar, Vector2 position)
     {
         mc = mcpar;
+        model = new MonsterModel(position);
+        config();
     }
 
-    public void create(Vector2 position)
+    private void config()
     {
-        createModel(position);
         MonsterView view = createView(model);
         addToWorld(model, view);
-    }
-
-    private void createModel(Vector2 position)
-    {
-        model = new MonsterModel(position);
     }
 
     private MonsterView createView(MonsterModel model)
@@ -31,9 +27,9 @@ public class MonsterController {
         return new MonsterView(model);
     }
 
-    public void setTarget(SteerableAgent target)
+    public void changeTarget(SteerableAgent target)
     {
-        model.setTarget(target);
+        model.changeTarget(target);
     }
 
     private void addToWorld(MonsterModel model, MonsterView view)

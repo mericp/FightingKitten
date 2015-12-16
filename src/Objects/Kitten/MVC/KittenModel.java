@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class KittenModel extends Automaton
 {
-    private Waypoint wayPoint;
+    private final Waypoint wayPoint;
 
     public KittenModel(Vector2 position)
     {

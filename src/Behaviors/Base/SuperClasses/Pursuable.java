@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Iterator;
 
 public class Pursuable implements IPursuable{
-    protected SmellTrails smellTrails;
-    protected boolean isPursuable;
+    private final SmellTrails smellTrails;
+    private boolean isPursuable;
 
     public Pursuable(boolean pursuable)
     {
@@ -18,9 +18,6 @@ public class Pursuable implements IPursuable{
         this.isPursuable = isPursuable;
     }
     @Override public boolean is(){ return isPursuable; }
-    @Override public void setSmellTrails(SmellTrails smellTrails) {
-        this.smellTrails = smellTrails;
-    }
     @Override public Iterator<SmellTrail> getSmellTrailsIterator()
     {
         return smellTrails.getIterator();

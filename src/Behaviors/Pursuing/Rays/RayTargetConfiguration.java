@@ -1,12 +1,12 @@
-package Behaviors.Pursuing.ConfigRay;
+package Behaviors.Pursuing.Rays;
 
 import Behaviors.Base.Interfaces.ISteerable;
 import com.badlogic.gdx.ai.utils.Ray;
 import com.badlogic.gdx.math.Vector2;
 
 public class RayTargetConfiguration implements IRayTargetConfiguration{
-    protected ISteerable owner;
-    protected Ray ray;
+    protected final ISteerable owner;
+    protected final Ray ray;
 
     public RayTargetConfiguration(ISteerable owner)
     {

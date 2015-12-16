@@ -1,4 +1,4 @@
-package Behaviors.Pursuing.ConfigRay;
+package Behaviors.Pursuing.Rays;
 
 import Behaviors.Base.Interfaces.ISteerable;
 import com.badlogic.gdx.ai.utils.Ray;
@@ -18,5 +18,4 @@ public class RayTargetSingle extends RayTargetConfiguration
 
         return getRay();
     }
-
 }

@@ -4,33 +4,48 @@ import Behaviors.Base.SuperClasses.Automaton;
 import Behaviors.Base.SuperClasses.SteerableAgent;
 import Behaviors.BehaviorsFactory;
 import Behaviors.Pursuing.Behavior.Target;
-import Behaviors.Pursuing.ConfigRay.RayTargetSingle;
+import Behaviors.Pursuing.Rays.RayTargetSingle;
+import com.badlogic.gdx.ai.steer.behaviors.BlendedSteering;
 import com.badlogic.gdx.math.Vector2;
 
 public class MonsterModel extends Automaton {
     private Target target;
+    private final BlendedSteering<Vector2> advancedSteering;
 
     public MonsterModel(Vector2 position)
     {
         super(position, true, 50, 100);
-        this.target = new Target(this, new RayTargetSingle(this));
+        target = new Target(this, new RayTargetSingle(this));
+        advancedSteering = new BlendedSteering(this);
+        setDefaultBehaviors();
     }
 
     @Override public void calculateSteering(float delta)
     {
         steeringBehavior.calculateSteering(steeringOutput);
         applySteering(steeringOutput, delta);
+
         pursuable.updateSmellTrail(delta);
     }
 
-    public void setTarget(SteerableAgent target)
+    private void setDefaultBehaviors()
     {
-        this.target = new Target(target, new RayTargetSingle(this));
-        setSteeringBehavior(BehaviorsFactory.COLLECTION.pursue(this, this.target));
+        addAvoidBehavior();
+        setSteeringBehavior(advancedSteering);
     }
 
-    public Target getTarget()
+    public void changeTarget(SteerableAgent target)
     {
-        return target;
+        this.target = new Target(target, new RayTargetSingle(this));
+        addPursueBehavior();
+    }
+
+    private void addAvoidBehavior()
+    {
+        advancedSteering.add(BehaviorsFactory.COLLECTION.avoidWall(this),1f);
+    }
+    private void addPursueBehavior()
+    {
+        advancedSteering.add(BehaviorsFactory.COLLECTION.pursue(this, this.target),1f);
     }
 }

@@ -5,8 +5,7 @@ import java.util.ArrayDeque;
 import java.util.Iterator;
 
 public class SmellTrails {
-    private ArrayDeque<SmellTrail> path;
-    private float smellTrailDecayTime = 20f;
+    private final ArrayDeque<SmellTrail> path;
 
     public SmellTrails()
     {
@@ -35,6 +34,7 @@ public class SmellTrails {
     {
         SmellTrail smellTrail;
         Iterator<SmellTrail> iterator = path.descendingIterator();
+        float smellTrailDecayTime = 20f;
 
         while (iterator.hasNext())
         {

@@ -42,22 +42,16 @@ public class WorldController implements PropertyChangeListener
 
     private void drawDefaults()
     {
-        AddButtonController addButtonController = new AddButtonController(this);
-        addButtonController.createButton(0, 0);
+        new AddButtonController(this, new Vector2(0, 0));
+        MonsterController monster = new MonsterController(this, new Vector2(500, 450));
+        KittenController kitten = new KittenController(this, new Vector2(50, 150));
 
-        MonsterController monsterController = new MonsterController(this);
-        monsterController.create(new Vector2(500, 450));
-
-        KittenController kittenController = new KittenController(this);
-        kittenController.create(new Vector2(50, 150));
-
-        monsterController.setTarget(kittenController.model);
+        monster.changeTarget(kitten.model);
     }
 
     public void addButtonClicked()
     {
-        KittenController kittenController = new KittenController(this);
-        kittenController.create(new Vector2(50, 450));
+        new KittenController(this, new Vector2(50, 450));
     }
 
     public void render(float delta)
@@ -83,7 +77,7 @@ public class WorldController implements PropertyChangeListener
 
     public void resize()
     {
-        worldView.resize();
+       worldView.resize();
     }
 
     public void dispose()
