@@ -1,6 +1,5 @@
 package Objects.Base.BaseView;
 
-import ch.qos.logback.classic.Logger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
-import org.slf4j.LoggerFactory;
 
 public abstract class Nekomata extends Actor
 {
@@ -23,8 +21,6 @@ public abstract class Nekomata extends Actor
 
     private float stateTime = 0f;   //It's a counter that controls the time that each frame has to be shown.
 
-    private final Logger logger = (Logger) LoggerFactory.getLogger(getClass());
-
     //originalTexture: The originalTexture region that contains all the frames of the animation.
     //numRows, numCols: Number of rows and columns that the originalTexture has.
     //numFrames: The number of frames for this animation.
@@ -33,7 +29,6 @@ public abstract class Nekomata extends Actor
     {
         if (texture == null)
         {
-            logger.error("The originalTexture does not exist.");
             return;
         }
 
@@ -126,7 +121,6 @@ public abstract class Nekomata extends Actor
     {
         if (animationId < 0 || animationId >= animations.size)
         {
-            logger.error("The animation does not exist.");
             return;
         }
 

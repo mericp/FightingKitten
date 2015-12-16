@@ -139,7 +139,7 @@ extends <a href="../../../../com/badlogic/gdx/utils/Array.html" title="class in 
 <div class="block">Guarantees that array entries provided by <a href="../../../../com/badlogic/gdx/utils/SnapshotArray.html#begin--"><code>begin()</code></a> between indexes 0 and <a href="../../../../com/badlogic/gdx/utils/Array.html#size"><code>Array.size</code></a> at the time begin was called
  will not be modified until <a href="../../../../com/badlogic/gdx/utils/SnapshotArray.html#end--"><code>end()</code></a> is called. If modification of the SnapshotArray occurs between begin/end, the backing
  array is copied prior to the modification, ensuring that the backing array that was returned by <a href="../../../../com/badlogic/gdx/utils/SnapshotArray.html#begin--"><code>begin()</code></a> is unaffected.
- To avoid allocation, an attempt is made to reuse any extra array created as a result of this copy on subsequent copies.
+ To avoidWall allocation, an attempt is made to reuse any extra array created as a result of this copy on subsequent copies.
  <p>
  It is suggested iteration be done in this specific way:
  
