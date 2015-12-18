@@ -9,7 +9,29 @@ import com.badlogic.gdx.ai.utils.Ray;
 public class RayStar implements RayConfiguration<Vector2>
 {
     private final Steerable<Vector2> owner;
-    private final Ray<Vector2>[] star;
+    private final Ray[] star;
+
+    private enum rays
+    {
+        COLLECTION()
+        {
+            @Override public int NORTH(){return 0;}
+            @Override public int NORTHEAST(){return 1;}
+            @Override public int SOUTHEAST(){return 2;}
+            @Override public int SOUTH(){return 3;}
+            @Override public int SOUTHWEST(){return 4;}
+            @Override public int NORTHWEST(){return 5;}
+        };
+
+        public abstract int NORTH();
+        public abstract int NORTHEAST();
+        public abstract int SOUTHEAST();
+        public abstract int SOUTH();
+        public abstract int SOUTHWEST();
+        public abstract int NORTHWEST();
+
+        rays(){}
+    }
 
     public RayStar(Steerable owner)
     {
@@ -17,7 +39,7 @@ public class RayStar implements RayConfiguration<Vector2>
         star = new Ray[6];
 
         setRays();
-}
+    }
 
     private void setRays()
     {
@@ -27,19 +49,33 @@ public class RayStar implements RayConfiguration<Vector2>
         {
             this.star[i] = new Ray(star[0].start, new Vector2());
         }
+
+        updateRays();
     }
 
-    @Override public Ray<Vector2>[] updateRays()
+    public Ray[] getRays()
     {
-        owner.angleToVector(Vector(), VelocityAngle() - Angle());
+        return star;
+    }
 
-        Origin();
-        North();
-        Northeast();
-        Southeast();
-        South();
-        Southwest();
-        Northwest();
+    @Override public Ray[] updateRays()
+    {
+        final Vector2 vector = Vector();
+
+        SetOrigin();
+
+        North(vector);
+        South(vector);
+
+        owner.angleToVector(vector, VelocityAngle() - Angle());
+
+        Northeast(vector);
+        Southwest(vector);
+
+        owner.angleToVector(vector, VelocityAngle() + Angle());
+
+        Southeast(vector);
+        Northwest(vector);
 
         return star;
     }
@@ -66,34 +102,31 @@ public class RayStar implements RayConfiguration<Vector2>
         return owner.getBoundingRadius() + owner.getBoundingRadius();
     }
 
-    private void Origin() { star[0].start.set(owner.getPosition()); }
-    private void North()
+    private void SetOrigin() { star[0].start.set(owner.getPosition()); }
+    private void North(Vector2 vector){ setRay(rays.COLLECTION.NORTH(), vector, Length()); }
+    private void Northeast(Vector2 vector)
     {
-        setRay(0, Length());
+        setRay(rays.COLLECTION.NORTHEAST(), vector, Length());
     }
-    private void Northeast()
+    private void Southeast(Vector2 vector)
     {
-        setRay(1, Length());
+        setRay(rays.COLLECTION.SOUTHEAST(), vector, -Length());
     }
-    private void Southeast()
+    private void South(Vector2 vector)
     {
-        setRay(2, -Length());
+        setRay(rays.COLLECTION.SOUTH(), vector, -Length());
     }
-    private void South()
+    private void Southwest(Vector2 vector)
     {
-        setRay(3, -Length());
+        setRay(rays.COLLECTION.SOUTHWEST(), vector, -Length());
     }
-    private void Southwest()
+    private void Northwest(Vector2 vector)
     {
-        setRay(4, -Length());
-    }
-    private void Northwest()
-    {
-        setRay(5, Length());
+        setRay(rays.COLLECTION.NORTHWEST(), vector, Length());
     }
 
-    private void setRay(int index, float length)
+    private void setRay(int index, Vector2 vector, float length)
     {
-        star[index].end.set(Vector()).scl(length).add(owner.getPosition());
+        star[index].end.set(vector).scl(length).add(owner.getPosition());
     }
 }

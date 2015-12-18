@@ -1,7 +1,7 @@
 package Behaviors.Catalog.Pursue.Behavior;
 
 import Behaviors.Base.SuperClasses.SmellTrail;
-import Behaviors.Catalog.Pursue.CollisionDetector.RayWallDetector;
+import Behaviors.Catalog.Pursue.CollisionDetector.CollisionDetector;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
@@ -20,7 +20,7 @@ public class Pursue extends SteeringBehavior<Vector2>
         super(owner);
 
         this.target = target;
-        wallCollisionDetector = new RayWallDetector();
+        wallCollisionDetector = new CollisionDetector();
     }
 
     @Override protected SteeringAcceleration<Vector2> calculateRealSteering (SteeringAcceleration<Vector2> accelerationVector)

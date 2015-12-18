@@ -8,7 +8,7 @@ import com.badlogic.gdx.ai.utils.Ray;
 import com.badlogic.gdx.ai.utils.RaycastCollisionDetector;
 import com.badlogic.gdx.math.Vector2;
 
-public class RayWallDetector implements RaycastCollisionDetector<Vector2> {
+public class CollisionDetector implements RaycastCollisionDetector<Vector2> {
     @Override
     public boolean collides(Ray<Vector2> ray)
     {
@@ -128,6 +128,7 @@ public class RayWallDetector implements RaycastCollisionDetector<Vector2> {
 
         return false;
     }
+
     private void calculateCollisionData (int x, int y, int tileX, int tileY, Collision<Vector2> outputCollision)
     {
         outputCollision.point.set(x, y);

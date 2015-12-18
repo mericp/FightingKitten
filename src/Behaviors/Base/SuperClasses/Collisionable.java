@@ -9,6 +9,8 @@ public class Collisionable implements ICollisionable {
     public Collisionable()
     {
         hitbox = new Rectangle();
+        hitbox.width = 5;
+        hitbox.height = 5;
     }
 
     @Override
