@@ -2,7 +2,7 @@ package Objects.Catalog.World.MVC;
 
 import Objects.Base.MobDTO;
 import Objects.Base.Nekomata;
-import Objects.Catalog.World.Map.MapController;
+import Objects.Catalog.World.Map.MVC.Map;
 import DB.StringRes.MySettings;
 import DB.StringRes.NotificationsDictionary;
 import com.badlogic.gdx.Gdx;
@@ -23,7 +23,6 @@ public class WorldView extends Stage implements PropertyChangeListener
     private final Box2DDebugRenderer worldRenderer;
 
     private final List<Nekomata> mobViewArray = new ArrayList<>();
-    private final MapController battlefield;
 
     public WorldView(WorldController mundoController)
     {
@@ -34,8 +33,6 @@ public class WorldView extends Stage implements PropertyChangeListener
         worldRenderer = new Box2DDebugRenderer();
 
         getViewport().setCamera(camera);
-
-        battlefield = new MapController();
     }
 
     @Override
@@ -66,8 +63,8 @@ public class WorldView extends Stage implements PropertyChangeListener
         boxCamera.position.y = 450 * MySettings.PIXEL_METERS;
         boxCamera.update();
 
-        battlefield.setCamera(camera);
-        battlefield.render();
+        Map.get().view.setCamera(camera);
+        Map.get().view.render();
 
         super.draw();
 
@@ -87,7 +84,7 @@ public class WorldView extends Stage implements PropertyChangeListener
     {
         worldModel.getWorld().dispose();
         worldRenderer.dispose();
-        battlefield.dispose();
+        Map.get().dispose();
     }
 
     private void addMobView(Nekomata newMobView)

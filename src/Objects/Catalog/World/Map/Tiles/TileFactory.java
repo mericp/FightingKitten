@@ -1,8 +1,6 @@
-package DB.TileGenerator;
+package Objects.Catalog.World.Map.Tiles;
 
 import DB.StringRes.MySettings;
-import DB.TileGenerator.MVC.TileController;
-import DB.TileGenerator.MVC.TileView;
 import com.badlogic.gdx.math.Vector2;
 
 public enum TileFactory {

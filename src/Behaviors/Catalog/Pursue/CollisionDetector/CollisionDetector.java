@@ -1,8 +1,8 @@
 package Behaviors.Catalog.Pursue.CollisionDetector;
 
 import DB.StringRes.MySettings;
-import DB.TileGenerator.MVC.TileController;
-import DB.TileGenerator.Map;
+import Objects.Catalog.World.Map.MVC.Map;
+import Objects.Catalog.World.Map.Tiles.TileController;
 import com.badlogic.gdx.ai.utils.Collision;
 import com.badlogic.gdx.ai.utils.Ray;
 import com.badlogic.gdx.ai.utils.RaycastCollisionDetector;
@@ -47,8 +47,8 @@ public class CollisionDetector implements RaycastCollisionDetector<Vector2> {
         {
             for (;;)
             {
-                tileX = x1 / MySettings.TILE_WIDTH;
-                tileY = y1 / MySettings.TILE_WIDTH;
+                tileX = x1 / MySettings.TILE_SIZE;
+                tileY = y1 / MySettings.TILE_SIZE;
 
                 if (lastTileX != tileX || lastTileY != tileY)
                 {
@@ -80,8 +80,8 @@ public class CollisionDetector implements RaycastCollisionDetector<Vector2> {
         {
             for (;;)
             {
-                tileX = x1 / MySettings.TILE_WIDTH;
-                tileY = y1 / MySettings.TILE_WIDTH;
+                tileX = x1 / MySettings.TILE_SIZE;
+                tileY = y1 / MySettings.TILE_SIZE;
 
                 if (lastTileX != tileX || lastTileY != tileY)
                 {
@@ -114,7 +114,7 @@ public class CollisionDetector implements RaycastCollisionDetector<Vector2> {
 
     private boolean checkCollision (int x, int y, int tileX, int tileY, Collision<Vector2> collision)
     {
-        TileController tile = Map.getTile(tileX, tileY);
+        TileController tile = Map.get().getTile(tileX, tileY);
 
         if (tile != null && tile.isCollidable())
         {
@@ -133,14 +133,14 @@ public class CollisionDetector implements RaycastCollisionDetector<Vector2> {
     {
         outputCollision.point.set(x, y);
 
-        int directionX = x - tileX * MySettings.TILE_WIDTH;
-        int directionY = y - tileY * MySettings.TILE_WIDTH;
+        int directionX = x - tileX * MySettings.TILE_SIZE;
+        int directionY = y - tileY * MySettings.TILE_SIZE;
 
         if (directionX == 0)
         {
             outputCollision.normal.x = -10;
         }
-        else if (directionX == (MySettings.TILE_WIDTH- 1))
+        else if (directionX == (MySettings.TILE_SIZE- 1))
         {
             outputCollision.normal.x = 10;
         }
@@ -148,7 +148,7 @@ public class CollisionDetector implements RaycastCollisionDetector<Vector2> {
         {
             outputCollision.normal.y = -10;
         }
-        else if (directionY == (MySettings.TILE_WIDTH - 1))
+        else if (directionY == (MySettings.TILE_SIZE - 1))
         {
             outputCollision.normal.y = 10;
         }

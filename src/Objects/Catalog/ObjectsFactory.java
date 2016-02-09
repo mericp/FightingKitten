@@ -23,17 +23,11 @@ public enum ObjectsFactory {
         {
             return new AddButtonController(world, position);
         }
-
-        @Override public WorldController world()
-        {
-            return new WorldController();
-        }
     };
 
     public abstract KittenController kitten(WorldController mcpar, Vector2 position);
     public abstract MonsterController monster(WorldController mcpar, Vector2 position);
     public abstract AddButtonController addbutton(WorldController world, Vector2 position);
-    public abstract WorldController world();
 
     ObjectsFactory() {}
 }

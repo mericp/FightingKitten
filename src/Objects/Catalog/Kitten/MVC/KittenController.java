@@ -8,6 +8,7 @@ public class KittenController
 {
     private final WorldController mc;
     public final KittenModel model;
+    private KittenView view;
 
     public KittenController(WorldController mcpar, Vector2 position)
     {
@@ -18,23 +19,28 @@ public class KittenController
 
     public void config()
     {
-        KittenView view = createView(model);
-        addToWorld(model, view);
+        view = createView();
+        addToWorld();
     }
 
-    private KittenView createView(KittenModel model)
+    private KittenView createView()
     {
         return new KittenView(this, model);
     }
 
-    private void addToWorld(KittenModel model, KittenView view)
+    private void addToWorld()
     {
         KittenDTOs.KittenDTO k = new KittenDTOs.KittenDTO(model, view);
         mc.getModel().addMob(k);
     }
 
-    public void dragged(Vector2 clickPosition, KittenModel kittenModel)
+    public void dragged(Vector2 clickPosition)
     {
-        kittenModel.dragged(clickPosition);
+        model.dragged(clickPosition);
+    }
+
+    public void pathCalculationRequest(Vector2 potentialGoal)
+    {
+        model.preCalculate(potentialGoal);
     }
 }

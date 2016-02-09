@@ -15,8 +15,10 @@ public class MySettings
     // Physics
     public static final float PIXEL_METERS = 0.01f;
 
-    public static final int TILE_WIDTH = 32;
-    public static final int TILE_HEIGHT = 32;
+    public static final int TILE_SIZE = 32;
+
+    public static final int TILES_COUNT_WIDTH = SCREEN_WIDTH / TILE_SIZE;
+    public static final int TILES_COUNT_HEIGHT = SCREEN_HEIGHT / TILE_SIZE;
 
     // Resources
     public static final String IMAGES_FOLDER = "assets/Images/";
@@ -32,4 +34,5 @@ public class MySettings
     public static final String GROUND = "Grass";
     public static final String WALL = "muro";
     public static final String MONSTER = "monsters";
+    public static final String FOOTPRINT = "patitas";
 }

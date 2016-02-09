@@ -17,8 +17,8 @@ public class MonsterView extends Nekomata{
         animationDictionary = new MonsterAnimationDictionary();
         animationDictionary.Create();
 
-        setWidth(MySettings.TILE_WIDTH);
-        setHeight(MySettings.TILE_HEIGHT);
+        setWidth(MySettings.TILE_SIZE);
+        setHeight(MySettings.TILE_SIZE);
 
         setPosition(model.getPosition().x, model.getPosition().y);
     }

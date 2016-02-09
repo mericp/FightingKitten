@@ -15,8 +15,8 @@ public class AddButtonView extends Nekomata {
 
         addListener(new AddButtonClickedListener(this));
 
-        setWidth(MySettings.TILE_WIDTH);
-        setHeight(MySettings.TILE_HEIGHT);
+        setWidth(MySettings.TILE_SIZE);
+        setHeight(MySettings.TILE_SIZE);
 
         setPosition(m.getPosition().x, m.getPosition().y);
     }

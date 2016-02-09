@@ -27,8 +27,8 @@ public class KittenView extends Nekomata
         addListener(new KittenDragListener(this));
         addListener(new KittenClickedListener(this));
 
-        setWidth(MySettings.TILE_WIDTH);
-        setHeight(MySettings.TILE_HEIGHT);
+        setWidth(MySettings.TILE_SIZE);
+        setHeight(MySettings.TILE_SIZE);
 
         setPosition(model.getPosition().x, model.getPosition().y);
     }
@@ -136,7 +136,12 @@ public class KittenView extends Nekomata
 
     public void dragged(Vector2 clickPosition)
     {
-        controller.dragged(clickPosition, model);
+        controller.dragged(clickPosition);
+    }
+
+    public void showPath(Vector2 potentialGoal)
+    {
+        controller.pathCalculationRequest(potentialGoal);
     }
 
     private boolean isSelected = false;

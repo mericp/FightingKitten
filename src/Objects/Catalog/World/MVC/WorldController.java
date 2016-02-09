@@ -8,16 +8,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class WorldController implements PropertyChangeListener
 {
+    private static WorldController instance;
     private WorldModel worldModel;
     private WorldView worldView;
 
-    public WorldController()
+    public static WorldController get()
+    {
+        if(instance == null)
+        {
+            instance = new WorldController();
+        }
+
+        return instance;
+    }
+
+    private WorldController()
     {
         createStructure();
         setInputSources();
