@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.BinaryHeap;
 public class IndexedAStarPathFinder implements PathFinder<Node> {
     private final IGraph graph;
     private final NodeRecord[] nodeRecords;
-    private final BinaryHeap<NodeRecord> nodeList;
+    private final BinaryHeap<NodeRecord> openList;
     private NodeRecord current;
 
     private int searchId; //The unique ID for each search run. Used to mark nodes.
@@ -20,7 +20,7 @@ public class IndexedAStarPathFinder implements PathFinder<Node> {
     public IndexedAStarPathFinder (IGraph graph) {
         this.graph = graph;
         nodeRecords = new NodeRecord[graph.getNodeCount()];
-        nodeList = new BinaryHeap<>();
+        openList = new BinaryHeap<>();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class IndexedAStarPathFinder implements PathFinder<Node> {
 
             visitChildren(goal, heuristic);
         }
-        while (nodeList.size > 0);
+        while (openList.size > 0);
     }
 
     private boolean goalIsUnreachable(Node endNode)
@@ -71,7 +71,7 @@ public class IndexedAStarPathFinder implements PathFinder<Node> {
     }
     private void initializeNodeList()
     {
-        nodeList.clear();
+        openList.clear();
     }
     private void initializeStartNode(Node start, Node goal, Heuristic<Node> heuristic)
     {
@@ -85,12 +85,11 @@ public class IndexedAStarPathFinder implements PathFinder<Node> {
     {
         current = null;
     }
-
     //endregion
 
     private void retrieveSmallestCostNode()
     {
-        current = nodeList.pop();
+        current = openList.pop();
         current.category = NodeRecord.Category.CLOSED;
     }
 
@@ -118,7 +117,7 @@ public class IndexedAStarPathFinder implements PathFinder<Node> {
                 if (noShorterRoute(nodeRecord, cost)) continue;
 
                 // Remove it from the open list (it will be re-added with the new cost)
-                nodeList.remove(nodeRecord);
+                openList.remove(nodeRecord);
                 nodeHeuristic = nodeRecord.heuristic();
             }
             else // the node is unvisited
@@ -160,7 +159,7 @@ public class IndexedAStarPathFinder implements PathFinder<Node> {
     }
 
     private void addToNodeList (NodeRecord nodeRecord, float estimatedTotalCost) {
-        nodeList.add(nodeRecord, estimatedTotalCost);
+        openList.add(nodeRecord, estimatedTotalCost);
         nodeRecord.category = NodeRecord.Category.OPEN;
     }
 
