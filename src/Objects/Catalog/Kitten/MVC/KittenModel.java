@@ -33,7 +33,7 @@ public class KittenModel extends Automaton
         for(int x = 0; x < path.nodes.size; x++)
         {
             TileModel node = (TileModel)path.nodes.get(x);
-            Map.get().view.updateTextureAt(node.x(), node.y(), MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.FOOTPRINT));
+            //Map.get().view.updateTextureAt(node.x(), node.y(), MySettings.ATLAS_DAO.getAtlasDAO().getTexture(MySettings.FOOTPRINT));
         }
     }
 
