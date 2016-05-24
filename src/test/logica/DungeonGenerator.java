@@ -2,6 +2,7 @@ package test.logica;
 
 public class DungeonGenerator {
     public char[][] map;
+    private char wall = '*';
 
     public DungeonGenerator(int width, int height)
     {
@@ -10,6 +11,6 @@ public class DungeonGenerator {
 
     public void setWallAt(int x, int y)
     {
-        map[x][y] =  '*';
+        map[x][y] =  wall;
     }
 }
