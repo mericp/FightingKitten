@@ -10,6 +10,5 @@ public class DungeonGenerator {
 
     public void setWallAt(int x, int y)
     {
-
     }
 }
