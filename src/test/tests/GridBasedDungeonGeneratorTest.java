@@ -11,8 +11,8 @@ public class GridBasedDungeonGeneratorTest {
     {
         DungeonGenerator generator = new DungeonGenerator();
 
-       // generator.setWallAt(new Vector2(0, 0));
+        generator.setWallAt(new Vector2(0, 0));
 
-        //Assert.assertEquals(generator.map[0][0].used, true);
+        Assert.assertEquals(generator.map[0][0].used, true);
     }
 }
