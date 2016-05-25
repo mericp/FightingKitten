@@ -3,14 +3,20 @@ package test.tests;
 import org.junit.Assert;
 import org.junit.Test;
 import test.logica.DungeonGenerator;
+import test.logica.Room;
 
 public class GridBasedDungeonGeneratorTest {
     private char wall = '*';
 
+    private DungeonGenerator generator()
+    {
+        return new DungeonGenerator(100, 100);
+    }
+
     @Test
     public void setFirstCorner()
     {
-        DungeonGenerator generator = new DungeonGenerator(100, 100);
+        DungeonGenerator generator = generator();
 
         generator.setWallAt(0, 0);
 
@@ -18,9 +24,20 @@ public class GridBasedDungeonGeneratorTest {
     }
 
     @Test
-    public void calculateRoom()
+    public void randomizeRoomsDimensions()
     {
-        DungeonGenerator generator = new DungeonGenerator(100, 100);
+        DungeonGenerator generator = generator();
+
+        Room room = generator.generateRoom();
+
+        Assert.assertTrue(room.width > -1);
+        Assert.assertTrue(room.height > -1);
+    }
+
+    @Test
+    public void addRoom()
+    {
+        DungeonGenerator generator = generator();
 
         generator.addRoom();
 
