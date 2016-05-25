@@ -14,6 +14,16 @@ public class GridBasedDungeonGeneratorTest {
 
         generator.setWallAt(0, 0);
 
-        Assert.assertEquals(generator.map[0][0], wall);
+        Assert.assertEquals(wall, generator.map[0][0]);
+    }
+
+    @Test
+    public void calculateRoom()
+    {
+        DungeonGenerator generator = new DungeonGenerator(100, 100);
+
+        generator.addRoom();
+
+        Assert.assertEquals(1, generator.rooms.size());
     }
 }
