@@ -2,45 +2,37 @@ package test.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
+import test.logica.Cell;
 import test.logica.DungeonGenerator;
 import test.logica.Room;
 
 public class GridBasedDungeonGeneratorTest {
-    private char wall = '*';
-
     private DungeonGenerator generator()
     {
-        return new DungeonGenerator(100, 100);
+        return new DungeonGenerator(10, 10);
     }
 
     @Test
-    public void setFirstCorner()
+    public void generateRoom()
     {
         DungeonGenerator generator = generator();
 
-        generator.setWallAt(0, 0);
+        generator.generateRoomAtCell(0, 0);
 
-        Assert.assertEquals(wall, generator.map[0][0]);
+        Assert.assertTrue(generator.map[0][0].rooms.size() == 1);
     }
 
     @Test
-    public void randomizeRoomsDimensions()
+    public void roomFitsInCell()
     {
         DungeonGenerator generator = generator();
+        Cell cell = generator.map[0][0];
 
-        Room room = generator.generateRoom();
+        generator.generateRoomAtCell(0, 0);
 
-        Assert.assertTrue(room.width > -1);
-        Assert.assertTrue(room.height > -1);
-    }
+        Room generatedRoom = cell.rooms.get(0);
 
-    @Test
-    public void addRoom()
-    {
-        DungeonGenerator generator = generator();
-
-        generator.addRoom();
-
-        Assert.assertEquals(1, generator.rooms.size());
+        Assert.assertTrue(generatedRoom.position.x + generatedRoom.width <= cell.content.length);
+        Assert.assertTrue(generatedRoom.position.y + generatedRoom.height <= cell.content[0].length);
     }
 }

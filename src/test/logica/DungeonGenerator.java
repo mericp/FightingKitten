@@ -1,34 +1,23 @@
 package test.logica;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class DungeonGenerator {
-    public final char[][] map;
-    public final List<Room> rooms;
-
-    private final char wall = '*';
+    public final Cell[][] map;
 
     public DungeonGenerator(int width, int height)
     {
-        map = new char[width][height];
-        rooms = new ArrayList<>();
+        map = new Cell[width][height];
+
+        for(int x = 0; x < map.length; x++)
+        {
+            for(int y = 0; y < map.length; y++)
+            {
+                map[x][y] = new Cell();
+            }
+        }
     }
 
-    public void setWallAt(int x, int y)
+    public void generateRoomAtCell(int x, int y)
     {
-        map[x][y] =  wall;
-    }
-
-    public Room generateRoom()
-    {
-        Random rnd = new Random();
-        return new Room(rnd.nextInt(100), rnd.nextInt(100));
-    }
-
-    public void addRoom()
-    {
-        rooms.add(generateRoom());
+        map[x][y].generateRoomAtRandomPosition();
     }
 }
