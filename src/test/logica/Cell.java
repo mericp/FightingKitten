@@ -19,30 +19,40 @@ public class Cell {
 
     public void generateRoomAtRandomPosition()
     {
-        Room newRoom = new Room(randomWidth(), randomHeight(), randomPosition());
+        Room newRoom = new Room(randomPosition(), cellWidth(), cellHeight());
         rooms.add(newRoom); //model
         drawRoom(newRoom); //view
     }
 
-    private int randomWidth()
-    {
-        Random rnd = new Random();
-        return rnd.nextInt(content.length);
-    }
-
-    private int randomHeight()
-    {
-        Random rnd = new Random();
-        return rnd.nextInt(content[0].length);
-    }
-
     private Vector2 randomPosition()
     {
-        return new Vector2();
+        return new Vector2(nextInt(cellWidth()), nextInt(cellHeight()));
+    }
+
+    private int nextInt(int bounds)
+    {
+        Random rnd = new Random();
+        return rnd.nextInt(bounds);
+    }
+
+    private int cellWidth()
+    {
+        return content.length;
+    }
+
+    private int cellHeight()
+    {
+        return content[0].length;
     }
 
     public void drawRoom(Room room)
     {
-        content[(int)room.position.x][(int)room.position.y] =  wall;
+        for(int x = 0; x < room.width; x++)
+        {
+            for(int y = 0; y < room.height; y++)
+            {
+                content[x][y] =  wall;
+            }
+        }
     }
 }
